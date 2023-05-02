@@ -1,4 +1,12 @@
 {
+  "login": {
+    "token": "your.jwt.token",
+    "user": {
+      "id": 1,
+      "username": "user1",
+      "name": "John Doe"
+    }
+  },
   "posts": [
     {
       "id": 1,

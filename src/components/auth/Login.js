@@ -13,6 +13,7 @@ import {
   MDBValidation,
   MDBValidationItem,
 } from "mdb-react-ui-kit";
+import api from "../../api/api";
 
 function Login() {
   const {
@@ -23,6 +24,19 @@ function Login() {
 
   const onSubmit = (data) => {
     console.log(data);
+    api
+      .get("/login")
+      .then((res) => {
+        const { token, user } = res.data;
+        // Save token and user to local storage
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
+        // redirect to Home page
+        console.log("logged in");
+      })
+      .catch((err) => {
+        console.log("logged in Error: " + err);
+      });
   };
 
   return (
@@ -66,7 +80,7 @@ function Login() {
                   <MDBInput
                     wrapperClass={!errors.email ? "mb-4" : "mb-5"}
                     label="Email address"
-                    id="formControlLg"
+                    id="emailInput"
                     type="email"
                     size="lg"
                     required
@@ -87,7 +101,7 @@ function Login() {
                   <MDBInput
                     wrapperClass={!errors.password ? "mb-4" : "mb-5"}
                     label="Password"
-                    id="formControlLg"
+                    id="passwordInput"
                     type="password"
                     size="lg"
                     required
