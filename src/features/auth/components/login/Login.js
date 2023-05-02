@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Alert, AlertIcon } from "@chakra-ui/react";
 import {
@@ -14,11 +15,19 @@ import {
   MDBValidation,
   MDBValidationItem,
 } from "mdb-react-ui-kit";
-import api from "../../api/api";
+import api from "../../../../api/api";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  setError,
+  clearError,
+  setSuccess,
+  clearSuccess,
+} from "../../../utils/apiStatusSlice.js";
 
 function Login() {
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
+  const dispatch = useDispatch();
+  const error = useSelector((state) => state.apiStatus.error);
+  const success = useSelector((state) => state.apiStatus.success);
 
   const {
     register,
@@ -35,14 +44,22 @@ function Login() {
         // Save token and user to local storage
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(user));
+        dispatch(setSuccess(res.data.message));
         // redirect to Home page
-        setSuccess(res.data.message);
+        // router.push('/home')
       })
       .catch((err) => {
-        setError(err.message);
+        dispatch(setError(err.message));
         console.log("logged in Error: " + err);
       });
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearSuccess());
+      dispatch(clearError());
+    };
+  }, []);
 
   return (
     <MDBContainer className="my-5">
@@ -130,9 +147,9 @@ function Login() {
 
                 <p className="small fw-bold mt-2 pt-1 mb-2">
                   Don't have an account?{" "}
-                  <a href="#!" className="link-danger">
-                    Register here
-                  </a>
+                  <Link to="/register" className="link-danger">
+                    Register Here
+                  </Link>
                 </p>
               </MDBValidation>{" "}
               {error || success ? (
