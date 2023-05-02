@@ -1,7 +1,17 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Register from "./components/register/register";
 import "./App.css";
 
 function App() {
-  return <div className="App"></div>;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/">
+          <Route path="register" element={<Register />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;

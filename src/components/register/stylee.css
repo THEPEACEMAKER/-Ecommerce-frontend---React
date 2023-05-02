@@ -1,0 +1,53 @@
+.Register {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  background-color: antiquewhite;
+}
+
+.icon-parent {
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  right: 15px;
+}
+
+.parent {
+  position: relative;
+}
+
+.img {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.add-image {
+  cursor: pointer;
+  position: absolute;
+  right: 10%;
+  bottom: 10%;
+  background-color: white;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+.stepper {
+  overflow-x: auto;
+}
+
+@media only screen and (max-width: 600px) {
+  .bttn {
+    flex-direction: column !important;
+  }
+  .cover {
+    display: none !important;
+  }
+}
