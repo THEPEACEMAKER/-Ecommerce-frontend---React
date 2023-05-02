@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Alert, AlertIcon } from "@chakra-ui/react";
 import {
@@ -130,9 +131,9 @@ function Login() {
 
                 <p className="small fw-bold mt-2 pt-1 mb-2">
                   Don't have an account?{" "}
-                  <a href="#!" className="link-danger">
-                    Register here
-                  </a>
+                  <Link to="/register" className="link-danger">
+                    Register Here
+                  </Link>
                 </p>
               </MDBValidation>{" "}
               {error || success ? (
