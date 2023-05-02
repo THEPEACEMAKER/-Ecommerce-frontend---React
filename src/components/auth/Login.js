@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Alert, AlertIcon } from "@chakra-ui/react";
 import {
   MDBBtn,
   MDBContainer,
@@ -16,6 +17,9 @@ import {
 import api from "../../api/api";
 
 function Login() {
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+
   const {
     register,
     handleSubmit,
@@ -27,14 +31,15 @@ function Login() {
     api
       .get("/login")
       .then((res) => {
-        const { token, user } = res.data;
+        const { token, user, messsage } = res.data;
         // Save token and user to local storage
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(user));
         // redirect to Home page
-        console.log("logged in");
+        setSuccess(res.data.message);
       })
       .catch((err) => {
+        setError(err.message);
         console.log("logged in Error: " + err);
       });
   };
@@ -130,6 +135,12 @@ function Login() {
                   </a>
                 </p>
               </MDBValidation>{" "}
+              {error || success ? (
+                <Alert status={error ? "error" : "success"}>
+                  <AlertIcon />
+                  {error ? error : success}
+                </Alert>
+              ) : null}
             </MDBCardBody>
           </MDBCol>
         </MDBRow>

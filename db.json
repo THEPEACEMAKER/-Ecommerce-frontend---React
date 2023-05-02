@@ -5,7 +5,8 @@
       "id": 1,
       "username": "user1",
       "name": "John Doe"
-    }
+    },
+    "message": "logged in successfully"
   },
   "posts": [
     {
