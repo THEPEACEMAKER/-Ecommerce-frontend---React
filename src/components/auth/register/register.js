@@ -1,16 +1,11 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import {
-  MDBBtn,
   MDBContainer,
   MDBRow,
   MDBCol,
   MDBCard,
   MDBCardBody,
   MDBCardImage,
-  MDBInput,
-  MDBIcon,
-  MDBValidation,
-  MDBValidationItem,
 } from "mdb-react-ui-kit";
 
 import "./stylee.css";
@@ -22,6 +17,8 @@ import SecondStep from "./secondStep";
 
 function Register() {
   const [formValue, setFormValue] = useState({
+    image: "",
+    imagePath: "https://fakeimg.pl/300/",
     fname: "",
     lname: "",
     uName: "",
@@ -30,6 +27,7 @@ function Register() {
     address: "",
     password: "",
     repeatPassword: "",
+    index: "",
   });
 
   const [index, setIndex] = useState(1);
@@ -57,12 +55,12 @@ function Register() {
                 lg="6"
                 className="order-2 order-lg-1 d-flex flex-column align-items-center"
               >
-                {index == 1 ? (
-                  <FirstStep onClick={onChange} />
-                ) : index == 2 ? (
-                  <SecondStep onClick={onChange} />
+                {index === 1 ? (
+                  <FirstStep onClick={onChange} form={formValue} />
+                ) : index === 2 ? (
+                  <SecondStep onClick={onChange} form={formValue} />
                 ) : (
-                  <ThirdStep onClick={onChange} />
+                  <ThirdStep onClick={onChange} form={formValue} />
                 )}
               </MDBCol>
 

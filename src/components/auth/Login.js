@@ -136,10 +136,12 @@ function Login() {
                 </p>
               </MDBValidation>{" "}
               {error || success ? (
-                <Alert status={error ? "error" : "success"}>
-                  <AlertIcon />
-                  {error ? error : success}
-                </Alert>
+                <div className="w-max m-auto">
+                  <Alert status={error ? "error" : "success"}>
+                    <AlertIcon />
+                    {error ? error : success}
+                  </Alert>
+                </div>
               ) : null}
             </MDBCardBody>
           </MDBCol>
