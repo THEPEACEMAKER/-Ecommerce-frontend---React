@@ -41,7 +41,7 @@ function Register() {
   };
 
   return (
-    <div className="Register">
+    <div className="body">
       <MDBContainer fluid>
         <MDBCard
           className="text-black w-75 m-auto"

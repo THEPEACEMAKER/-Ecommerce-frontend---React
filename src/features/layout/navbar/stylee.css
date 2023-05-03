@@ -61,15 +61,21 @@ form::before {
   background-color: blanchedalmond;
   top: 0;
   right: 1%;
+  color: black;
 }
 
-.btn-new :hover {
+i:hover {
   font-weight: bold;
   transform: scale(1.2);
   color: goldenrod;
 }
 
-.active {
+Link {
+  font-weight: bold;
+  transform: scale(1.2);
+}
+
+ul .active {
   font-weight: 600;
   color: gold !important;
 }

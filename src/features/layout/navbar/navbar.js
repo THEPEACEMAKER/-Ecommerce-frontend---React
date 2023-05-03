@@ -34,29 +34,29 @@ function Navbar() {
             <Link to="/register" className="mx-2">
               <span> Register</span>
             </Link>
-            <Link className="mx-2">
+            <Link to="/profile" className="mx-2">
               <i className="fa-solid fa-user"></i>
               <span> Profile</span>
             </Link>
 
-            <Link className="mx-2">
+            <Link to="/wishlist" className="mx-2">
               <i className="fa-regular fa-lg fa-heart text-white"></i>
               <span> Wish List</span>
             </Link>
 
-            <Link className="mx-2">
+            <Link to="/cart" className="mx-2">
               <i className="fa-solid fa-lg fa-cart-shopping text-white"></i>
               <span> Cart</span>
             </Link>
             <Link className="mx-2">
-              <i class="fa-solid fa-arrow-right-from-bracket"></i>{" "}
+              <i className="fa-solid fa-arrow-right-from-bracket"></i>{" "}
               <span> Logout</span>
             </Link>
           </div>
         </div>
 
         <div className="d-flex align-items-center justify-content-between w-100 mb-3">
-          <Link href="#">
+          <Link to="home">
             <img
               src={process.env.PUBLIC_URL + "assets/logo.png"}
               alt="logo"
@@ -83,13 +83,13 @@ function Navbar() {
           </form>
 
           <div className="cart d-flex">
-            <button className="btn-new p-2">
+            <Link to="/wishlist" className="btn-new p-2">
               <i className="fa-regular fa-lg fa-heart text-white"></i>
-            </button>
-            <button className="btn-new p-2">
+            </Link>
+            <Link to="/cart" className="btn-new p-2">
               <i className="fa-solid fa-lg fa-cart-shopping text-white"></i>
               <span>0</span>
-            </button>
+            </Link>
           </div>
 
           <button
@@ -125,19 +125,20 @@ function Navbar() {
           <div className="offcanvas-body">
             <ul className="navbar-nav  ">
               <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" href="#">
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  to="/home"
+                >
                   Home
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" href="#">
-                  Link
-                </Link>
+                <Link className="nav-link">Link</Link>
               </li>
               <li className="nav-item dropdown">
                 <Link
                   className="nav-link dropdown-toggle"
-                  href="#"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
@@ -146,22 +147,16 @@ function Navbar() {
                 </Link>
                 <ul className="dropdown-menu">
                   <li>
-                    <Link className="dropdown-item" href="#">
-                      Action
-                    </Link>
+                    <Link className="dropdown-item">Action</Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" href="#">
-                      Another action
-                    </Link>
+                    <Link className="dropdown-item">Another action</Link>
                   </li>
                   <li>
                     <hr className="dropdown-divider" />
                   </li>
                   <li>
-                    <Link className="dropdown-item" href="#">
-                      Something else here
-                    </Link>
+                    <Link className="dropdown-item">Something else here</Link>
                   </li>
                 </ul>
               </li>

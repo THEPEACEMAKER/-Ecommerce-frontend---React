@@ -8,6 +8,80 @@
     },
     "message": "logged in successfully"
   },
+  "wishlist": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "img": "https://fakeimg.pl/300/",
+      "price": 100,
+      "quantity": 50
+    },
+    {
+      "id": 2,
+      "name": "John Doe",
+      "img": "https://fakeimg.pl/300/",
+      "price": 100,
+      "quantity": 0
+    },
+    {
+      "id": 3,
+      "name": "John Doe",
+      "img": "https://fakeimg.pl/300/",
+      "price": 100,
+      "quantity": 10
+    },
+    {
+      "id": 4,
+      "name": "John Doe",
+      "img": "https://fakeimg.pl/300/",
+      "price": 100,
+      "quantity": 50
+    },
+    {
+      "id": 5,
+      "name": "John Doe",
+      "img": "https://fakeimg.pl/300/",
+      "price": 100,
+      "quantity": 100
+    }
+  ],
+  "card": [
+    {
+      "id": 10,
+      "name": "John Doe",
+      "img": "https://fakeimg.pl/300/",
+      "price": 100,
+      "quantity": 50
+    },
+    {
+      "id": 20,
+      "name": "John Doe",
+      "img": "https://fakeimg.pl/300/",
+      "price": 100,
+      "quantity": 0
+    },
+    {
+      "id": 30,
+      "name": "John Doe",
+      "img": "https://fakeimg.pl/300/",
+      "price": 100,
+      "quantity": 10
+    },
+    {
+      "id": 40,
+      "name": "John Doe",
+      "img": "https://fakeimg.pl/300/",
+      "price": 100,
+      "quantity": 50
+    },
+    {
+      "id": 50,
+      "name": "John Doe",
+      "img": "https://fakeimg.pl/300/",
+      "price": 100,
+      "quantity": 100
+    }
+  ],
   "posts": [
     {
       "id": 1,
