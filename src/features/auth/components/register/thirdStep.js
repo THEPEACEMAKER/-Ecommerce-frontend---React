@@ -38,6 +38,7 @@ function ThirdStep(props) {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm();
 
   return (
@@ -95,10 +96,11 @@ function ThirdStep(props) {
                 required: {
                   value: true,
                   message: "Repeat Password is required.",
-                  pattern: {
-                    value: new RegExp(formValue.password),
-                    message: "Passwords do not match.",
-                  },
+                },
+                validate: (val) => {
+                  if (watch("password") != val) {
+                    return "Your passwords do no match";
+                  }
                 },
               })}
               onChange={onChange}
