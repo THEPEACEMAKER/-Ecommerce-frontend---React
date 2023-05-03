@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import "./stylee.css";
+import styles from "./stylee.module.css";
 
 function Navbar() {
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary ">
+    <nav className={`navbar navbar-expand-lg bg-body-tertiary`}>
       <div className="container d-flex flex-column">
         <div className="d-flex mb-3 w-100 justify-content-between align-items-center">
           <div className="social-links my-2 text-white">
@@ -60,13 +60,13 @@ function Navbar() {
             <img
               src={process.env.PUBLIC_URL + "assets/logo.png"}
               alt="logo"
-              className="logo"
+              className={`${styles.logo}`}
             />
           </Link>
 
           <form className="d-flex w-50" role="search">
             <select
-              className="form-select form-select-sm w-25 border-end-0 rounded-0 select"
+              className={`form-select form-select-sm w-25 border-end-0 rounded-0 ${styles.select}`}
               aria-label=".form-select-lg example"
             >
               <option selected>Category</option>
@@ -75,7 +75,7 @@ function Navbar() {
               <option value="3">Three</option>
             </select>
             <input
-              className="form-control w-100 rounded-0 border-start-0 btn-search"
+              className={`form-control w-100 rounded-0 border-start-0 ${styles.btnSearch} `}
               type="search"
               placeholder="Search"
               aria-label="Search"
@@ -86,7 +86,7 @@ function Navbar() {
             <Link to="/wishlist" className="btn-new p-2">
               <i className="fa-regular fa-lg fa-heart text-white"></i>
             </Link>
-            <Link to="/cart" className="btn-new p-2">
+            <Link to="/cart" className={`${styles.btnNew} p-2`}>
               <i className="fa-solid fa-lg fa-cart-shopping text-white"></i>
               <span>0</span>
             </Link>
@@ -126,7 +126,7 @@ function Navbar() {
             <ul className="navbar-nav  ">
               <li className="nav-item">
                 <Link
-                  className="nav-link active"
+                  className={`nav-link ${styles.active}`}
                   aria-current="page"
                   to="/home"
                 >
@@ -145,18 +145,24 @@ function Navbar() {
                 >
                   Dropdown
                 </Link>
-                <ul className="dropdown-menu">
+                <ul className={`dropdown-menu ${styles.dropdownMenu}`}>
                   <li>
-                    <Link className="dropdown-item">Action</Link>
+                    <Link className="dropdown-item">
+                      <span>Action</span>
+                    </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item">Another action</Link>
+                    <Link className="dropdown-item">
+                      <span>Another action</span>
+                    </Link>
                   </li>
                   <li>
                     <hr className="dropdown-divider" />
                   </li>
                   <li>
-                    <Link className="dropdown-item">Something else here</Link>
+                    <Link className="dropdown-item">
+                      <span>Something else here</span>
+                    </Link>
                   </li>
                 </ul>
               </li>

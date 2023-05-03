@@ -14,6 +14,8 @@ import {
   Box,
 } from "@chakra-ui/react";
 
+import styles from "./stylee.module.css";
+
 const steps = [
   { title: "First", description: "Personal Info" },
   { title: "Second", description: "Contact Info" },
@@ -35,7 +37,7 @@ function StepperComp(props) {
   }, [props.index]);
 
   return (
-    <div className="stepper">
+    <div className={`${styles.stepper}`}>
       <Stepper index={activeStep} className="my-3">
         {steps.map((step, index) => (
           <Step key={index}>

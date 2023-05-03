@@ -1,6 +1,8 @@
 import { useState, useDispatch, useEffect } from "react";
 import api from "../../api/api";
 
+import Alert from "react-bootstrap/Alert";
+
 import {
   MDBBadge,
   MDBBtn,
@@ -11,8 +13,6 @@ import {
   MDBCard,
 } from "mdb-react-ui-kit";
 
-import Alert from "react-bootstrap/Alert";
-
 import {
   setError,
   clearError,
@@ -20,7 +20,7 @@ import {
   clearSuccess,
 } from "../utils/apiStatusSlice.js";
 
-import "./stylee.css";
+import styles from "./stylee.module.css";
 
 export default function App() {
   // const dispatch = useDispatch();
@@ -65,11 +65,13 @@ export default function App() {
   };
 
   return (
-    <div className="body">
+    <div className={styles.body}>
       <Alert key={"success"} variant={"success"}>
         This is a {"success"} alert with you like.
       </Alert>
-      <div className="whichlist-title d-flex flex-column align-items-center">
+      <div
+        className={`${styles.whichlistTitle} d-flex flex-column align-items-center`}
+      >
         <i className="fa-regular fa-xl fa-heart my-4"></i>
         <h1>My wishlist</h1>
       </div>
@@ -79,7 +81,7 @@ export default function App() {
           className="text-black w-75 m-auto "
           style={{ borderRadius: "25px" }}
         >
-          <div className="whish-list-table">
+          <div className={`${styles.whishListTable}`}>
             <MDBTable align="middle">
               <MDBTableHead>
                 <tr>

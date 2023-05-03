@@ -11,7 +11,7 @@ import {
   MDBValidationItem,
 } from "mdb-react-ui-kit";
 
-import "./stylee.css";
+import styles from "./stylee.module.css";
 
 function FirstStep(props) {
   const [formValue, setFormValue] = useState(props.form);
@@ -53,15 +53,17 @@ function FirstStep(props) {
       className="w-100 d-flex flex-column align-items-center my-1"
       onSubmit={handleSubmit(onClick)}
     >
-      <div className="parent">
-        <img src={formValue.imagePath} className="img" />
+      <div className={`${styles.parent}`}>
+        <img src={formValue.imagePath} className={`${styles.img}`} />
 
-        <div className={show ? "wait visible" : "wait"}>
+        <div
+          className={show ? `${styles.wait} ${styles.visible}` : styles.wait}
+        >
           <MDBSpinner grow size="sm"></MDBSpinner>
           <MDBSpinner grow size="sm"></MDBSpinner>
           <MDBSpinner grow size="sm"></MDBSpinner>
         </div>
-        <label htmlFor="inputTag" className="add-image">
+        <label htmlFor="inputTag" className={`${styles.addImage}`}>
           <i className="fa fa-camera"></i>
           <input id="inputTag" type="file" name="image" onChange={onChange} />
         </label>

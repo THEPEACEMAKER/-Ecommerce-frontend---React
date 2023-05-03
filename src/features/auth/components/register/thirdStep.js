@@ -9,8 +9,7 @@ import {
   MDBValidationItem,
 } from "mdb-react-ui-kit";
 
-import "./stylee.css";
-import { Email } from "@mui/icons-material";
+import styles from "./stylee.module.css";
 
 function ThirdStep(props) {
   const [formValue, setFormValue] = useState(props.form);
@@ -52,7 +51,7 @@ function ThirdStep(props) {
           <MDBValidationItem
             feedback={errors.password ? errors.password.message : ""}
             invalid={!!errors.password}
-            className="icon-parent"
+            className={`${styles.iconParent}`}
           >
             <MDBInput
               label="Password"
@@ -66,7 +65,7 @@ function ThirdStep(props) {
               })}
               onChange={onChange}
             />
-            <button onClick={handleClickPassword} className="icon">
+            <button onClick={handleClickPassword} className={`${styles.icon}`}>
               <i
                 className={
                   showPassword
@@ -84,7 +83,7 @@ function ThirdStep(props) {
           <MDBValidationItem
             feedback={errors.rpassword ? errors.rpassword.message : ""}
             invalid={!!errors.rpassword}
-            className="icon-parent"
+            className={`${styles.iconParent}`}
           >
             <MDBInput
               label="Repeat your password"
@@ -105,7 +104,7 @@ function ThirdStep(props) {
               })}
               onChange={onChange}
             />
-            <button onClick={handleClickRPassword} className="icon">
+            <button onClick={handleClickRPassword} className={`${styles.icon}`}>
               <i
                 className={
                   showRPassword

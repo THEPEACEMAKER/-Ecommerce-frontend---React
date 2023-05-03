@@ -24,7 +24,7 @@ import {
   clearSuccess,
 } from "../../../utils/apiStatusSlice.js";
 
-import "./stylee.css";
+import styles from "./stylee.module.css";
 
 function Login() {
   const dispatch = useDispatch();
@@ -38,7 +38,6 @@ function Login() {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
     api
       .get("/login")
       .then((res) => {
@@ -64,7 +63,7 @@ function Login() {
   }, []);
 
   return (
-    <div className="body">
+    <div className={`${styles.body}`}>
       <MDBContainer className="my-5">
         <MDBCard>
           <MDBRow className="g-0">

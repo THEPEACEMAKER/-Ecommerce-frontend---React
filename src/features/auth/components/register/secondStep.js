@@ -9,7 +9,7 @@ import {
   MDBValidationItem,
 } from "mdb-react-ui-kit";
 
-import "./stylee.css";
+import styles from "./stylee.module.css";
 
 function SecondStep(props) {
   const [oldformValue] = useState(props.form);
@@ -88,7 +88,9 @@ function SecondStep(props) {
           </MDBValidationItem>
         </div>
       </div>
-      <div className="d-flex flex-row align-items-center mb-4 justify-content-between w-100 bttn">
+      <div
+        className={`d-flex flex-row align-items-center mb-4 justify-content-between w-100 ${styles.bttn}`}
+      >
         <MDBBtn className="mb-4" size="lg" onClick={prev}>
           prev
         </MDBBtn>

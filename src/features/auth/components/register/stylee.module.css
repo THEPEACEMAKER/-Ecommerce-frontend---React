@@ -5,7 +5,7 @@
   background-color: antiquewhite;
 }
 
-.icon-parent {
+.iconParent {
   position: relative;
 }
 
@@ -31,7 +31,7 @@ input[type="file"] {
   display: none;
 }
 
-.add-image {
+.addImage {
   cursor: pointer;
   position: absolute;
   right: 10%;
@@ -55,9 +55,7 @@ input[type="file"] {
   display: flex;
   gap: 5px;
 }
-.invalid-feedback {
-  position: absolute !important;
-}
+
 @media only screen and (max-width: 600px) {
   .bttn {
     flex-direction: column !important;

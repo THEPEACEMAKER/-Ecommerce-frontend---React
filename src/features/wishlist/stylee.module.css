@@ -20,17 +20,17 @@
   background-repeat: no-repeat;
 }
 
-.whish-list-table {
+.whishListTable {
   overflow-x: auto;
 }
 
-.whichlist-title {
+.whichListTitle {
   width: 100%;
   margin-bottom: 20px;
   position: relative;
 }
 
-.whichlist-title::after {
+.whichlistTitle::after {
   content: "";
   position: absolute;
   width: 100%;
@@ -41,11 +41,11 @@
   backdrop-filter: blur(10px);
 }
 
-.whichlist-title i {
+.whichlistTitle i {
   font-size: 40px;
 }
 
-.whichlist-title h1 {
+.whichlistTitle h1 {
   font-size: 40px;
   font-weight: 900;
 }

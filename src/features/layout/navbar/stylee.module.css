@@ -36,23 +36,23 @@ form::before {
 }
 
 .select,
-.btn-search {
+.btnSearch {
   outline: none !important;
   border: none !important;
   position: relative;
 }
 
 .select:hover,
-.btn-search:hover {
+.btnSearch:hover {
   outline: none !important;
   border: none !important;
 }
 
-.btn-new {
+.btnNew {
   position: relative;
 }
 
-.btn-new span {
+.btnNew span {
   position: absolute;
   padding: 1px 4px;
   font-size: 10px;
@@ -70,11 +70,6 @@ i:hover {
   color: goldenrod;
 }
 
-Link {
-  font-weight: bold;
-  transform: scale(1.2);
-}
-
 ul .active {
   font-weight: 600;
   color: gold !important;
@@ -83,6 +78,6 @@ ul .active {
 nav a {
   color: white !important;
 }
-.dropdown-menu li a {
+.dropdownMenu li span {
   color: black !important;
 }

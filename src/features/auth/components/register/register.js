@@ -10,7 +10,7 @@ import {
   MDBCardImage,
 } from "mdb-react-ui-kit";
 
-import "./stylee.css";
+import styles from "./stylee.module.css";
 
 import StepperComp from "./stepper";
 import FirstStep from "./firstStep";
@@ -41,7 +41,7 @@ function Register() {
   };
 
   return (
-    <div className="body">
+    <div className={`${styles.body}`}>
       <MDBContainer fluid>
         <MDBCard
           className="text-black w-75 m-auto"
@@ -76,7 +76,7 @@ function Register() {
               <MDBCol
                 md="10"
                 lg="6"
-                className="order-1 order-lg-2 d-flex align-items-center cover"
+                className={`order-1 order-lg-2 d-flex align-items-center ${styles.cover}`}
               >
                 <MDBCardImage
                   src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
