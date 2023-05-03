@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+
 import {
   MDBContainer,
   MDBRow,
@@ -62,6 +64,13 @@ function Register() {
                 ) : (
                   <ThirdStep onClick={onChange} form={formValue} />
                 )}
+
+                <p className="small fw-bold mt-2 pt-1 mb-2">
+                  I have an account?
+                  <Link to="/login" className="link-danger">
+                    Login Here
+                  </Link>
+                </p>
               </MDBCol>
 
               <MDBCol

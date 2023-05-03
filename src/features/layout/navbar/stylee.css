@@ -1,0 +1,82 @@
+nav {
+  background-color: #172856;
+}
+
+.logo {
+  width: 120px;
+}
+
+form {
+  position: relative;
+  z-index: 5;
+}
+
+form::after {
+  content: "";
+  width: 10%;
+  height: 100%;
+  background-color: white;
+  border-radius: 50px;
+  position: absolute;
+  top: 0;
+  left: -4%;
+  z-index: -1;
+}
+
+form::before {
+  content: "";
+  width: 10%;
+  height: 100%;
+  background-color: white;
+  border-radius: 50px;
+  position: absolute;
+  top: 0;
+  right: -4%;
+  z-index: -1;
+}
+
+.select,
+.btn-search {
+  outline: none !important;
+  border: none !important;
+  position: relative;
+}
+
+.select:hover,
+.btn-search:hover {
+  outline: none !important;
+  border: none !important;
+}
+
+.btn-new {
+  position: relative;
+}
+
+.btn-new span {
+  position: absolute;
+  padding: 1px 4px;
+  font-size: 10px;
+  font-weight: 900;
+  border-radius: 50%;
+  background-color: blanchedalmond;
+  top: 0;
+  right: 1%;
+}
+
+.btn-new :hover {
+  font-weight: bold;
+  transform: scale(1.2);
+  color: goldenrod;
+}
+
+.active {
+  font-weight: 600;
+  color: gold !important;
+}
+
+nav a {
+  color: white !important;
+}
+.dropdown-menu li a {
+  color: black !important;
+}
