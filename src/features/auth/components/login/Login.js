@@ -38,20 +38,24 @@ function Login() {
   } = useForm();
 
   const onSubmit = (data) => {
+    console.log("onSubmit: ", data);
     api
-      .get("/login")
+      .post("/api/token/", data)
       .then((res) => {
-        const { token, user, messsage } = res.data;
-        // Save token and user to local storage
-        localStorage.setItem("token", token);
-        localStorage.setItem("user", JSON.stringify(user));
-        dispatch(setSuccess(res.data.message));
+        console.log("res:", res);
+        const { access, refresh } = res.data;
+        localStorage.setItem("accessToken", access);
+        localStorage.setItem("refreshToken", refresh);
+
+        dispatch(setSuccess("Logged In Successfully"));
         // redirect to Home page
         // router.push('/home')
       })
       .catch((err) => {
-        dispatch(setError(err.message));
-        console.log("logged in Error: " + err);
+        console.log("Django error:", err);
+        // dispatch(setError(err.message));
+        // console.log("logged in Error: " + err);
+        // clearError("err");
       });
   };
 
@@ -98,25 +102,20 @@ function Login() {
                   </h5>
 
                   <MDBValidationItem
-                    feedback={errors.email?.message}
-                    invalid={!!errors.email}
+                    feedback={errors.username?.message}
+                    invalid={!!errors.username}
                   >
                     <MDBInput
-                      wrapperClass={!errors.email ? "mb-4" : "mb-5"}
-                      label="Email address"
-                      id="emailInput"
-                      type="email"
+                      wrapperClass={!errors.username ? "mb-4" : "mb-5"}
+                      label="Username"
+                      id="usernameInput"
+                      type="username"
                       size="lg"
                       required
-                      {...register("email", {
+                      {...register("username", {
                         required: {
                           value: true,
-                          message: "Email is required.",
-                        },
-                        pattern: {
-                          value:
-                            /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
-                          message: "Please enter a valid email address.",
+                          message: "username is required.",
                         },
                       })}
                     />
