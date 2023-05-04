@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:3001",
+  baseURL: "http://localhost:8000", // django
+  // baseURL: "http://localhost:3001", // db.json
   headers: {
     "Content-Type": "application/json",
   },
@@ -10,7 +11,7 @@ const api = axios.create({
 api.interceptors.request.use(
   (req) => {
     // Add authorization header
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("accessToken");
     if (token) {
       req.headers.Authorization = `Bearer ${token}`;
     }
@@ -25,7 +26,24 @@ api.interceptors.response.use(
   (response) => {
     return response;
   },
-  (error) => {
+  async function (error) {
+    const originalRequest = error.config;
+
+    if (error.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      const refreshToken = localStorage.getItem("refreshToken");
+      const res = await api.post("/api/token/refresh/", {
+        refresh_token: refreshToken,
+      });
+      if (res.status === 201) {
+        localStorage.setItem("accessToken", res.data.access);
+        localStorage.setItem("refreshToken", res.data.refresh);
+        api.defaults.headers.common["Authorization"] =
+          "Bearer " + localStorage.getItem("accessToken");
+        console.log("token refreshed");
+        return axios(originalRequest);
+      }
+    }
     return Promise.reject(error);
   }
 );

@@ -35,7 +35,7 @@ export default function App() {
 
   useEffect(() => {
     api
-      .get("/wishlist")
+      .get("http://localhost:3001/wishlist")
       .then((res) => {
         setData(res.data);
         dispatch(setSuccess(res.data.message));
@@ -48,7 +48,7 @@ export default function App() {
 
   const deletItem = (id) => {
     api
-      .delete(`/wishlist/${id}`)
+      .delete(`http://localhost:3001/wishlist/${id}`)
       .then((res) => {
         setData((data) => data.filter((item) => item.id != id));
         dispatch(setSuccess(res.data.message));
@@ -62,7 +62,7 @@ export default function App() {
   const AddToCart = (product) => {
     setLoding(true);
     api
-      .post(`/cart/`, product)
+      .post(`http://localhost:3001/cart/`, product)
       .then((res) => {
         dispatch(setSuccess(res.data.message));
         dispatch(setproductInCart(productInCart + 1));
