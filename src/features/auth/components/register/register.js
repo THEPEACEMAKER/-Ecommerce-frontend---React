@@ -20,7 +20,8 @@ import SecondStep from "./secondStep";
 function Register() {
   const [formValue, setFormValue] = useState({
     image: "",
-    imagePath: "https://fakeimg.pl/300/",
+    imagePath:
+      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
     fname: "",
     lname: "",
     uName: "",

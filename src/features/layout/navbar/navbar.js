@@ -1,9 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 import styles from "./stylee.module.css";
+import api from "../../../api/api";
+
+import { setproductInCart } from ".././../utils/apiStatusSlice.js";
 
 function Navbar() {
+  const dispatch = useDispatch();
+  const productInCart = useSelector((state) => state.apiStatus.productInCart);
+
+  const [selectedValue, setSelectedValue] = useState("default");
+
+  const handleSelectChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
+
+  useEffect(() => {
+    api
+      .get("/cart")
+      .then((res) => {
+        console.log(res.data.length);
+        dispatch(setproductInCart(res.data.length));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <nav className={`navbar navbar-expand-lg bg-body-tertiary`}>
       <div className="container d-flex flex-column">
@@ -68,8 +93,12 @@ function Navbar() {
             <select
               className={`form-select form-select-sm w-25 border-end-0 rounded-0 ${styles.select}`}
               aria-label=".form-select-lg example"
+              defaultValue={selectedValue}
+              onChange={handleSelectChange}
             >
-              <option selected>Category</option>
+              <option value="default" disabled>
+                Category
+              </option>
               <option value="1">One</option>
               <option value="2">Two</option>
               <option value="3">Three</option>
@@ -88,7 +117,7 @@ function Navbar() {
             </Link>
             <Link to="/cart" className={`${styles.btnNew} p-2`}>
               <i className="fa-solid fa-lg fa-cart-shopping text-white"></i>
-              <span>0</span>
+              <span>{productInCart}</span>
             </Link>
           </div>
 
@@ -106,7 +135,7 @@ function Navbar() {
 
         <div
           className="offcanvas offcanvas-end "
-          tabindex="-1"
+          tabIndex="-1"
           id="offcanvasNavbar"
           aria-labelledby="offcanvasNavbarLabel"
         >

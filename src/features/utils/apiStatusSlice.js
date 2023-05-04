@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   error: null,
   success: null,
+  productInCart: null,
 };
 
 const apiStatusSlice = createSlice({
@@ -21,10 +22,18 @@ const apiStatusSlice = createSlice({
     clearSuccess(state) {
       state.success = null;
     },
+    setproductInCart(state, action) {
+      state.productInCart = action.payload;
+    },
   },
 });
 
-export const { setError, clearError, setSuccess, clearSuccess } =
-  apiStatusSlice.actions;
+export const {
+  setError,
+  clearError,
+  setSuccess,
+  clearSuccess,
+  setproductInCart,
+} = apiStatusSlice.actions;
 
 export default apiStatusSlice.reducer;

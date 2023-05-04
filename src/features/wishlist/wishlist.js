@@ -1,7 +1,7 @@
-import { useState, useDispatch, useEffect } from "react";
-import api from "../../api/api";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
-import Alert from "react-bootstrap/Alert";
+import api from "../../api/api";
 
 import {
   MDBBadge,
@@ -18,23 +18,30 @@ import {
   clearError,
   setSuccess,
   clearSuccess,
+  setproductInCart,
 } from "../utils/apiStatusSlice.js";
 
 import styles from "./stylee.module.css";
+import Button from "../layout/btn/btn";
 
 export default function App() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const error = useSelector((state) => state.apiStatus.error);
+  const success = useSelector((state) => state.apiStatus.success);
 
   const [data, setData] = useState([]);
+  const [loading, setLoding] = useState(false);
+  const productInCart = useSelector((state) => state.apiStatus.productInCart);
 
   useEffect(() => {
     api
       .get("/wishlist")
       .then((res) => {
         setData(res.data);
+        dispatch(setSuccess(res.data.message));
       })
       .catch((err) => {
-        // dispatch(setError(err.message));
+        dispatch(setError(err.message));
         console.log(err);
       });
   }, []);
@@ -44,31 +51,39 @@ export default function App() {
       .delete(`/wishlist/${id}`)
       .then((res) => {
         setData((data) => data.filter((item) => item.id != id));
+        dispatch(setSuccess(res.data.message));
       })
       .catch((err) => {
-        // dispatch(setError(err.message));
+        dispatch(setError(err.message));
         console.log(err);
       });
   };
 
   const AddToCart = (product) => {
-    console.log(product);
+    setLoding(true);
     api
-      .post(`/wishlist/`, product)
+      .post(`/cart/`, product)
       .then((res) => {
-        console.log(res);
+        dispatch(setSuccess(res.data.message));
+        dispatch(setproductInCart(productInCart + 1));
+
+        setLoding(false);
       })
       .catch((err) => {
-        // dispatch(setError(err.message));
-        console.log(err);
+        dispatch(setError(err.message));
+        setLoding(false);
       });
   };
 
+  useEffect(() => {
+    return () => {
+      dispatch(clearSuccess());
+      dispatch(clearError());
+    };
+  }, []);
+
   return (
     <div className={styles.body}>
-      <Alert key={"success"} variant={"success"}>
-        This is a {"success"} alert with you like.
-      </Alert>
       <div
         className={`${styles.whichlistTitle} d-flex flex-column align-items-center`}
       >
@@ -145,13 +160,13 @@ export default function App() {
                     </td>
                     <td className="text-center">
                       <MDBBtn
-                        color="success"
+                        className={`${styles.btnColor}`}
                         rounded
                         size="sm"
                         disabled={el.quantity == 0}
                         onClick={() => AddToCart(el)}
                       >
-                        Add to Cart
+                        {loading ? <Button /> : `Add to Cart`}
                       </MDBBtn>
                     </td>
                   </tr>
