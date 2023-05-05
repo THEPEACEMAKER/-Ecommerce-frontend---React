@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: antiquewhite;
+  background-color: #f7f7fa;
   position: relative;
 }
 
@@ -48,9 +48,4 @@
 .whichlistTitle h1 {
   font-size: 40px;
   font-weight: 900;
-}
-.btnColor {
-  background-color: #2b4cd7;
-  width: 170px;
-  height: 50px;
 }

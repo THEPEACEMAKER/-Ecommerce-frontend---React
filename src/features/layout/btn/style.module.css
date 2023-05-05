@@ -1,79 +1,56 @@
-/**
- * ==============================================
- * Dot Floating
- * ==============================================
- */
-.dotFloating {
+.loader {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: block;
+  margin: 15px auto;
   position: relative;
-  width: 10px;
-  height: 10px;
-  border-radius: 5px;
-  background-color: #9880ff;
-  color: #9880ff;
-  animation: dot-floating 3s infinite cubic-bezier(0.15, 0.6, 0.9, 0.1);
-}
-.dotFloating::before,
-.dotFloating::after {
-  content: "";
-  display: inline-block;
-  position: absolute;
-  top: 0;
-}
-.dotFloating::before {
-  left: -12px;
-  width: 10px;
-  height: 10px;
-  border-radius: 5px;
-  background-color: #9880ff;
-  color: #9880ff;
-  animation: dot-floating-before 3s infinite ease-in-out;
-}
-.dotFloating::after {
-  left: -24px;
-  width: 10px;
-  height: 10px;
-  border-radius: 5px;
-  background-color: #9880ff;
-  color: #9880ff;
-  animation: dot-floating-after 3s infinite cubic-bezier(0.4, 0, 1, 1);
+  color: #fff;
+  left: -100px;
+  box-sizing: border-box;
+  animation: shadowRolling 2s linear infinite;
 }
 
-@keyframes dot-floating {
+@keyframes shadowRolling {
   0% {
-    left: calc(-50% - 5px);
+    box-shadow: 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0),
+      0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
   }
-  75% {
-    left: calc(50% + 105px);
+  12% {
+    box-shadow: 100px 0 white, 0px 0 rgba(255, 255, 255, 0),
+      0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
   }
-  100% {
-    left: calc(50% + 105px);
+  25% {
+    box-shadow: 110px 0 white, 100px 0 white, 0px 0 rgba(255, 255, 255, 0),
+      0px 0 rgba(255, 255, 255, 0);
   }
-}
-@keyframes dot-floating-before {
-  0% {
-    left: -50px;
+  36% {
+    box-shadow: 120px 0 white, 110px 0 white, 100px 0 white,
+      0px 0 rgba(255, 255, 255, 0);
   }
   50% {
-    left: -12px;
+    box-shadow: 130px 0 white, 120px 0 white, 110px 0 white, 100px 0 white;
+  }
+  62% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 130px 0 white, 120px 0 white,
+      110px 0 white;
   }
   75% {
-    left: -50px;
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0),
+      130px 0 white, 120px 0 white;
+  }
+  87% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0),
+      200px 0 rgba(255, 255, 255, 0), 130px 0 white;
   }
   100% {
-    left: -50px;
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0),
+      200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0);
   }
 }
-@keyframes dot-floating-after {
-  0% {
-    left: -100px;
-  }
-  50% {
-    left: -24px;
-  }
-  75% {
-    left: -100px;
-  }
-  100% {
-    left: -100px;
-  }
+
+.btnColor {
+  background-color: #2b4cd7;
+  width: 170px;
+  height: 50px;
 }

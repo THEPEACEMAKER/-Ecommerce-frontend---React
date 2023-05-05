@@ -21,7 +21,6 @@ function Navbar() {
     api
       .get("/cart")
       .then((res) => {
-        console.log(res.data.length);
         dispatch(setproductInCart(res.data.length));
       })
       .catch((err) => {
