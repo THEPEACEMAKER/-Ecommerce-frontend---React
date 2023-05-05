@@ -32,6 +32,7 @@ function PersonalInfo({ formValue, onChange, register, errors }) {
         </label>
       </div>
 
+      <hr className="w-50"></hr>
       <div className="d-flex flex-row align-items-center mb-4 gap-1">
         <MDBIcon fas icon="user me-3" size="lg" />
 

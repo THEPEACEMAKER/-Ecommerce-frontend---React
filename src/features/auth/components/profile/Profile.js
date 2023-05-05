@@ -105,58 +105,55 @@ function Profile() {
           className="text-black w-75 m-auto"
           style={{ borderRadius: "25px" }}
         >
-          <MDBCardBody>
-            <h2 style={{ textAlign: "center" }}>Sign up</h2>
+          <MDBCardBody className="py-1">
+            <div className="w-50 m-auto border">
+              <h2 className="my-3 mb-2" style={{ textAlign: "center" }}>
+                Profile
+              </h2>
+              <p style={{ textAlign: "center" }}>
+                Edit your profile information
+              </p>
+              <hr />
 
-            <MDBRow>
-              <MDBCol
-                md="10"
-                lg="6"
-                className="order-2 order-lg-1 d-flex flex-column align-items-center"
-              >
-                {/*  */}
-                <MDBValidation
-                  className="w-100 d-flex flex-column align-items-center my-1"
-                  onSubmit={handleSubmit(onSubmit)}
+              <MDBRow className="w-100 m-auto">
+                <MDBCol
+                  md="10"
+                  lg="6"
+                  className="order-2 order-lg-1 d-flex flex-column align-items-center w-100 px-4"
                 >
-                  <PersonalInfo
-                    formValue={formValue}
-                    onChange={onChange}
-                    register={register}
-                    errors={errors}
-                  />
-                  <ContactInfo
-                    formValue={formValue}
-                    onChange={onChange}
-                    register={register}
-                    errors={errors}
-                  />
-                  <PasswordInfo
-                    formValue={formValue}
-                    onChange={onChange}
-                    register={register}
-                    errors={errors}
-                  />
+                  {/*  */}
+                  <MDBValidation
+                    className="w-100 d-flex flex-column align-items-center my-1"
+                    onSubmit={handleSubmit(onSubmit)}
+                  >
+                    <PersonalInfo
+                      formValue={formValue}
+                      onChange={onChange}
+                      register={register}
+                      errors={errors}
+                    />
+                    <ContactInfo
+                      formValue={formValue}
+                      onChange={onChange}
+                      register={register}
+                      errors={errors}
+                    />
+                    <PasswordInfo
+                      formValue={formValue}
+                      onChange={onChange}
+                      register={register}
+                      errors={errors}
+                    />
 
-                  <div className="d-flex flex-row flex-row-reverse mb-4 w-100">
-                    <MDBBtn type="submit" className="mb-4" size="lg">
-                      Edit
-                    </MDBBtn>
-                  </div>
-                </MDBValidation>
-              </MDBCol>
-
-              <MDBCol
-                md="10"
-                lg="6"
-                className={`order-1 order-lg-2 d-flex align-items-center ${styles.cover}`}
-              >
-                <MDBCardImage
-                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-                  fluid
-                />
-              </MDBCol>
-            </MDBRow>
+                    <div className="d-flex flex-row flex-row-reverse mb-4 w-100">
+                      <MDBBtn type="submit" className="mb-4" size="lg">
+                        Edit
+                      </MDBBtn>
+                    </div>
+                  </MDBValidation>
+                </MDBCol>
+              </MDBRow>
+            </div>
           </MDBCardBody>
         </MDBCard>
       </MDBContainer>

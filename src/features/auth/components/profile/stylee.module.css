@@ -65,6 +65,6 @@ input[type="file"] {
   }
 }
 
-form::after {
+form::after, form::before {
   width: 0;
 }
