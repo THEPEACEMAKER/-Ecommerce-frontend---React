@@ -11,11 +11,9 @@ function ContactInfo({ formValue, onChange, register, errors }) {
             invalid={!!errors.phone}
           >
             <MDBInput
-              label="Phone"
               id="phone"
               type="text"
               name="phone"
-              value={formValue.phone}
               required
               {...register("phone", {
                 required: { value: true, message: "Phone is required." },
@@ -33,11 +31,9 @@ function ContactInfo({ formValue, onChange, register, errors }) {
             invalid={!!errors.address}
           >
             <MDBInput
-              label="Address"
               id="address"
               type="text"
               name="address"
-              value={formValue.address}
               required
               {...register("address", {
                 required: { value: true, message: "Address is required." },

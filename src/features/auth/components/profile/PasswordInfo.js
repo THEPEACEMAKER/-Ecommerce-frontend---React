@@ -32,12 +32,10 @@ function PasswordInfo({ formValue, onChange, register, errors }) {
             className={`${styles.iconParent}`}
           >
             <MDBInput
-              label="Password"
               id="password"
               type={showPassword ? "text" : "password"}
               name="password"
               required
-              value={formValue.password}
               {...register("password", {
                 required: { value: true, message: "Password is required." },
               })}

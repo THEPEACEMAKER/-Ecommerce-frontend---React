@@ -49,13 +49,12 @@ function Profile() {
     api
       .get("http://localhost:3001/profile")
       .then((res) => {
-        console.log("res: ", res);
-        setFormValue({ ...formValue, ...res.data });
+        reset(res.data);
+        setFormValue({ ...formValue, imagePath: res.data.imagePath });
         // setData(res.data);
       })
       .catch((err) => {
         dispatch(setError(err.message));
-        console.log(err);
       });
   }, []);
 
@@ -82,11 +81,8 @@ function Profile() {
   };
 
   const onSubmit = (e) => {
-    e.preventDefault();
-    console.log("submitted: ", { ...formValue, ...e });
     // on submit
     setFormValue({ ...formValue, ...e });
-    console.log({ ...formValue, ...e });
   };
 
   // validation
@@ -94,11 +90,11 @@ function Profile() {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   useEffect(() => {
     if (errors) {
-      console.log("Errors:", errors);
     }
   }, [errors]);
 

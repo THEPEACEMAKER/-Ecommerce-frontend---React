@@ -42,12 +42,10 @@ function PersonalInfo({ formValue, onChange, register, errors }) {
               invalid={!!errors.fname}
             >
               <MDBInput
-                label="First Name"
                 id="fname"
                 type="text"
                 name="fname"
                 required
-                value={formValue.fname}
                 {...register("fname", {
                   required: { value: true, message: "First Name is required." },
                 })}
@@ -61,12 +59,10 @@ function PersonalInfo({ formValue, onChange, register, errors }) {
               invalid={!!errors.lname}
             >
               <MDBInput
-                label="Last Name"
                 id="lname"
                 type="text"
                 name="lname"
                 required
-                value={formValue.lname}
                 {...register("lname", {
                   required: { value: true, message: "Last Name is required." },
                 })}
@@ -85,12 +81,10 @@ function PersonalInfo({ formValue, onChange, register, errors }) {
             invalid={!!errors.uName}
           >
             <MDBInput
-              label="User Name"
               id="form3"
               type="text"
               name="uName"
               required
-              value={formValue.uName}
               {...register("uName", {
                 required: { value: true, message: "User Name is required." },
               })}
@@ -107,11 +101,9 @@ function PersonalInfo({ formValue, onChange, register, errors }) {
             invalid={!!errors.email}
           >
             <MDBInput
-              label="Your Email"
               id="form4"
               type="email"
               name="email"
-              value={formValue.email}
               required
               {...register("email", {
                 required: { value: true, message: "Email is required." },
