@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Alert, AlertIcon } from "@chakra-ui/react";
 import {
@@ -31,6 +31,8 @@ function Login() {
   const error = useSelector((state) => state.apiStatus.error);
   const success = useSelector((state) => state.apiStatus.success);
 
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -47,15 +49,16 @@ function Login() {
         localStorage.setItem("accessToken", access);
         localStorage.setItem("refreshToken", refresh);
 
+        dispatch(clearError());
         dispatch(setSuccess("Logged In Successfully"));
         // redirect to Home page
-        // router.push('/home')
+        setTimeout(() => {
+          navigate("/home");
+        }, 1000);
       })
       .catch((err) => {
-        console.log("Django error:", err);
-        // dispatch(setError(err.message));
-        // console.log("logged in Error: " + err);
-        // clearError("err");
+        dispatch(clearSuccess());
+        dispatch(setError(err.message));
       });
   };
 
@@ -64,7 +67,7 @@ function Login() {
       dispatch(clearSuccess());
       dispatch(clearError());
     };
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className={`${styles.body}`}>
@@ -102,7 +105,7 @@ function Login() {
                   </h5>
 
                   <MDBValidationItem
-                    feedback={errors.username?.message}
+                    feedback={errors.username ? errors.username?.message : ""}
                     invalid={!!errors.username}
                   >
                     <MDBInput
@@ -122,7 +125,7 @@ function Login() {
                   </MDBValidationItem>
 
                   <MDBValidationItem
-                    feedback={errors.password?.message}
+                    feedback={errors.password ? errors.password?.message : ""}
                     invalid={!!errors.password}
                   >
                     <MDBInput

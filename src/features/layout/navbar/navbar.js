@@ -19,7 +19,7 @@ function Navbar() {
 
   useEffect(() => {
     api
-      .get("/cart")
+      .get("http://localhost:3001/cart")
       .then((res) => {
         dispatch(setproductInCart(res.data.length));
       })

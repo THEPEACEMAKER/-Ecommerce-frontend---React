@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:3001",
+  baseURL: "http://localhost:8000", // django
+  // baseURL: "http://localhost:3001", // db.json
   headers: {
     "Content-Type": "application/json",
   },
@@ -28,7 +29,7 @@ api.interceptors.response.use(
   async function (error) {
     const originalRequest = error.config;
 
-    if (error.response.status === 401 && !originalRequest._retry) {
+    if (error.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       const refreshToken = localStorage.getItem("refreshToken");
       const res = await api.post("/api/token/refresh/", {
