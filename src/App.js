@@ -6,6 +6,7 @@ import Fotter from "./features/layout/fotter/fotter";
 import Cart from "./features/cart/cart";
 import WishList from "./features/wishlist/wishlist";
 import NotFound from "./features/404/404";
+import Profile from "./features/auth/components/profile/Profile";
 
 import "./App.css";
 
@@ -19,6 +20,7 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="wishlist" element={<WishList />} />
           <Route path="cart" element={<Cart />} />
+          <Route path="profile" element={<Profile />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

@@ -1,0 +1,70 @@
+.body {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  background-color: antiquewhite;
+}
+
+.iconParent {
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.parent {
+  position: relative;
+}
+
+.img {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.addImage {
+  cursor: pointer;
+  position: absolute;
+  right: 10%;
+  bottom: 10%;
+  background-color: white;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+.stepper {
+  overflow-x: auto;
+}
+.wait {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+.visible {
+  display: flex;
+  gap: 5px;
+}
+
+@media only screen and (max-width: 600px) {
+  .bttn {
+    flex-direction: column !important;
+  }
+  .cover {
+    display: none !important;
+  }
+}
+
+form::after {
+  width: 0;
+}
