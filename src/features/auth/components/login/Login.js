@@ -23,6 +23,7 @@ import {
   setSuccess,
   clearSuccess,
 } from "../../../utils/apiStatusSlice.js";
+import { login } from "../../authSlice";
 
 import styles from "./stylee.module.css";
 
@@ -30,6 +31,7 @@ function Login() {
   const dispatch = useDispatch();
   const error = useSelector((state) => state.apiStatus.error);
   const success = useSelector((state) => state.apiStatus.success);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   const navigate = useNavigate();
 
@@ -46,9 +48,7 @@ function Login() {
       .then((res) => {
         console.log("res:", res);
         const { access, refresh } = res.data;
-        localStorage.setItem("accessToken", access);
-        localStorage.setItem("refreshToken", refresh);
-
+        dispatch(login({ access, refresh }));
         dispatch(clearError());
         dispatch(setSuccess("Logged In Successfully"));
         // redirect to Home page
@@ -67,7 +67,7 @@ function Login() {
       dispatch(clearSuccess());
       dispatch(clearError());
     };
-  }, [dispatch]);
+  }, []);
 
   return (
     <div className={`${styles.body}`}>

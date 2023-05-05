@@ -6,10 +6,12 @@ import styles from "./stylee.module.css";
 import api from "../../../api/api";
 
 import { setproductInCart } from ".././../utils/apiStatusSlice.js";
+import { logout } from "../../auth/authSlice";
 
 function Navbar() {
   const dispatch = useDispatch();
   const productInCart = useSelector((state) => state.apiStatus.productInCart);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   const [selectedValue, setSelectedValue] = useState("default");
 
@@ -51,31 +53,39 @@ function Navbar() {
           </div>
 
           <div className="my-2 text-white">
-            <Link to="/login" className="mx-2">
-              <i className="fa-solid fa-user"></i>
-              <span> Login</span>
-            </Link>
-            <Link to="/register" className="mx-2">
-              <span> Register</span>
-            </Link>
-            <Link to="/profile" className="mx-2">
-              <i className="fa-solid fa-user"></i>
-              <span> Profile</span>
-            </Link>
+            {!isLoggedIn && (
+              <>
+                <Link to="/login" className="mx-2">
+                  <i className="fa-solid fa-user"></i>
+                  <span> Login</span>
+                </Link>
+                <Link to="/register" className="mx-2">
+                  <span> Register</span>
+                </Link>
+              </>
+            )}
+            {isLoggedIn && (
+              <>
+                <Link to="/profile" className="mx-2">
+                  <i className="fa-solid fa-user"></i>
+                  <span> Profile</span>
+                </Link>
 
-            <Link to="/wishlist" className="mx-2">
-              <i className="fa-regular fa-lg fa-heart text-white"></i>
-              <span> Wish List</span>
-            </Link>
+                <Link to="/wishlist" className="mx-2">
+                  <i className="fa-regular fa-lg fa-heart text-white"></i>
+                  <span> Wish List</span>
+                </Link>
 
-            <Link to="/cart" className="mx-2">
-              <i className="fa-solid fa-lg fa-cart-shopping text-white"></i>
-              <span> Cart</span>
-            </Link>
-            <Link className="mx-2">
-              <i className="fa-solid fa-arrow-right-from-bracket"></i>{" "}
-              <span> Logout</span>
-            </Link>
+                <Link to="/cart" className="mx-2">
+                  <i className="fa-solid fa-lg fa-cart-shopping text-white"></i>
+                  <span> Cart</span>
+                </Link>
+                <Link className="mx-2" onClick={() => dispatch(logout())}>
+                  <i className="fa-solid fa-arrow-right-from-bracket"></i>{" "}
+                  <span> Logout</span>
+                </Link>
+              </>
+            )}
           </div>
         </div>
 
