@@ -8,53 +8,8 @@
     },
     "message": "logged in successfully"
   },
-  "wishlist": [
-    {
-      "id": 1,
-      "name": "John Doe",
-      "img": "https://fakeimg.pl/300/",
-      "price": 100,
-      "quantity": 50,
-      "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo porro accusamus, a aliquid earum atque provident, ad commodi at nostrum cum iusto doloribus ullam dolorum temporibus! Magni adipisci quibusdam minima!"
-    },
-    {
-      "id": 2,
-      "name": "John Doe",
-      "img": "https://fakeimg.pl/300/",
-      "price": 100,
-      "quantity": 0
-    },
-    {
-      "id": 3,
-      "name": "John Doe",
-      "img": "https://fakeimg.pl/300/",
-      "price": 100,
-      "quantity": 10
-    }
-  ],
-  "cart": [
-    {
-      "id": 10,
-      "name": "John Doe",
-      "img": "https://fakeimg.pl/300/",
-      "price": 100,
-      "quantity": 3
-    },
-    {
-      "id": 20,
-      "name": "John Doe",
-      "img": "https://fakeimg.pl/300/",
-      "price": 100,
-      "quantity": 1
-    },
-    {
-      "id": 30,
-      "name": "John Doe",
-      "img": "https://fakeimg.pl/300/",
-      "price": 100,
-      "quantity": 2
-    }
-  ],
+  "wishlist": [],
+  "cart": [],
   "posts": [
     {
       "id": 1,

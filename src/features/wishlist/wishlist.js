@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 import api from "../../api/api";
 
 import {
   MDBBadge,
-  MDBBtn,
   MDBTable,
   MDBTableHead,
   MDBTableBody,
@@ -18,7 +18,6 @@ import {
   clearError,
   setSuccess,
   clearSuccess,
-  setproductInCart,
 } from "../utils/apiStatusSlice.js";
 
 import styles from "./stylee.module.css";
@@ -30,8 +29,6 @@ export default function App() {
   const success = useSelector((state) => state.apiStatus.success);
 
   const [data, setData] = useState([]);
-  const [loading, setLoding] = useState(false);
-  const productInCart = useSelector((state) => state.apiStatus.productInCart);
 
   useEffect(() => {
     api
@@ -59,22 +56,6 @@ export default function App() {
       });
   };
 
-  const AddToCart = (product) => {
-    setLoding(true);
-    api
-      .post(`http://localhost:3001/cart/`, product)
-      .then((res) => {
-        dispatch(setSuccess(res.data.message));
-        dispatch(setproductInCart(productInCart + 1));
-
-        setLoding(false);
-      })
-      .catch((err) => {
-        dispatch(setError(err.message));
-        setLoding(false);
-      });
-  };
-
   useEffect(() => {
     return () => {
       dispatch(clearSuccess());
@@ -96,84 +77,99 @@ export default function App() {
           className="text-black w-75 m-auto "
           style={{ borderRadius: "25px" }}
         >
-          <div className={`${styles.whishListTable}`}>
-            <MDBTable align="middle">
-              <MDBTableHead>
-                <tr>
-                  <th className="fw-bolder text-center" scope="col" colSpan="2">
-                    Product Name
-                  </th>
-                  <th className="fw-bolder text-center" scope="col">
-                    Unit Price
-                  </th>
-                  <th className="fw-bolder text-center" scope="col">
-                    Stock Status
-                  </th>
-                  <th className="fw-bolder text-center" scope="col">
-                    Actions
-                  </th>
-                </tr>
-              </MDBTableHead>
-              <MDBTableBody>
-                {data.map((el, i) => (
-                  <tr key={el.id}>
-                    <td className="text-center">
-                      <button>
-                        <i
-                          className="fa-solid fa-trash"
-                          onClick={() => deletItem(el.id)}
-                        ></i>
-                      </button>
-                    </td>
-                    <td>
-                      <div className="d-flex align-items-center">
-                        <img
-                          src={el.img}
-                          alt=""
-                          style={{ width: "45px", height: "45px" }}
-                        />
-                        <div className="ms-3">
-                          <p className="fw-bold mb-1">{el.name}</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="text-center">
-                      <p className="fw-normal mb-1">{el.price} $</p>
-                    </td>
-                    <td className="text-center">
-                      <MDBBadge
-                        pill
-                        color={
-                          el.quantity == 0
-                            ? "danger"
-                            : el.quantity < 11
-                            ? "warning"
-                            : "success"
-                        }
-                      >
-                        {el.quantity == 0
-                          ? "Out of Stock"
-                          : el.quantity < 11
-                          ? "limited"
-                          : "InStock"}
-                      </MDBBadge>
-                    </td>
-                    <td className="text-center">
-                      <MDBBtn
-                        className={`${styles.btnColor}`}
-                        rounded
-                        size="sm"
-                        disabled={el.quantity == 0}
-                        onClick={() => AddToCart(el)}
-                      >
-                        {loading ? <Button /> : `Add to Cart`}
-                      </MDBBtn>
-                    </td>
+          {data.length ? (
+            <div className={`${styles.whishListTable}`}>
+              <MDBTable align="middle">
+                <MDBTableHead>
+                  <tr>
+                    <th
+                      className="fw-bolder text-center"
+                      scope="col"
+                      colSpan="2"
+                    >
+                      Product Name
+                    </th>
+                    <th className="fw-bolder text-center" scope="col">
+                      Unit Price
+                    </th>
+                    <th className="fw-bolder text-center" scope="col">
+                      Stock Status
+                    </th>
+                    <th className="fw-bolder text-center" scope="col">
+                      Actions
+                    </th>
                   </tr>
-                ))}
-              </MDBTableBody>
-            </MDBTable>
-          </div>
+                </MDBTableHead>
+                <MDBTableBody>
+                  {data.map((el, i) => (
+                    <tr key={el.id}>
+                      <td className="text-center">
+                        <button>
+                          <i
+                            className="fa-solid fa-trash"
+                            onClick={() => deletItem(el.id)}
+                          ></i>
+                        </button>
+                      </td>
+                      <td>
+                        <div className="d-flex align-items-center">
+                          <img
+                            src={el.img}
+                            alt=""
+                            style={{ width: "45px", height: "45px" }}
+                          />
+                          <div className="ms-3">
+                            <p className="fw-bold mb-1">{el.name}</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="text-center">
+                        <p className="fw-normal mb-1">{el.price} $</p>
+                      </td>
+                      <td className="text-center">
+                        <MDBBadge
+                          pill
+                          color={
+                            el.quantity === 0
+                              ? "danger"
+                              : el.quantity < 11
+                              ? "warning"
+                              : "success"
+                          }
+                        >
+                          {el.quantity === 0
+                            ? "Out of Stock"
+                            : el.quantity < 11
+                            ? "limited"
+                            : "InStock"}
+                        </MDBBadge>
+                      </td>
+                      <td className="text-center">
+                        <Button el={el} />
+                      </td>
+                    </tr>
+                  ))}
+                </MDBTableBody>
+              </MDBTable>
+            </div>
+          ) : (
+            <div
+              className={`d-flex flex-column justify-content-center align-items-center ${styles.parent} m-5`}
+            >
+              <img
+                src={process.env.PUBLIC_URL + "assets/empty-state-cart.svg"}
+              />
+              <h3>Your Wishlist looks empty</h3>
+              <span className="text-muted">What are you waiting for?</span>
+              <Link
+                to="/home"
+                className={`{styles.color} btn btn-primary my-3`}
+              >
+                {" "}
+                START CHOPING
+              </Link>
+            </div>
+          )}
         </MDBCard>
       </MDBContainer>
     </div>
