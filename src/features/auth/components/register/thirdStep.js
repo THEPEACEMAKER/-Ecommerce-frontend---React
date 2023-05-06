@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 import {
   MDBBtn,
@@ -8,6 +9,7 @@ import {
   MDBValidation,
   MDBValidationItem,
 } from "mdb-react-ui-kit";
+import api from "../../../../api/api";
 
 import styles from "./stylee.module.css";
 
@@ -24,8 +26,43 @@ function ThirdStep(props) {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
   };
 
+  const navigate = useNavigate();
+
   const registertien = () => {
+    console.log("data: ", formValue);
     props.onClick(formValue);
+
+    const formData = new FormData();
+    // formData.append("fname", formValue.fname); // TODO: add to backend
+    // formData.append("lname", formValue.lname); // TODO: add to backend
+    formData.append("phone", formValue.phone);
+    formData.append("address", formValue.address);
+    formData.append("image", formValue.image);
+    formData.append("username", formValue.uName);
+    formData.append("email", formValue.email);
+    formData.append("password", formValue.password);
+    formData.append("confirm_password", formValue.password); // TODO: fix rpassword to repeatPassword
+
+    for (let entry of formData.entries()) {
+      console.log("formData", entry);
+    }
+
+    api
+      .post("/auth/register/", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        console.log("Registration success: ", res);
+        // redirect to login page
+        setTimeout(() => {
+          navigate("/login");
+        }, 1000);
+      })
+      .catch((err) => {
+        console.log(err); // TODO: log the error messages
+      });
   };
 
   const prev = () => {
@@ -97,7 +134,7 @@ function ThirdStep(props) {
                   message: "Repeat Password is required.",
                 },
                 validate: (val) => {
-                  if (watch("password") != val) {
+                  if (watch("password") !== val) {
                     return "Your passwords do no match";
                   }
                 },

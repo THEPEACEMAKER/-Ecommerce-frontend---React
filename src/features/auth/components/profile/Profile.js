@@ -15,7 +15,6 @@ import {
   MDBCol,
   MDBCard,
   MDBCardBody,
-  MDBCardImage,
   MDBBtn,
   MDBValidation,
 } from "mdb-react-ui-kit";
