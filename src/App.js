@@ -7,6 +7,7 @@ import Cart from "./features/cart/cart";
 import WishList from "./features/wishlist/wishlist";
 import NotFound from "./features/404/404";
 import Profile from "./features/auth/components/profile/Profile";
+import ProtectedRoutes from "./ProtectedRoutes";
 
 import "./App.css";
 
@@ -16,11 +17,21 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/">
-          <Route path="register" element={<Register />} />
-          <Route path="login" element={<Login />} />
-          <Route path="wishlist" element={<WishList />} />
-          <Route path="cart" element={<Cart />} />
-          <Route path="profile" element={<Profile />} />
+          <Route
+            element={<ProtectedRoutes requiresLogin={false} redirectTo="/" />}
+          >
+            <Route path="register" element={<Register />} />
+            <Route path="login" element={<Login />} />
+          </Route>
+          <Route
+            element={
+              <ProtectedRoutes requiresLogin={true} redirectTo="/login" />
+            }
+          >
+            <Route path="wishlist" element={<WishList />} />
+            <Route path="cart" element={<Cart />} />
+            <Route path="profile" element={<Profile />} />
+          </Route>
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
