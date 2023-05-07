@@ -81,3 +81,8 @@ nav a {
 .dropdownMenu li span {
   color: black !important;
 }
+
+form::after,
+form::before {
+  width: 10%;
+}

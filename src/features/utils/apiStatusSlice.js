@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   error: null,
   success: null,
-  productInCart: null,
+  productInCart: 0,
 };
 
 const apiStatusSlice = createSlice({

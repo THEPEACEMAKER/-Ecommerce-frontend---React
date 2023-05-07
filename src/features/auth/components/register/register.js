@@ -46,7 +46,7 @@ function Register() {
       <MDBContainer fluid>
         <MDBCard
           className="text-black w-75 m-auto"
-          style={{ borderRadius: "25px" }}
+          style={{ borderRadius: "25px", maxWidth: "1100px" }}
         >
           <MDBCardBody>
             <h2 style={{ textAlign: "center" }}>Sign up</h2>

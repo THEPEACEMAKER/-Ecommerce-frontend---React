@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 import styles from "./stylee.module.css";
-import { Center } from "@chakra-ui/react";
 
 import InputQuantity from "./inputQuantity";
 
@@ -29,7 +28,7 @@ function Cart() {
 
   useEffect(() => {
     api
-      .get("/cart")
+      .get("http://localhost:3001/cart")
       .then((res) => {
         setData(res.data);
         dispatch(setSuccess(res.data.message));
@@ -42,7 +41,7 @@ function Cart() {
 
   const deletItem = (id) => {
     api
-      .delete(`/cart/${id}`)
+      .delete(`http://localhost:3001/cart/${id}`)
       .then((res) => {
         setData((data) => data.filter((item) => item.id != id));
         dispatch(setSuccess(res.data.message));

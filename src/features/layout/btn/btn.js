@@ -24,7 +24,7 @@ export default function Button(props) {
   const AddToCart = (product) => {
     setLoding(true);
     api
-      .post(`/cart/`, product)
+      .post(`http://localhost:3001/cart/`, product)
       .then((res) => {
         dispatch(setSuccess(res.data.message));
         dispatch(setproductInCart(productInCart + 1));
