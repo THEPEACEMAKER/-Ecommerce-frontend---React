@@ -43,7 +43,7 @@ function Login() {
   const onSubmit = (data) => {
     console.log("onSubmit: ", data);
     api
-      .post("/api/token/", data)
+      .post("/auth/login/", data)
       .then((res) => {
         console.log("res:", res);
         const { access, refresh } = res.data;

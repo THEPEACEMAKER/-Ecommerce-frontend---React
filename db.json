@@ -101,6 +101,17 @@
     }
   ],
   "profile": {
-    "name": "typicode"
+    "image": "",
+    "imagePath":
+      "https://www.themoviedb.org/t/p/w500/wcI594cwM4ArPwvRd2IU0Z0yLuh.jpg",
+    "fname": "Adel",
+    "lname": "Abdellatif",
+    "uName": "Adel",
+    "email": "Adel@mail.com",
+    "phone": "0123231421",
+    "address": "23 fwefw afwefwaf",
+    "password": "2124124",
+    "repeatPassword": "2124124",
+    "index": ""
   }
 }
