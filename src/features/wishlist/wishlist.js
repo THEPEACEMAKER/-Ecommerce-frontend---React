@@ -6,11 +6,14 @@ import api from "../../api/api";
 
 import {
   MDBBadge,
-  MDBTable,
-  MDBTableHead,
-  MDBTableBody,
   MDBContainer,
   MDBCard,
+  MDBRow,
+  MDBCol,
+  MDBCardBody,
+  MDBCardImage,
+  MDBRipple,
+  MDBBtn,
 } from "mdb-react-ui-kit";
 
 import {
@@ -32,10 +35,11 @@ export default function App() {
 
   useEffect(() => {
     api
-      .get("http://localhost:3001/wishlist")
+      .get("/wishlist")
       .then((res) => {
-        setData(res.data);
+        setData(res.data[0].product_details);
         dispatch(setSuccess(res.data.message));
+        console.log(res);
       })
       .catch((err) => {
         dispatch(setError(err.message));
@@ -44,8 +48,9 @@ export default function App() {
   }, []);
 
   const deletItem = (id) => {
+    console.log(id);
     api
-      .delete(`http://localhost:3001/wishlist/${id}`)
+      .delete(`/wishlist/delete/${id}/`)
       .then((res) => {
         setData((data) => data.filter((item) => item.id != id));
         dispatch(setSuccess(res.data.message));
@@ -72,105 +77,128 @@ export default function App() {
         <h1>My wishlist</h1>
       </div>
 
-      <MDBContainer fluid>
-        <MDBCard
-          className="text-black w-75 m-auto "
-          style={{ borderRadius: "25px" }}
-        >
-          {data.length ? (
-            <div className={`${styles.whishListTable}`}>
-              <MDBTable align="middle">
-                <MDBTableHead>
-                  <tr>
-                    <th
-                      className="fw-bolder text-center"
-                      scope="col"
-                      colSpan="2"
-                    >
-                      Product Name
-                    </th>
-                    <th className="fw-bolder text-center" scope="col">
-                      Unit Price
-                    </th>
-                    <th className="fw-bolder text-center" scope="col">
-                      Stock Status
-                    </th>
-                    <th className="fw-bolder text-center" scope="col">
-                      Actions
-                    </th>
-                  </tr>
-                </MDBTableHead>
-                <MDBTableBody>
-                  {data.map((el, i) => (
-                    <tr key={el.id}>
-                      <td className="text-center">
-                        <button>
-                          <i
-                            className="fa-solid fa-trash"
-                            onClick={() => deletItem(el.id)}
-                          ></i>
-                        </button>
-                      </td>
-                      <td>
-                        <div className="d-flex align-items-center">
-                          <img
-                            src={el.img}
-                            alt=""
-                            style={{ width: "45px", height: "45px" }}
-                          />
-                          <div className="ms-3">
-                            <p className="fw-bold mb-1">{el.name}</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="text-center">
-                        <p className="fw-normal mb-1">{el.price} $</p>
-                      </td>
-                      <td className="text-center">
-                        <MDBBadge
-                          pill
-                          color={
-                            el.quantity === 0
-                              ? "danger"
-                              : el.quantity < 11
-                              ? "warning"
-                              : "success"
-                          }
+      <MDBContainer
+        fluid
+        className="text-black w-100 m-auto "
+        style={{ borderRadius: "25px" }}
+      >
+        <MDBRow className="justify-content-center mb-0">
+          <MDBCol md="12" xl="10">
+            {data.length ? (
+              <div className={`${styles.whishListTable}`}>
+                {data.map((el, i) => (
+                  <MDBCard
+                    key={el.id}
+                    className="shadow-0 border rounded-3 mt-5 mb-3"
+                  >
+                    <MDBCardBody>
+                      <MDBRow>
+                        <MDBCol
+                          md="12"
+                          lg="3"
+                          className="mb-4 mb-lg-0 d-flex align-items-center"
                         >
-                          {el.quantity === 0
-                            ? "Out of Stock"
-                            : el.quantity < 11
-                            ? "limited"
-                            : "InStock"}
-                        </MDBBadge>
-                      </td>
-                      <td className="text-center">
-                        <Button el={el} />
-                      </td>
-                    </tr>
-                  ))}
-                </MDBTableBody>
-              </MDBTable>
-            </div>
-          ) : (
-            <div
-              className={`d-flex flex-column justify-content-center align-items-center ${styles.parent} m-5`}
-            >
-              <img
-                src={process.env.PUBLIC_URL + "assets/empty-state-cart.svg"}
-              />
-              <h3>Your Wishlist looks empty</h3>
-              <span className="text-muted">What are you waiting for?</span>
-              <Link
-                to="/home"
-                className={`{styles.color} btn btn-primary my-3`}
-              >
-                {" "}
-                START CHOPING
-              </Link>
-            </div>
-          )}
-        </MDBCard>
+                          <MDBRipple
+                            rippleColor="light"
+                            rippleTag="div"
+                            className="bg-image rounded hover-zoom hover-overlay"
+                          >
+                            <MDBCardImage
+                              src={el.image}
+                              fluid
+                              className=""
+                              style={{ width: "300px", height: "160px" }}
+                            />
+                            <a href="#!">
+                              <div
+                                className="mask"
+                                style={{
+                                  backgroundColor: "rgba(251, 251, 251, 0.15)",
+                                }}
+                              ></div>
+                            </a>
+                          </MDBRipple>
+                        </MDBCol>
+                        <MDBCol
+                          md="6"
+                          className="d-flex justify-content-between flex-column"
+                        >
+                          <Link to={`/product/${el.id}`}>
+                            <h5>{el.name}</h5>
+                          </Link>
+                          <span>Quantity {el.quantity}</span>
+
+                          <div className="mt-1 mb-0 text-muted small">
+                            <MDBBadge
+                              pill
+                              color={
+                                el.quantity === 0
+                                  ? "danger"
+                                  : el.quantity < 11
+                                  ? "warning"
+                                  : "success"
+                              }
+                            >
+                              {el.quantity === 0
+                                ? "Out of Stock"
+                                : el.quantity < 11
+                                ? "limited"
+                                : "InStock"}
+                            </MDBBadge>
+                          </div>
+                          <p className=" mb-4 mb-md-0">{el.description}</p>
+                        </MDBCol>
+                        <MDBCol
+                          md="6"
+                          lg="3"
+                          className="border-sm-start-none border-start"
+                        >
+                          <div className="d-flex flex-row align-items-center justify-content-between mb-1">
+                            <h4 className="mb-1 me-1">${el.price}</h4>
+                            {/* <span className="text-danger">
+                              <s>$20.99</s>
+                            </span> */}
+                            <button>
+                              <i
+                                className="fa-solid fa-trash text-secondary"
+                                onClick={() => deletItem(el.id)}
+                              ></i>
+                            </button>
+                          </div>
+                          <h6 className="text-success">Free shipping</h6>
+                          <div className="d-flex flex-column mt-4 gap-2 w-100">
+                            <MDBBtn outline color="primary" size="sm">
+                              Details
+                            </MDBBtn>
+                            <Button el={el} />
+                          </div>
+                        </MDBCol>
+                      </MDBRow>
+                    </MDBCardBody>
+                  </MDBCard>
+                ))}
+              </div>
+            ) : (
+              <MDBCard>
+                <div
+                  className={`d-flex flex-column justify-content-center align-items-center ${styles.parent} m-5`}
+                >
+                  <img
+                    src={process.env.PUBLIC_URL + "assets/empty-state-cart.svg"}
+                  />
+                  <h3>Your Wishlist looks empty</h3>
+                  <span className="text-muted">What are you waiting for?</span>
+                  <Link
+                    to="/home"
+                    className={`{styles.color} btn btn-primary my-3`}
+                  >
+                    START CHOPING
+                  </Link>
+                </div>
+              </MDBCard>
+            )}
+          </MDBCol>
+        </MDBRow>
       </MDBContainer>
     </div>
   );

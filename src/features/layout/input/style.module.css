@@ -1,0 +1,23 @@
+.options {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.quantity {
+  width: 100px;
+  height: 40px;
+  border: 1px solid #eaeaea;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 13px;
+  font-weight: 700;
+}
+.quantity i {
+  cursor: pointer;
+  color: #c1c1c1;
+}
+.quantity span {
+  margin-top: -2px;
+}

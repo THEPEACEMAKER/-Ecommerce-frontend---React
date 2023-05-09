@@ -125,7 +125,7 @@ function ThirdStep(props) {
             <MDBInput
               label="Repeat your password"
               id="form4"
-              type="email"
+              type={showRPassword ? "text" : "password"}
               name="repeatPassword"
               required
               {...register("rpassword", {

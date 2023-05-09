@@ -6,12 +6,12 @@ nav {
   width: 120px;
 }
 
-form {
+.search {
   position: relative;
   z-index: 5;
 }
 
-form::after {
+.search::after {
   content: "";
   width: 10%;
   height: 100%;
@@ -23,7 +23,7 @@ form::after {
   z-index: -1;
 }
 
-form::before {
+.search::before {
   content: "";
   width: 10%;
   height: 100%;
@@ -63,14 +63,18 @@ form::before {
   right: 1%;
   color: black;
 }
+.i {
+  color: white;
+}
 
 i:hover {
   font-weight: bold;
   transform: scale(1.2);
-  color: goldenrod;
+  cursor: pointer;
+  transition: all 0.5s;
 }
 
-ul .active {
+.ulNavbar .active {
   font-weight: 600;
   color: gold !important;
 }
@@ -81,8 +85,8 @@ nav a {
 .dropdownMenu li span {
   color: black !important;
 }
-
-form::after,
-form::before {
-  width: 10%;
+@media screen and (max-width: 1000px) {
+  .ulNavbar a {
+    color: black !important;
+  }
 }
