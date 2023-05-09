@@ -1,0 +1,177 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap");
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0 40px 0;
+  background-color: #f7f7fa;
+}
+.container .card {
+  height: auto;
+  width: 90%;
+  background-color: #fff;
+  position: relative;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  font-family: "Lato", sans-serif;
+  max-width: 1200px;
+}
+.container .card .form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.container .card .leftside {
+  width: 50%;
+  background-color: #fff;
+  height: 100%;
+  padding: 20px;
+}
+
+.images {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+.images span {
+  height: 490px;
+  width: 100%;
+}
+.images span img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.images .img_left {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.images .img_left span {
+  height: 140px;
+  width: 80px;
+}
+.img_left i {
+  margin: auto;
+  color: pink;
+}
+
+.container .card .rightside {
+  width: 50%;
+  background-color: #fff;
+  height: 100%;
+  padding: 20px;
+}
+.topdiv {
+  display: flex;
+  justify-content: end;
+  gap: 5px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #c5c5c5;
+}
+
+.rightside h3 {
+  margin-top: 30px;
+}
+.rightside h4 {
+  margin-top: 20px;
+}
+.designer {
+  margin-top: 20px;
+  display: flex;
+  gap: 5px;
+}
+
+.description p {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.options {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.quantity {
+  width: 100px;
+  height: 40px;
+  border: 1px solid #eaeaea;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 13px;
+  font-weight: 700;
+}
+.quantity i {
+  cursor: pointer;
+  color: #c1c1c1;
+}
+.quantity span {
+  margin-top: -2px;
+}
+.options button {
+  width: 50%;
+  font-size: 13px;
+}
+
+.open_wish {
+  display: flex;
+  align-items: center;
+  color: #aeaeae;
+  font-weight: bold;
+  font-size: 14px;
+  margin-top: 20px;
+}
+.wishlist {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.wishlist p {
+  margin: 2px;
+}
+.wishlist .heart_o {
+  cursor: pointer;
+  transition: all 0.5s;
+}
+.fa-heart {
+  cursor: pointer;
+  transition: all 0.5s;
+  color: red;
+}
+
+.features {
+  margin-top: 10px;
+}
+.features li {
+  font-size: 14px;
+  margin-left: 20px;
+}
+
+.social {
+  margin-top: 10px;
+  display: flex;
+  gap: 20px;
+}
+.social i {
+  color: #c2c2c2;
+}
+@media (max-width: 750px) {
+  .container .card {
+    max-width: 80%;
+  }
+  .container .form {
+    flex-direction: column;
+  }
+  .container .card .rightside {
+    width: 100%;
+  }
+  .container .card .leftside {
+    width: 100%;
+  }
+}

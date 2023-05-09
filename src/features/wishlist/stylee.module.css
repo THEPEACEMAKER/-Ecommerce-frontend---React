@@ -17,7 +17,7 @@
   background-attachment: fixed;
   backdrop-filter: blur(10px);
   background: url("../../../public/assets/Curve\ Line.svg");
-  background-repeat: no-repeat;
+  background-repeat: repeat;
 }
 
 .whishListTable {
@@ -48,4 +48,10 @@
 .whichlistTitle h1 {
   font-size: 40px;
   font-weight: 900;
+}
+
+@media (max-width: 767.98px) {
+  .border-sm-start-none {
+    border-left: none !important;
+  }
 }

@@ -98,7 +98,7 @@ function Navbar() {
             />
           </Link>
 
-          <form className="d-flex w-50" role="search">
+          <form className={`${styles.search} d-flex w-50`} role="search">
             <select
               className={`form-select form-select-sm w-25 border-end-0 rounded-0 ${styles.select}`}
               aria-label=".form-select-lg example"
@@ -138,7 +138,7 @@ function Navbar() {
             aria-controls="offcanvasNavbar"
             aria-label="Toggle navigation"
           >
-            <span className="navbar-toggler-icon"></span>
+            <i className="fa-solid fa-bars text-white"></i>
           </button>
         </div>
 
@@ -161,7 +161,7 @@ function Navbar() {
           </div>
 
           <div className="offcanvas-body">
-            <ul className="navbar-nav  ">
+            <ul className={`navbar-nav ${styles.ulNavbar}`}>
               <li className="nav-item">
                 <Link
                   className={`nav-link ${styles.active}`}

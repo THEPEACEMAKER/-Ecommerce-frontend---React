@@ -11,6 +11,7 @@ import Profile from "./features/auth/components/profile/Profile";
 import ProtectedRoutes from "./ProtectedRoutes";
 
 import "./App.css";
+import Product from "./features/Product Details/ProductDetails";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             <Route path="profile" element={<Profile />} />
           </Route>
           <Route path="category/:categoryId" element={<CategoryPage />} />
+          <Route path="product/:id" element={<Product />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

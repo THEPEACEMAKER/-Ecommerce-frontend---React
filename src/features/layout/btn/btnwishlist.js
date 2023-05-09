@@ -13,39 +13,21 @@ import {
   setproductInCart,
 } from "../../utils/apiStatusSlice.js";
 
-export default function Button(props) {
+export default function ButtonWishList(props) {
   const dispatch = useDispatch();
   const error = useSelector((state) => state.apiStatus.error);
   const success = useSelector((state) => state.apiStatus.success);
 
-  const [loading, setLoding] = useState(false);
-  const productInCart = useSelector((state) => state.apiStatus.productInCart);
-
-  const AddToCart = (product) => {
-    setLoding(true);
-
+  const AddToWishList = (product) => {
     api
-      .post(`/cart/`, { product: product.id })
+      .post(`http://localhost:3001/wishlist/`, product)
       .then((res) => {
         dispatch(setSuccess(res.data.message));
-        dispatch(setproductInCart(productInCart + 1));
-        setLoding(false);
       })
       .catch((err) => {
         dispatch(setError(err.message));
-        setLoding(false);
       });
   };
 
-  return (
-    <MDBBtn
-      className={`${styles.btnColor}`}
-      rounded
-      size="sm"
-      disabled={props.el.quantity === 0}
-      onClick={() => AddToCart(props.el)}
-    >
-      {loading ? <span className={`${styles.loader}`}></span> : `Add to Cart`}
-    </MDBBtn>
-  );
+  return <i onClick={AddToWishList} className="fa-regular fa-lg fa-heart"></i>;
 }

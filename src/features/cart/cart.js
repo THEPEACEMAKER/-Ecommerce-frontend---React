@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 
 import styles from "./stylee.module.css";
 
-import InputQuantity from "./inputQuantity";
+import InputQuantity from "../layout/input/inputQuantity";
 
-import { MDBCard } from "mdb-react-ui-kit";
+import { MDBCard, MDBCardImage, MDBRipple } from "mdb-react-ui-kit";
 
 import {
   setError,
@@ -28,8 +28,9 @@ function Cart() {
 
   useEffect(() => {
     api
-      .get("http://localhost:3001/cart")
+      .get("/cart")
       .then((res) => {
+        console.log(res);
         setData(res.data);
         dispatch(setSuccess(res.data.message));
       })
@@ -59,17 +60,18 @@ function Cart() {
       dispatch(clearError());
     };
   }, []);
+
   return (
-    <div className={`${styles.body} container-fluid w-100`}>
+    <div className={`${styles.body} container-fluid w-100 sticky-outer`}>
       <div className="title">
-        <h2 className="d-inline-block text-start">Cart</h2>
+        <h2 className="d-inline-block text-start">Shopping Cart</h2>
         <span> ({data.length} items)</span>
       </div>
       {data.length ? (
         <div
           className={`d-flex ${styles.parent} flex-column-reverse flex-md-row w-100 gap-3 position-relative`}
         >
-          <div className={`${styles.leftSide} d-flex flex-column w-75`}>
+          <div className={`${styles.leftSide} d-flex flex-column`}>
             <div className="containerProduct d-flex flex-column gap-3">
               {data.map((el) => (
                 <div
@@ -79,11 +81,25 @@ function Cart() {
                   <div
                     className={`${styles.productImage} d-flex w-25 align-items-center`}
                   >
-                    <img
-                      src="http://fakeimg.pl/300/"
-                      className={`${styles.img}`}
-                      alt=""
-                    />
+                    <MDBRipple
+                      rippleColor="light"
+                      rippleTag="div"
+                      className="bg-image rounded hover-zoom hover-overlay"
+                    >
+                      <MDBCardImage
+                        src="http://fakeimg.pl/300/"
+                        fluid
+                        className={`${styles.img}`}
+                      />
+                      <a href="#!">
+                        <div
+                          className="mask"
+                          style={{
+                            backgroundColor: "rgba(251, 251, 251, 0.15)",
+                          }}
+                        ></div>
+                      </a>
+                    </MDBRipple>
                   </div>
 
                   <div
@@ -118,7 +134,7 @@ function Cart() {
               ))}
             </div>
           </div>
-          <div className={`${styles.rightSide} w-25`}>
+          <div className={`${styles.rightSide} sticky-element`}>
             <div
               className={`d-flex flex-column gap-2 bg-light p-3 w-100 ${styles.boxShadow}`}
             >

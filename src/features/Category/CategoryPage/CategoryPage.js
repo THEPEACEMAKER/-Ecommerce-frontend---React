@@ -25,7 +25,12 @@ function CategoryPage() {
       <br />
       <MDBRow>
         {status === "loading" ? (
-          <ProductCardSkeleton />
+          <>
+            <ProductCardSkeleton />
+            <ProductCardSkeleton />
+            <ProductCardSkeleton />
+            <ProductCardSkeleton />
+          </>
         ) : status === "succeeded" && products.length ? (
           products.map((product) => (
             <ProductCard key={product.id} product={product} />

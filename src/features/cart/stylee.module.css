@@ -1,27 +1,23 @@
 .body {
-  padding: 20px;
+  padding: 40px 20px;
   background-color: #f7f7fa;
-  position: relative;
   overflow: hidden;
+  position: relative;
 }
 
-.body::before {
-  content: "";
-  position: absolute;
-  width: 99%;
-  height: 99%;
-  opacity: 0.3;
-  background-size: cover;
-  background-attachment: fixed;
-  backdrop-filter: blur(10px);
-  background: url("../../../public/assets/Curve\ Line.svg");
-  bottom: 0;
-}
 .parent {
   position: relative;
   z-index: 11;
 }
-
+.leftSide {
+  width: 70%;
+}
+.rightSide {
+  width: 30%;
+  position: sticky;
+  top: 0;
+  bottom: 0;
+}
 .product {
   font-family: "Courier New", Courier, monospace;
 }
@@ -58,4 +54,17 @@
     width: 100%;
     height: 300px;
   }
+}
+
+.sticky-outer {
+  position: sticky;
+  top: 0;
+  z-index: 1; /* ensure the sticky-outer is above the sticky-element */
+}
+
+.sticky-element {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 2; /* ensure the sticky-element is above the sticky-outer */
 }

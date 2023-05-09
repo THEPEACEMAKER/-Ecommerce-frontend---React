@@ -8,7 +8,7 @@ function ProductCardSkeleton() {
       <MDBCard>
         <div className="d-flex justify-content-between p-3">
           <div className="lead mb-0">
-            <Skeleton height="10px" width="100px" />
+            <Skeleton height="15px" width="150px" />
           </div>
           <div
             className="rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
@@ -17,7 +17,7 @@ function ProductCardSkeleton() {
             <SkeletonCircle size="8" />
           </div>
         </div>
-        <Skeleton height="200px" />
+        <Skeleton height="300px" />
         <MDBCardBody>
           <div className="d-flex justify-content-between">
             <div className="small mb-4">
