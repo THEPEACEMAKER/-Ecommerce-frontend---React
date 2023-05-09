@@ -13,7 +13,7 @@
   width: 70%;
 }
 .rightSide {
-  width: 30%;
+  /* width: 30%; */
   position: sticky;
   top: 0;
   bottom: 0;
@@ -57,14 +57,16 @@
 }
 
 .sticky-outer {
-  position: sticky;
+  /* position: sticky;
   top: 0;
-  z-index: 1; /* ensure the sticky-outer is above the sticky-element */
+  z-index: 1;  */
+  /* ensure the sticky-outer is above the sticky-element */
 }
 
 .sticky-element {
-  position: -webkit-sticky;
+  /* position: -webkit-sticky;
   position: sticky;
   top: 0;
-  z-index: 2; /* ensure the sticky-element is above the sticky-outer */
+  z-index: 2;  */
+  /* ensure the sticky-element is above the sticky-outer */
 }

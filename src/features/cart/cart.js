@@ -9,6 +9,7 @@ import styles from "./stylee.module.css";
 import InputQuantity from "../layout/input/inputQuantity";
 
 import { MDBCard, MDBCardImage, MDBRipple } from "mdb-react-ui-kit";
+import Sticky from "react-stickynode";
 
 import {
   setError,
@@ -134,55 +135,66 @@ function Cart() {
               ))}
             </div>
           </div>
-          <div className={`${styles.rightSide} sticky-element`}>
+          <Sticky enabled={true} top={50} bottomBoundary={1800}>
             <div
-              className={`d-flex flex-column gap-2 bg-light p-3 w-100 ${styles.boxShadow}`}
+              className={`${styles.rightSide} `}
+              style={{
+                minWidth: "28vw",
+                willChange: "transform",
+                transition: "transform 0.3s ease-out",
+              }}
             >
-              <h3>Order Summary</h3>
-              <div className="d-flex">
-                <input
-                  className="form-control "
-                  type="text"
-                  placeholder="Coupon Code"
-                />
-                <button className={`btn btn-primary ${styles.btnColor} `}>
-                  Apply
-                </button>
-              </div>
-              <div className="d-flex gap-2 flex-column border-bottom border-secondary">
-                <div className="d-flex justify-content-between align-items-center">
-                  <span className="text-muted">
-                    Subtotal ({data.length} items)
-                  </span>
-                  <h4>
-                    {" "}
-                    {data.reduce((acc, el) => {
-                      return el.price + acc;
-                    }, 0)}
-                    $
-                  </h4>
+              <div
+                className={`d-flex flex-column gap-2 bg-light p-3 w-100 ${styles.boxShadow}`}
+              >
+                <h3>Order Summary</h3>
+                <div className="d-flex">
+                  <input
+                    className="form-control "
+                    type="text"
+                    placeholder="Coupon Code"
+                  />
+                  <button className={`btn btn-primary ${styles.btnColor} `}>
+                    Apply
+                  </button>
                 </div>
-                <div className="d-flex justify-content-between align-items-center">
-                  <span className="text-muted">shipping</span>
-                  <h4 className={`${styles.color}`}>Free</h4>
+                <div className="d-flex gap-2 flex-column border-bottom border-secondary">
+                  <div className="d-flex justify-content-between align-items-center">
+                    <span className="text-muted">
+                      Subtotal ({data.length} items)
+                    </span>
+                    <h4>
+                      {" "}
+                      {data.reduce((acc, el) => {
+                        return el.price + acc;
+                      }, 0)}
+                      $
+                    </h4>
+                  </div>
+                  <div className="d-flex justify-content-between align-items-center">
+                    <span className="text-muted">shipping</span>
+                    <h4 className={`${styles.color}`}>Free</h4>
+                  </div>
                 </div>
-              </div>
-              <div className="d-flex gap-2 flex-column">
-                <div className="d-flex justify-content-between align-items-center">
-                  <span>Subtotal ({data.length} items) </span>
-                  <h4>
-                    {data.reduce((acc, el) => {
-                      return el.price + acc;
-                    }, 0)}
-                    $
-                  </h4>
+                <div className="d-flex gap-2 flex-column">
+                  <div className="d-flex justify-content-between align-items-center">
+                    <span>Subtotal ({data.length} items) </span>
+                    <h4>
+                      {data.reduce((acc, el) => {
+                        return el.price + acc;
+                      }, 0)}
+                      $
+                    </h4>
+                  </div>
+                  <button
+                    className={`btn btn-primary ${styles.btnColor} w-100`}
+                  >
+                    CHECKOUT
+                  </button>
                 </div>
-                <button className={`btn btn-primary ${styles.btnColor} w-100`}>
-                  CHECKOUT
-                </button>
               </div>
             </div>
-          </div>
+          </Sticky>
         </div>
       ) : (
         <MDBCard
