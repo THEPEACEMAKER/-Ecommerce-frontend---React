@@ -59,3 +59,152 @@
 .btnColor:hover {
   background-color: #212121;
 }
+
+/* wishlist btn  */
+
+.heartStroke {
+  fill: none;
+  stroke: #ddd;
+  stroke-width: 2px;
+  opacity: 1;
+  transform-origin: center center;
+}
+.button.active .heartStroke {
+  opacity: 0;
+  color: red;
+  background-color: red;
+}
+.heartFull {
+  opacity: 0;
+  transform-origin: 50% 50%;
+}
+.button.active .heartFull {
+  opacity: 1;
+}
+.heartLines {
+  stroke-width: 2px;
+  display: none;
+}
+
+.button:not(.active):hover .heartStroke {
+  -webkit-animation: pulse 1s ease-out infinite;
+  animation: pulse 1s ease-out infinite;
+}
+
+.button.animate .heartFull {
+  -webkit-animation: heart 0.35s;
+  animation: heart 0.35s;
+}
+.button.animate .heartLines {
+  -webkit-animation: lines 0.2s ease-out forwards;
+  animation: lines 0.2s ease-out forwards;
+  display: block;
+}
+
+@-webkit-keyframes lines {
+  0% {
+    stroke-dasharray: 6;
+    stroke-dashoffset: 16;
+  }
+  100% {
+    stroke-dasharray: 13;
+    stroke-dashoffset: 18;
+  }
+}
+
+@keyframes lines {
+  0% {
+    stroke-dasharray: 6;
+    stroke-dashoffset: 16;
+  }
+  100% {
+    stroke-dasharray: 13;
+    stroke-dashoffset: 18;
+  }
+}
+@-webkit-keyframes heart {
+  0% {
+    transform: scale(1);
+    transform-origin: center center;
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  10% {
+    transform: scale(1.2);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  35% {
+    transform: scale(1);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  75% {
+    transform: scale(1.1);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  100% {
+    transform: scale(1);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+}
+@keyframes heart {
+  0% {
+    transform: scale(1);
+    transform-origin: center center;
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  10% {
+    transform: scale(1.2);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  35% {
+    transform: scale(1);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  75% {
+    transform: scale(1.1);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  100% {
+    transform: scale(1);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+}
+@-webkit-keyframes pulse {
+  0% {
+    opacity: 1;
+    transform-origin: center center;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.15);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes pulse {
+  0% {
+    opacity: 1;
+    transform-origin: center center;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.15);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

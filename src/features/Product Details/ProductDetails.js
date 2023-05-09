@@ -12,20 +12,29 @@ import {
   setSuccess,
   clearSuccess,
 } from "../utils/apiStatusSlice.js";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import ButtonWishList from "../layout/btn/btnwishlist";
+import RelatedProduct from "./relatedProduct";
 
 export default function Product() {
   const dispatch = useDispatch();
   const error = useSelector((state) => state.apiStatus.error);
   const success = useSelector((state) => state.apiStatus.success);
   const params = useParams();
-
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({
+    name: "",
+    price: 0,
+    quantity: 0,
+    description: "",
+    image: "",
+    category: { name: "" },
+  });
 
   useEffect(() => {
     api
-      .get(`http://localhost:3001/wishlist/${params.id}`)
+      .get(`/products/${params.id}/`)
       .then((res) => {
+        console.log(res);
         setData(res.data);
         dispatch(setSuccess(res.data.message));
       })
@@ -33,9 +42,8 @@ export default function Product() {
         dispatch(setError(err.message));
         console.log(err);
       });
-  }, []);
+  }, [params]);
 
-  const el = {};
   return (
     <div className={`${styles.container}`}>
       <div className={`${styles.card}`}>
@@ -56,7 +64,9 @@ export default function Product() {
                 <i className={`fa fa-angle-down`}></i>
               </div>
               <span>
-                <img src="https://i.imgur.com/Rq0nf6K.jpg.jpg" />
+                <img
+                  src={`https://res.cloudinary.com/ddk98mjzn/${data.image}`}
+                />
               </span>
             </div>
           </div>
@@ -65,7 +75,9 @@ export default function Product() {
               <span>
                 <i className={`fa fa-shopping-bag`}></i>
               </span>
-              {data.category}
+              <Link to={`/category/${data.category.id}`} className="text-muted">
+                {data.category.name}
+              </Link>{" "}
             </div>
 
             <h3>{data.name}</h3>
@@ -84,13 +96,14 @@ export default function Product() {
             </div>
 
             <div className={`${styles.options}`}>
-              <InputQuantity quantity={2} />
+              <InputQuantity quantity={1} />
 
-              <Button el={el} />
+              <Button el={data} />
             </div>
             <div className={`${styles.open_wish}`}>
               <div className={`${styles.wishlist}`}>
-                <i className="fa-regular fa-lg fa-heart"></i>
+                {/* <i className="fa-regular fa-lg fa-heart"></i> */}
+                <ButtonWishList />
                 <p>Add to Wishlist</p>
               </div>
             </div>
@@ -106,6 +119,12 @@ export default function Product() {
             </div>
           </div>
         </div>
+        <div
+          className="bg-black m-auto"
+          style={{ height: "1px", opacity: ".2", width: "95%" }}
+        ></div>
+        <h2 className="mx-4 my-2 bol">Related Product :</h2>
+        <RelatedProduct category={data.category.id} />
       </div>
     </div>
   );

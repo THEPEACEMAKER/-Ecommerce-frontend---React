@@ -41,7 +41,11 @@ function PasswordInfo({ formValue, onChange, register, errors }) {
               })}
               onChange={onPasswordChange}
             />
-            <button onClick={handleClickPassword} className={`${styles.icon}`}>
+            <button
+              type="button"
+              onClick={handleClickPassword}
+              className={`${styles.icon}`}
+            >
               <i
                 className={
                   showPassword
@@ -65,7 +69,7 @@ function PasswordInfo({ formValue, onChange, register, errors }) {
               <MDBInput
                 label="Repeat your password"
                 id="repeatPassword"
-                type="email"
+                type={showRPassword ? "text" : "password"}
                 name="repeatPassword"
                 required
                 {...register("rpassword", {
@@ -82,6 +86,7 @@ function PasswordInfo({ formValue, onChange, register, errors }) {
                 onChange={onChange}
               />
               <button
+                type="button"
                 onClick={handleClickRPassword}
                 className={`${styles.icon}`}
               >

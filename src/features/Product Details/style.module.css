@@ -37,10 +37,12 @@
 .images span {
   height: 490px;
   width: 100%;
+  display: flex;
+  align-items: center;
 }
 .images span img {
-  height: 100%;
   width: 100%;
+  padding: 5px;
   object-fit: cover;
 }
 .images .img_left {
@@ -51,6 +53,9 @@
 .images .img_left span {
   height: 140px;
   width: 80px;
+}
+.images .img_left span img {
+  height: 100%;
 }
 .img_left i {
   margin: auto;
@@ -174,4 +179,21 @@
   .container .card .leftside {
     width: 100%;
   }
+  .images {
+    flex-direction: column-reverse;
+  }
+  .img_left {
+    flex-direction: row !important;
+  }
+}
+
+/* product details */
+.productDetails {
+  width: 90%;
+  margin: 20px auto 40px;
+}
+
+button::after,
+button::before {
+  color: blue !important;
 }

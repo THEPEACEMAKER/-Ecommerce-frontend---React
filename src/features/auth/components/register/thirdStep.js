@@ -102,7 +102,11 @@ function ThirdStep(props) {
               })}
               onChange={onChange}
             />
-            <button onClick={handleClickPassword} className={`${styles.icon}`}>
+            <button
+              type="button"
+              onClick={handleClickPassword}
+              className={`${styles.icon}`}
+            >
               <i
                 className={
                   showPassword
@@ -141,7 +145,11 @@ function ThirdStep(props) {
               })}
               onChange={onChange}
             />
-            <button onClick={handleClickRPassword} className={`${styles.icon}`}>
+            <button
+              type="button"
+              onClick={handleClickRPassword}
+              className={`${styles.icon}`}
+            >
               <i
                 className={
                   showRPassword

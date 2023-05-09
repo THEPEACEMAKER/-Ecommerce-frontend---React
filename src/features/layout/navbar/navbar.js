@@ -71,7 +71,7 @@ function Navbar() {
                   <span> Profile</span>
                 </Link>
 
-                <Link to="/wishlist" className="mx-2">
+                {/* <Link to="/wishlist" className="mx-2">
                   <i className="fa-regular fa-lg fa-heart text-white"></i>
                   <span> Wish List</span>
                 </Link>
@@ -79,7 +79,8 @@ function Navbar() {
                 <Link to="/cart" className="mx-2">
                   <i className="fa-solid fa-lg fa-cart-shopping text-white"></i>
                   <span> Cart</span>
-                </Link>
+                </Link> */}
+
                 <Link className="mx-2" onClick={() => dispatch(logout())}>
                   <i className="fa-solid fa-arrow-right-from-bracket"></i>{" "}
                   <span> Logout</span>
