@@ -6,7 +6,11 @@ export const fetchCategoryProducts = createAsyncThunk(
   async (categoryId) => {
     // const response = await api.get(`/category/${categoryId}/products`);
     const response = await api.get(`http://localhost:3001/category`);
-    return response.data;
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(response.data);
+      }, 500);
+    });
   }
 );
 

@@ -1,9 +1,9 @@
-import { React, useState, useEffect } from "react";
-import api from "../../../api/api";
+import { React, useEffect } from "react";
 import { MDBContainer, MDBRow } from "mdb-react-ui-kit";
 import { Link, useParams } from "react-router-dom";
 import styles from "./stylee.module.css";
 import ProductCard from "../../layout/ProductCard/ProductCard";
+import ProductCardSkeleton from "../../layout/ProductCard/ProductCardSkeleton";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCategoryProducts } from "../categorySlice";
 
@@ -18,39 +18,37 @@ function CategoryPage() {
     dispatch(fetchCategoryProducts(categoryId));
   }, [categoryId, dispatch]);
 
-  if (status === "loading") {
-    return <div>Loading...</div>;
-  }
-
-  if (status === "failed") {
-    return <div>{error}</div>;
-  }
-
   return (
     <MDBContainer fluid className="my-5">
       <h1 className="">Electronics</h1>
       {/* TODO: set the category name dynamically */}
       <br />
       <MDBRow>
-        {status === "loading" && <div>Loading...</div>}
-        {status === "succeeded" && products.length ? (
+        {status === "loading" ? (
+          <ProductCardSkeleton />
+        ) : status === "succeeded" && products.length ? (
           products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))
         ) : (
-          <div
-            className={`d-flex flex-column justify-content-center align-items-center ${styles.parent} m-5`}
-          >
-            {/* <img src={process.env.PUBLIC_URL + "assets/empty-state-cart.svg"} /> TODO: fix the img */}
-            <h3>There are no products in this category yet</h3>
-            <span className="text-muted">
-              Check all the other Awesome products we have!
-            </span>
-            <Link to="/home" className={`{styles.color} btn btn-primary my-3`}>
-              {" "}
-              Home
-            </Link>
-          </div>
+          status === "succeeded" && (
+            <div
+              className={`d-flex flex-column justify-content-center align-items-center ${styles.parent} m-5`}
+            >
+              {/* <img src={process.env.PUBLIC_URL + "assets/empty-state-cart.svg"} /> TODO: fix the img */}
+              <h3>There are no products in this category yet</h3>
+              <span className="text-muted">
+                Check all the other Awesome products we have!
+              </span>
+              <Link
+                to="/home"
+                className={`{styles.color} btn btn-primary my-3`}
+              >
+                {" "}
+                Home
+              </Link>
+            </div>
+          )
         )}
         {status === "failed" && (
           <div
