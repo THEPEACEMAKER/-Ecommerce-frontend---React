@@ -6,6 +6,7 @@ import Fotter from "./features/layout/fotter/fotter";
 import Cart from "./features/cart/cart";
 import WishList from "./features/wishlist/wishlist";
 import CategoryPage from "./features/Category/CategoryPage/CategoryPage";
+import OrderDetails from "./features/order/OrderDetails";
 import NotFound from "./features/404/404";
 import Profile from "./features/auth/components/profile/Profile";
 import ProtectedRoutes from "./ProtectedRoutes";
@@ -36,6 +37,7 @@ function App() {
           </Route>
           <Route path="category/:categoryId" element={<CategoryPage />} />
           <Route path="product/:id" element={<Product />} />
+          <Route path="order/:orderId" element={<OrderDetails />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

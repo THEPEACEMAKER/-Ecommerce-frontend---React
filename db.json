@@ -47,15 +47,7 @@
   ],
   "cart": [
     {
-      "id": 10,
-      "name": "John Doe",
-      "img": "https://fakeimg.pl/300/",
-      "price": 100,
-      "quantity": 3,
-      "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo porro accusamus, a aliquid earum atque provident, ad commodi at nostrum cum iusto doloribus ullam dolorum temporibus! Magni adipisci quibusdam minima!"
-    },
-    {
-      "id": 20,
+      "id": 1,
       "name": "John Doe",
       "img": "https://fakeimg.pl/300/",
       "price": 100,
@@ -63,7 +55,39 @@
       "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo porro accusamus, a aliquid earum atque provident, ad commodi at nostrum cum iusto doloribus ullam dolorum temporibus! Magni adipisci quibusdam minima!"
     },
     {
-      "id": 1,
+      "id": 2,
+      "name": "John Doe",
+      "img": "https://fakeimg.pl/300/",
+      "price": 100,
+      "quantity": 50,
+      "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo porro accusamus, a aliquid earum atque provident, ad commodi at nostrum cum iusto doloribus ullam dolorum temporibus! Magni adipisci quibusdam minima!"
+    },
+    {
+      "id": 3,
+      "name": "John Doe",
+      "img": "https://fakeimg.pl/300/",
+      "price": 100,
+      "quantity": 50,
+      "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo porro accusamus, a aliquid earum atque provident, ad commodi at nostrum cum iusto doloribus ullam dolorum temporibus! Magni adipisci quibusdam minima!"
+    },
+    {
+      "id": 4,
+      "name": "John Doe",
+      "img": "https://fakeimg.pl/300/",
+      "price": 100,
+      "quantity": 50,
+      "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo porro accusamus, a aliquid earum atque provident, ad commodi at nostrum cum iusto doloribus ullam dolorum temporibus! Magni adipisci quibusdam minima!"
+    },
+    {
+      "id": 5,
+      "name": "John Doe",
+      "img": "https://fakeimg.pl/300/",
+      "price": 100,
+      "quantity": 50,
+      "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo porro accusamus, a aliquid earum atque provident, ad commodi at nostrum cum iusto doloribus ullam dolorum temporibus! Magni adipisci quibusdam minima!"
+    },
+    {
+      "id": 6,
       "name": "John Doe",
       "img": "https://fakeimg.pl/300/",
       "price": 100,
@@ -102,8 +126,7 @@
   ],
   "profile": {
     "image": "",
-    "imagePath":
-      "https://www.themoviedb.org/t/p/w500/wcI594cwM4ArPwvRd2IU0Z0yLuh.jpg",
+    "imagePath": "https://www.themoviedb.org/t/p/w500/wcI594cwM4ArPwvRd2IU0Z0yLuh.jpg",
     "fname": "Adel",
     "lname": "Abdellatif",
     "uName": "Adel",
@@ -118,8 +141,8 @@
     {
       "id": 1,
       "category": {
-          "id": 1,
-          "name": "Fashion"
+        "id": 1,
+        "name": "Fashion"
       },
       "name": "shirt",
       "description": "a very grreat shirt",
@@ -162,6 +185,6 @@
       "image": "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/4.webp",
       "price": "49.99",
       "quantity": 20
-    }    
+    }
   ]
 }

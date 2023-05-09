@@ -28,7 +28,7 @@ function Cart() {
 
   useEffect(() => {
     api
-      .get("/cart")
+      .get("http://localhost:3001/cart")
       .then((res) => {
         console.log(res);
         setData(res.data);
