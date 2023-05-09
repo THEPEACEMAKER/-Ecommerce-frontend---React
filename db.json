@@ -113,5 +113,55 @@
     "password": "2124124",
     "repeatPassword": "2124124",
     "index": ""
-  }
+  },
+  "category": [
+    {
+      "id": 1,
+      "category": {
+          "id": 1,
+          "name": "Fashion"
+      },
+      "name": "shirt",
+      "description": "a very grreat shirt",
+      "image": "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/4.webp",
+      "price": "121.00",
+      "quantity": 12
+    },
+    {
+      "id": 2,
+      "category": {
+        "id": 2,
+        "name": "Electronics"
+      },
+      "name": "Wireless Headphones",
+      "description": "High-quality wireless headphones with noise-cancellation",
+      "image": "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/7.webp",
+      "price": "249.99",
+      "quantity": 8
+    },
+    {
+      "id": 3,
+      "category": {
+        "id": 3,
+        "name": "Home & Garden"
+      },
+      "name": "Garden Hose",
+      "description": "50 foot garden hose made from durable materials",
+      "image": "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/5.webp",
+      "price": "49.99",
+      "quantity": 20
+    },
+    {
+      "id": 4,
+      "category": {
+        "id": 3,
+        "name": "Home & Garden"
+      },
+      "name": "Garden Hose",
+      "description": "50 foot garden hose made from durable materials",
+      "image": "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/4.webp",
+      "price": "49.99",
+      "quantity": 20
+    }    
+  ]
 }
