@@ -16,7 +16,7 @@
   background-size: cover;
   background-attachment: fixed;
   backdrop-filter: blur(10px);
-  background: url("../../../public/assets/Curve\ Line.svg");
+  /* background: url("../../../public/assets/Curve\ Line.svg"); */
   background-repeat: no-repeat;
 }
 
