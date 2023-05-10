@@ -5,7 +5,7 @@ import styles from "./stylee.module.css";
 import ProductCard from "../../layout/ProductCard/ProductCard";
 import ProductCardSkeleton from "../../layout/ProductCard/ProductCardSkeleton";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchCategoryProducts } from "../categorySlice";
+import { fetchCategoryProducts } from "./categorySlice";
 
 function CategoryPage() {
   const { categoryId } = useParams();

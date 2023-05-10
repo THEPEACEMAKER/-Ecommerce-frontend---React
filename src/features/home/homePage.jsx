@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 
 import styles from "./style.module.css";
 import { MDBCarousel, MDBCarouselItem } from "mdb-react-ui-kit";
+import PopularCategories from "../Category/PopularCategories/PopularCategories";
 
 function Home() {
   return (
+    <>
     <div className={`style.body`}>
       <MDBCarousel showControls showIndicators>
         <MDBCarouselItem
@@ -28,6 +30,8 @@ function Home() {
         />
       </MDBCarousel>
     </div>
+    <PopularCategories></PopularCategories>
+    </>
   );
 }
 

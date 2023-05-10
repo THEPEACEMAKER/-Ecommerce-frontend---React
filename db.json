@@ -186,5 +186,27 @@
       "price": "49.99",
       "quantity": 20
     }
+  ],
+  "categories": [
+    {    
+      "id": 1,
+      "name": "Fashion",
+      "image": "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/img%20(4).webp"
+    },
+    {    
+      "id": 2,
+      "name": "Jeans",
+      "image": "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/shoes%20(3).webp"
+    },
+    {    
+      "id": 3,
+      "name": "Hats",
+      "image": "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/img%20(30).webp"
+    },
+    {    
+      "id": 4,
+      "name": "Shoes",
+      "image": "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/new/img(4).webp"
+    }
   ]
 }
