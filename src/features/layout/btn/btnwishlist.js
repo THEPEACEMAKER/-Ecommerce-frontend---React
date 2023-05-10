@@ -13,22 +13,27 @@ import {
   setproductInCart,
 } from "../../utils/apiStatusSlice.js";
 
-export default function ButtonWishList(props) {
+export default function ButtonWishList({ product }) {
   const dispatch = useDispatch();
   const error = useSelector((state) => state.apiStatus.error);
   const success = useSelector((state) => state.apiStatus.success);
   const [ClassBtn, setClassBtn] = useState(false);
 
-  const AddToWishList = (product) => {
+  const AddToWishList = () => {
     setClassBtn(!ClassBtn);
 
+    const data = new FormData();
+    data.append("product", product.id);
+
     api
-      .post(`http://localhost:3001/wishlist/`, product)
+      .post(`/wishlist`, { product: product.id })
       .then((res) => {
         dispatch(setSuccess(res.data.message));
+        console.log(res);
       })
       .catch((err) => {
         dispatch(setError(err.message));
+        console.log(err);
       });
   };
 

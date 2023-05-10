@@ -1,0 +1,9 @@
+.body {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #f7f7fa;
+  position: relative;
+  width: 90%;
+}

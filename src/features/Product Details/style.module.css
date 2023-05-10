@@ -39,6 +39,7 @@
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 .images span img {
   width: 100%;
@@ -184,6 +185,10 @@
   }
   .img_left {
     flex-direction: row !important;
+    gap: 2px !important;
+  }
+  .img_left i {
+    transform: rotate(-90deg);
   }
 }
 

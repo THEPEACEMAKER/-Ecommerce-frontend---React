@@ -23,7 +23,6 @@ export default function Button(props) {
 
   const AddToCart = (product) => {
     setLoding(true);
-
     api
       .post(`/cart/`, { product: product.id })
       .then((res) => {

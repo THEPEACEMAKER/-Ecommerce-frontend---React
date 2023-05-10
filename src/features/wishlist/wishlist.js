@@ -35,9 +35,9 @@ export default function App() {
 
   useEffect(() => {
     api
-      .get("/wishlist")
+      .get("/user/wishlist")
       .then((res) => {
-        setData(res.data[0].product_details);
+        setData(res.data[0].product_details.results);
         dispatch(setSuccess(res.data.message));
         console.log(res);
       })
@@ -50,7 +50,7 @@ export default function App() {
   const deletItem = (id) => {
     console.log(id);
     api
-      .delete(`/wishlist/delete/${id}/`)
+      .delete(`/wishlist/product/${id}/`)
       .then((res) => {
         setData((data) => data.filter((item) => item.id != id));
         dispatch(setSuccess(res.data.message));
@@ -71,7 +71,7 @@ export default function App() {
   return (
     <div className={styles.body}>
       <div
-        className={`${styles.whichlistTitle} d-flex flex-column align-items-center`}
+        className={`${styles.whichlistTitle} d-flex mb-5 flex-column align-items-center`}
       >
         <i className="fa-regular fa-xl fa-heart my-4"></i>
         <h1>My wishlist</h1>
@@ -89,7 +89,7 @@ export default function App() {
                 {data.map((el, i) => (
                   <MDBCard
                     key={el.id}
-                    className="shadow-0 border rounded-3 mt-5 mb-3"
+                    className="shadow-0 border rounded-3 mb-3"
                   >
                     <MDBCardBody>
                       <MDBRow>
@@ -104,19 +104,19 @@ export default function App() {
                             className="bg-image rounded hover-zoom hover-overlay"
                           >
                             <MDBCardImage
-                              src={el.image}
+                              src={`https://res.cloudinary.com/ddk98mjzn/${el.image}`}
                               fluid
                               className=""
                               style={{ width: "300px", height: "160px" }}
                             />
-                            <a href="#!">
+                            <Link to={`/product/${el.id}`}>
                               <div
                                 className="mask"
                                 style={{
                                   backgroundColor: "rgba(251, 251, 251, 0.15)",
                                 }}
                               ></div>
-                            </a>
+                            </Link>
                           </MDBRipple>
                         </MDBCol>
                         <MDBCol
@@ -167,9 +167,16 @@ export default function App() {
                           </div>
                           <h6 className="text-success">Free shipping</h6>
                           <div className="d-flex flex-column mt-4 gap-2 w-100">
-                            <MDBBtn outline color="primary" size="sm">
-                              Details
-                            </MDBBtn>
+                            <Link to={`/product/${el.id}`} className="w-100">
+                              <MDBBtn
+                                outline
+                                color="primary"
+                                size="sm"
+                                className="w-100"
+                              >
+                                Details
+                              </MDBBtn>{" "}
+                            </Link>
                             <Button el={el} />
                           </div>
                         </MDBCol>

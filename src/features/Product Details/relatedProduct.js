@@ -26,13 +26,12 @@ export default function RelatedProduct(props) {
     api
       .get(`category/${props.category}/products`)
       .then((res) => {
-        console.log(res.data);
-        setData(res.data);
+        setData(res.data.results);
+        console.log(res.data.results);
         dispatch(setSuccess(res.data.message));
       })
       .catch((err) => {
         dispatch(setError(err.message));
-        console.log(err);
       });
   }, [props.category]);
 
@@ -74,7 +73,7 @@ export default function RelatedProduct(props) {
   return (
     <div className={styles.productDetails}>
       <Slider {...settings} className="w-100">
-        {data && data.map((el) => <ProductCard product={el} />)}
+        {data && data.map((el, i) => <ProductCard product={el} key={i} />)}
       </Slider>
     </div>
   );

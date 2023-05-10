@@ -21,9 +21,13 @@ function Navbar() {
 
   useEffect(() => {
     api
-      .get("http://localhost:3001/cart")
+      .get("/cart/")
       .then((res) => {
-        dispatch(setproductInCart(res.data.length));
+        dispatch(
+          setproductInCart(
+            res.data.cart.products.reduce((acc, el) => acc + el.quantity, 0)
+          )
+        );
       })
       .catch((err) => {
         console.log(err);

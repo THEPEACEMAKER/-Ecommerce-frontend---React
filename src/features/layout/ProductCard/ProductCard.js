@@ -1,11 +1,11 @@
 import React from "react";
 import {
   MDBCard,
-  MDBCardBody,
   MDBCardImage,
   MDBCardSubTitle,
   MDBCol,
 } from "mdb-react-ui-kit";
+
 import ButtonWishList from "../btn/btnwishlist";
 import Button from "../btn/btn";
 import { Link } from "react-router-dom";
@@ -25,15 +25,17 @@ function ProductCard({ product }) {
               className="rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
               style={{ width: "35px", height: "35px" }}
             >
-              <ButtonWishList />
+              <ButtonWishList product={product} />
             </div>
           </div>
+
           <MDBCardImage
             src={`https://res.cloudinary.com/ddk98mjzn/${product.image}`}
             position="top"
             alt={product.name}
             style={{ width: "80%", height: "100px", margin: "auto" }}
           />
+
           <MDBCardSubTitle className="m-3">
             <div className="d-flex justify-content-between">
               <p className="small">

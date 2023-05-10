@@ -1,6 +1,6 @@
 import api from "../../api/api";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -27,12 +27,26 @@ function Cart() {
   const [data, setData] = useState([]);
   const productInCart = useSelector((state) => state.apiStatus.productInCart);
 
+  const componentRef = useRef(null);
+  const [height, setHeight] = useState();
+  const [totalSum, setTotalSum] = useState();
+
+  useEffect(() => {
+    if (componentRef.current) {
+      setHeight(componentRef.current.clientHeight);
+    }
+    setTotalSum(
+      data.reduce((acc, el) => {
+        return el.price * el.quantity + acc;
+      }, 0)
+    );
+  }, [data]);
+
   useEffect(() => {
     api
-      .get("http://localhost:3001/cart")
+      .get("/cart/")
       .then((res) => {
-        console.log(res);
-        setData(res.data);
+        setData(res.data.cart.products);
         dispatch(setSuccess(res.data.message));
       })
       .catch((err) => {
@@ -43,7 +57,7 @@ function Cart() {
 
   const deletItem = (id) => {
     api
-      .delete(`http://localhost:3001/cart/${id}`)
+      .delete(`/cart/${id}`)
       .then((res) => {
         setData((data) => data.filter((item) => item.id != id));
         dispatch(setSuccess(res.data.message));
@@ -63,24 +77,28 @@ function Cart() {
   }, []);
 
   return (
-    <div className={`${styles.body} container-fluid w-100 sticky-outer`}>
+    <div
+      className={`${styles.body} container-fluid w-100 sticky-outer`}
+      ref={componentRef}
+    >
       <div className="title">
-        <h2 className="d-inline-block text-start">Shopping Cart</h2>
-        <span> ({data.length} items)</span>
+        <h2 className="d-inline-block text-start mb-4">Shopping Cart</h2>
+        <span> ({productInCart} items)</span>
       </div>
+
       {data.length ? (
         <div
-          className={`d-flex ${styles.parent} flex-column-reverse flex-md-row w-100 gap-3 position-relative`}
+          className={`d-flex ${styles.parent} flex-column flex-md-row w-100 gap-3 position-relative`}
         >
           <div className={`${styles.leftSide} d-flex flex-column`}>
             <div className="containerProduct d-flex flex-column gap-3">
               {data.map((el) => (
                 <div
-                  className={`${styles.product} d-flex gap-1 bg-light p-3 align-items-stretch justify-content-evenly ${styles.boxShadow}`}
+                  className={`${styles.product} d-flex gap-4 bg-light p-4 align-items-stretch justify-content-evenly ${styles.boxShadow}`}
                   key={el.id}
                 >
                   <div
-                    className={`${styles.productImage} d-flex w-25 align-items-center`}
+                    className={`${styles.productImage} d-flex w-25 align-items-center justify-content-center`}
                   >
                     <MDBRipple
                       rippleColor="light"
@@ -88,54 +106,58 @@ function Cart() {
                       className="bg-image rounded hover-zoom hover-overlay"
                     >
                       <MDBCardImage
-                        src="http://fakeimg.pl/300/"
+                        src={el.image}
                         fluid
                         className={`${styles.img}`}
                       />
-                      <a href="#!">
+                      <Link to={`/product/${el.id}`}>
                         <div
                           className="mask"
                           style={{
                             backgroundColor: "rgba(251, 251, 251, 0.15)",
                           }}
                         ></div>
-                      </a>
+                      </Link>
                     </MDBRipple>
                   </div>
 
                   <div
-                    className="d-flex w-75 gap-4
+                    className="d-flex gap-4 flex-column flex-md-row 
               "
                   >
                     <div className="productDetails d-flex flex-column justify-content-center ">
-                      <span className="text-muted">{el.name}</span>
+                      <Link to={`/product/${el.id}`}>
+                        <span className="text-muted">{el.name}</span>
+                      </Link>
                       <p>{el.description}</p>
                       <span className="text-muted" style={{ fontSize: "14px" }}>
                         Order Within 24 hr
                       </span>
                       <p>Free delivery by Sat, May 6</p>
                       <span className="text-muted">Sold by Whirlpool</span>
-                      <button
-                        className="text-start"
-                        onClick={() => deletItem(el.id)}
-                      >
-                        <i className="fa-solid fa-trash"></i>{" "}
-                        <span> Remove</span>
-                      </button>
+                      <div>
+                        <button
+                          className="text-start d-inline"
+                          onClick={() => deletItem(el.id)}
+                        >
+                          <i className="fa-solid fa-trash"></i>{" "}
+                          <span> Remove</span>
+                        </button>
+                      </div>
                     </div>
 
                     <div
-                      className={`py-3 d-flex flex-column justify-content-between align-items-center`}
+                      className={`py-3 d-flex  flex-md-column flex-row justify-content-between align-items-center`}
                     >
-                      <h3>{el.price}$</h3>
-                      <InputQuantity quantity={el.quantity} />
+                      <h3>$ {el.price}</h3>
+                      <InputQuantity quantity={el.quantity} id={el.id} />
                     </div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
-          <Sticky enabled={true} top={50} bottomBoundary={1800}>
+          <Sticky enabled={true} top={50} bottomBoundary={height + 130}>
             <div
               className={`${styles.rightSide} `}
               style={{
@@ -161,15 +183,9 @@ function Cart() {
                 <div className="d-flex gap-2 flex-column border-bottom border-secondary">
                   <div className="d-flex justify-content-between align-items-center">
                     <span className="text-muted">
-                      Subtotal ({data.length} items)
+                      Subtotal ({productInCart} items)
                     </span>
-                    <h4>
-                      {" "}
-                      {data.reduce((acc, el) => {
-                        return el.price + acc;
-                      }, 0)}
-                      $
-                    </h4>
+                    <h4>$ {totalSum}</h4>
                   </div>
                   <div className="d-flex justify-content-between align-items-center">
                     <span className="text-muted">shipping</span>
@@ -178,13 +194,8 @@ function Cart() {
                 </div>
                 <div className="d-flex gap-2 flex-column">
                   <div className="d-flex justify-content-between align-items-center">
-                    <span>Subtotal ({data.length} items) </span>
-                    <h4>
-                      {data.reduce((acc, el) => {
-                        return el.price + acc;
-                      }, 0)}
-                      $
-                    </h4>
+                    <span>Subtotal ({productInCart} items) </span>
+                    <h4>$ {totalSum}</h4>
                   </div>
                   <button
                     className={`btn btn-primary ${styles.btnColor} w-100`}
@@ -208,7 +219,6 @@ function Cart() {
             <h3>Your shopping cart looks empty</h3>
             <span className="text-muted">What are you waiting for?</span>
             <Link to="/home" className={`{styles.color} btn btn-primary my-3`}>
-              {" "}
               START CHOPING
             </Link>
           </div>
