@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
+import PopularCategories from "../Category/PopularCategories/PopularCategories";
 
 import styles from "./style.module.css";
 
@@ -11,7 +12,7 @@ function Home() {
         <Carousel.Item interval={1000}>
           <img
             className="d-block w-100"
-            src="https://mdbootstrap.com/img/new/slides/043.jpg"
+            src="https://mdbootstrap.com/img/new/slides/04.jpg"
             alt="First slide"
           />
           <Carousel.Caption>
@@ -44,6 +45,7 @@ function Home() {
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
+      <PopularCategories />
     </div>
   );
 }
