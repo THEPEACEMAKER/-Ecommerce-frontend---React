@@ -3,56 +3,85 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import {
-  MDBSpinner,
-  MDBInput,
-  MDBIcon,
-  MDBBtn,
-  MDBValidation,
-  MDBValidationItem,
-} from "mdb-react-ui-kit";
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  Input,
+} from "@chakra-ui/react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+import { MDBSpinner, MDBIcon, MDBBtn } from "mdb-react-ui-kit";
 
 import styles from "./stylee.module.css";
+
+const schema = yup.object().shape({
+  uName: yup
+    .string()
+    .required("User Name is required.")
+    .matches(/^[a-zA-Z][a-zA-Z0-9]*$/, "User Name must start with a letter."),
+  email: yup
+    .string()
+    .required("Email is required.")
+    .matches(
+      /^\w+([-+.']\w+)*@\w+([-.]\w+)*(\.\w+([-.]\w+)*)?$/,
+      "Please enter a valid email address."
+    ),
+  fname: yup
+    .string()
+    .required("First Name is required.")
+    .matches(/^[A-Za-z]+$/, "First Name must not contain numbers.")
+    .min(3, "First Name must be at least 3 characters."),
+  lname: yup
+    .string()
+    .required("Last Name is required.")
+    .matches(/^[A-Za-z]+$/, "Last Name must not contain numbers.")
+    .min(3, "Last Name must be at least 3 characters."),
+});
 
 function FirstStep(props) {
   const [formValue, setFormValue] = useState(props.form);
   const [show, setShow] = useState(false);
 
-  const onChange = (e) => {
-    if (e.target.name === "image") {
-      const file = e.target.files[0];
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      setShow(true);
+  const onImgChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    setShow(true);
 
-      reader.onload = () => {
-        setFormValue({
-          ...formValue,
-          imagePath: reader.result,
-          [e.target.name]: file,
-        });
-        setShow(false);
-      };
-    } else {
-      setFormValue({ ...formValue, [e.target.name]: e.target.value });
-    }
+    reader.onload = () => {
+      setFormValue({
+        ...formValue,
+        imagePath: reader.result,
+        [e.target.name]: file,
+      });
+      setShow(false);
+    };
   };
 
   const onClick = (data) => {
-    props.onClick({ ...formValue, index: 2 });
+    props.onClick({ ...formValue, ...data, index: 2 });
+    // if you want it to load
+    // return new Promise((resolve) => {
+    //   setTimeout(() => {
+    //     props.onClick({ ...formValue, ...data, index: 2 });
+    //     resolve();
+    //   }, 300);
+    // });
   };
 
   // validation
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm();
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: yupResolver(schema),
+    mode: "onBlur",
+  });
 
   return (
-    <MDBValidation
-      className="w-100 d-flex flex-column align-items-center my-1"
-      onSubmit={handleSubmit(onClick)}
-    >
+    <form onSubmit={handleSubmit(onClick)} noValidate>
       <div className={`${styles.parent}`}>
         <img src={formValue.imagePath} className={`${styles.img}`} />
 
@@ -65,7 +94,12 @@ function FirstStep(props) {
         </div>
         <label htmlFor="inputTag" className={`${styles.addImage}`}>
           <i className="fa fa-camera"></i>
-          <input id="inputTag" type="file" name="image" onChange={onChange} />
+          <input
+            id="inputTag"
+            type="file"
+            name="image"
+            onChange={onImgChange}
+          />
         </label>
       </div>
 
@@ -74,42 +108,29 @@ function FirstStep(props) {
 
         <div className="d-flex gap-2">
           <div className="w-50">
-            <MDBValidationItem
-              feedback={errors.fname ? errors.fname.message : ""}
-              invalid={!!errors.fname}
-            >
-              <MDBInput
-                label="First Name"
-                id="form1"
+            <FormControl isInvalid={!!errors.fname}>
+              <FormLabel htmlFor="fname">First Name</FormLabel>
+              <Input
+                id="fname"
                 type="text"
                 name="fname"
-                required
-                value={formValue.fname}
-                {...register("fname", {
-                  required: { value: true, message: "First Name is required." },
-                })}
-                onChange={onChange}
+                {...register("fname")}
               />
-            </MDBValidationItem>
+              <FormErrorMessage>{errors.fname?.message}</FormErrorMessage>
+            </FormControl>
           </div>
           <div className="w-50">
-            <MDBValidationItem
-              feedback={errors.lname ? errors.lname.message : ""}
-              invalid={!!errors.lname}
-            >
-              <MDBInput
-                label="Last Name"
-                id="form1"
+            <FormControl isInvalid={!!errors.lname}>
+              <FormLabel htmlFor="lname">Last Name</FormLabel>
+              <Input
+                id="lname"
                 type="text"
                 name="lname"
                 required
-                value={formValue.lname}
-                {...register("lname", {
-                  required: { value: true, message: "Last Name is required." },
-                })}
-                onChange={onChange}
+                {...register("lname")}
               />
-            </MDBValidationItem>
+              <FormErrorMessage>{errors.lname?.message}</FormErrorMessage>
+            </FormControl>
           </div>
         </div>
       </div>
@@ -117,58 +138,45 @@ function FirstStep(props) {
       <div className="d-flex flex-row align-items-center mb-4 w-100">
         <MDBIcon fas icon="at me-3" size="lg" />
         <div className="w-100">
-          <MDBValidationItem
-            feedback={errors.uName ? errors.uName.message : ""}
-            invalid={!!errors.uName}
-          >
-            <MDBInput
-              label="User Name"
-              id="form3"
-              type="text"
-              name="uName"
-              required
-              value={formValue.uName}
-              {...register("uName", {
-                required: { value: true, message: "User Name is required." },
-              })}
-              onChange={onChange}
-            />
-          </MDBValidationItem>
+          <FormControl isInvalid={!!errors.uName}>
+            <FormLabel htmlFor="uName">User Name</FormLabel>
+            <Input id="uName" type="text" name="uName" {...register("uName")} />
+            <FormErrorMessage>{errors.uName?.message}</FormErrorMessage>
+          </FormControl>
         </div>
       </div>
       <div className="d-flex flex-row align-items-center mb-4 w-100">
         <MDBIcon fas icon="envelope me-3" size="lg" />
         <div className="w-100">
-          <MDBValidationItem
-            feedback={errors.email ? errors.email.message : ""}
-            invalid={!!errors.email}
-          >
-            <MDBInput
-              label="Your Email"
-              id="form4"
+          <FormControl isInvalid={!!errors.email}>
+            <FormLabel htmlFor="email">Your Email</FormLabel>
+            <Input
+              id="email"
               type="email"
               name="email"
-              value={formValue.email}
               required
-              {...register("email", {
-                required: { value: true, message: "Email is required." },
-                pattern: {
-                  value: /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
-                  message: "Please enter a valid email address.",
-                },
-              })}
-              onChange={onChange}
+              {...register("email")}
             />
-          </MDBValidationItem>
+            <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
+          </FormControl>
         </div>
       </div>
 
       <div className="d-flex flex-row flex-row-reverse mb-4 w-100">
         <MDBBtn type="submit" className="mb-4" size="lg">
+          {isSubmitting && (
+            <MDBSpinner
+              grow
+              size="sm"
+              role="status"
+              tag="span"
+              className="me-2"
+            />
+          )}
           Next
         </MDBBtn>
       </div>
-    </MDBValidation>
+    </form>
   );
 }
 
