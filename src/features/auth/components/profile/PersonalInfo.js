@@ -109,7 +109,7 @@ function PersonalInfo({ formValue, onChange, register, errors }) {
               {...register("email", {
                 required: { value: true, message: "Email is required." },
                 pattern: {
-                  value: /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+                  value: /^\w+([-+.']\w+)*@\w+([-.]\w+)*(\.\w+([-.]\w+)*)?$/,
                   message: "Please enter a valid email address.",
                 },
               })}
