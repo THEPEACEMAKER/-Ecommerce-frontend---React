@@ -1,42 +1,38 @@
 import styles from "./style.module.css";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import api from "../../api/api";
+import { fetchProduct } from "./productSlice";
 
 import Button from "../layout/btn/btn";
 import InputQuantity from "../layout/input/inputQuantity";
 
-import {
-  setError,
-  clearError,
-  setSuccess,
-  clearSuccess,
-} from "../utils/apiStatusSlice.js";
 import { Link, useParams } from "react-router-dom";
 import ButtonWishList from "../layout/btn/btnwishlist";
 import RelatedProduct from "./relatedProduct";
 import { MDBCardImage, MDBRipple } from "mdb-react-ui-kit";
 
 export default function Product() {
+  const { id } = useParams();
   const dispatch = useDispatch();
-  const error = useSelector((state) => state.apiStatus.error);
-  const success = useSelector((state) => state.apiStatus.success);
-  const params = useParams();
-  const [data, setData] = useState();
+  // const [product, setProduct] = useState();
+  const { product, status, error } = useSelector((state) => state.product);
   const [img, setImage] = useState(0);
 
   useEffect(() => {
-    api
-      .get(`/products/${params.id}/`)
-      .then((res) => {
-        setData(res.data);
-        dispatch(setSuccess(res.data.message));
-      })
-      .catch((err) => {
-        dispatch(setError(err.message));
-        console.log(err);
-      });
-  }, [params]);
+    dispatch(fetchProduct(id));
+  }, [dispatch, id]);
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (status === "failed") {
+    return <div>{error}</div>;
+  }
+
+  if (!product) {
+    return <div>Product not found</div>;
+  }
 
   const changeImageOnClick = ($event) => {
     setImage(Number($event.target.id));
@@ -59,15 +55,15 @@ export default function Product() {
 
   return (
     <div className={`${styles.container}`}>
-      {data && (
+      {product && (
         <div className={`${styles.card}`}>
           <div className={`${styles.form} `}>
             <div className={`${styles.leftside}`}>
               <div className={`${styles.images}`}>
                 <div className={`${styles.img_left}`}>
                   <i onClick={arrowUp} className={`fa fa-angle-up`}></i>
-                  {data &&
-                    data.images.map((el, i) => {
+                  {product &&
+                    product.images.map((el, i) => {
                       if (i < 3) {
                         return (
                           <span
@@ -96,7 +92,7 @@ export default function Product() {
                   >
                     <MDBCardImage
                       src={`https://res.cloudinary.com/ddk98mjzn/${
-                        data.images.length && data.images[img].image
+                        product.images.length && product.images[img].image
                       }`}
                       fluid
                       className="m-auto"
@@ -117,37 +113,37 @@ export default function Product() {
                   <i className={`fa fa-shopping-bag`}></i>
                 </span>
                 <Link
-                  to={`/category/${data.category.id}`}
+                  to={`/category/${product.category.id}`}
                   className="text-muted"
                 >
-                  {data.category.name}
+                  {product.category.name}
                 </Link>{" "}
               </div>
 
-              <h3>{data.name}</h3>
-              <h4>$ {data.price}</h4>
+              <h3>{product.name}</h3>
+              <h4>$ {product.price}</h4>
               <div className={`${styles.designer}`}>
                 <h5>Made By : </h5>
                 <span>Mademoiselle Tambour</span>
               </div>
               <div className={`${styles.description}`}>
                 <h4>Description</h4>
-                <p>{data.description}</p>
+                <p>{product.description}</p>
               </div>
               <div className={`${styles.designer}`}>
                 <h5>Quantity : </h5>
-                <span>{data.quantity}</span>
+                <span>{product.quantity}</span>
               </div>
 
               <div className={`${styles.options}`}>
-                <InputQuantity quantity={1} id={data.id} />
+                <InputQuantity quantity={1} id={product.id} />
 
-                <Button el={data} />
+                <Button el={product} />
               </div>
               <div className={`${styles.open_wish}`}>
                 <div className={`${styles.wishlist}`}>
                   {/* <i className="fa-regular fa-lg fa-heart"></i> */}
-                  <ButtonWishList product={data} />
+                  <ButtonWishList product={product} />
                   <p>Add to Wishlist</p>
                 </div>
               </div>
@@ -168,7 +164,7 @@ export default function Product() {
             style={{ height: "1px", opacity: ".2", width: "95%" }}
           ></div>
           <h2 className="mx-4 my-2 bol">Related Product :</h2>
-          <RelatedProduct category={data.category.id} />
+          <RelatedProduct category={product.category.id} />
         </div>
       )}
     </div>

@@ -3,6 +3,7 @@ import apiStatusSlice from "../features/utils/apiStatusSlice";
 import authSlice from "../features/auth/authSlice";
 import categorySlice from "../features/Category/CategoryPage/categorySlice";
 import popularCategoriesSlice from "../features/Category/PopularCategories/popularCategoriesSlice";
+import productSlice from "../features/Product Details/productSlice";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     auth: authSlice,
     category: categorySlice,
     popularCategories: popularCategoriesSlice,
+    product: productSlice,
   },
 });
 
