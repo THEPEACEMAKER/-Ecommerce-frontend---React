@@ -19,7 +19,7 @@ function ProductCard({ product }) {
         <MDBCard className="h-100 justify-content-">
           <div className="d-flex justify-content-between p-3 ">
             <Link to={`/product/${product.id}`}>
-              <p className="lead mb-0">{product.name}</p>
+              <p className={`lead mb-0 ${styles.height}`}>{product.name}</p>
             </Link>
             <div
               className="rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
@@ -30,13 +30,15 @@ function ProductCard({ product }) {
           </div>
 
           <MDBCardImage
-            src={`https://res.cloudinary.com/ddk98mjzn/${product.image}`}
+            src={`https://res.cloudinary.com/ddk98mjzn/${
+              product.images.length && product.images[0].image
+            }`}
             position="top"
             alt={product.name}
             style={{ width: "80%", height: "100px", margin: "auto" }}
           />
 
-          <MDBCardSubTitle className="m-3">
+          <MDBCardSubTitle className={`m-3 `}>
             <div className="d-flex justify-content-between">
               <p className="small">
                 <Link

@@ -33,7 +33,9 @@ function CategoryPage() {
           </>
         ) : status === "succeeded" && products.length ? (
           products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <div className="col-md-3">
+              <ProductCard key={product.id} product={product} />
+            </div>
           ))
         ) : (
           status === "succeeded" && (
@@ -49,7 +51,6 @@ function CategoryPage() {
                 to="/home"
                 className={`{styles.color} btn btn-primary my-3`}
               >
-                {" "}
                 Home
               </Link>
             </div>

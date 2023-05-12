@@ -29,7 +29,7 @@ function Cart() {
 
   const componentRef = useRef(null);
   const [height, setHeight] = useState();
-  const [totalSum, setTotalSum] = useState();
+  const [totalSum, setTotalSum] = useState(0);
 
   useEffect(() => {
     if (componentRef.current) {
@@ -59,9 +59,15 @@ function Cart() {
     api
       .delete(`/cart/${id}`)
       .then((res) => {
-        setData((data) => data.filter((item) => item.id != id));
+        setData((data) =>
+          data.filter((item) => {
+            if (item.id == id) {
+              dispatch(setproductInCart(productInCart - item.quantity));
+            }
+            return item.id != id;
+          })
+        );
         dispatch(setSuccess(res.data.message));
-        dispatch(setproductInCart(productInCart - 1));
       })
       .catch((err) => {
         dispatch(setError(err.message));
@@ -106,7 +112,7 @@ function Cart() {
                       className="bg-image rounded hover-zoom hover-overlay"
                     >
                       <MDBCardImage
-                        src={el.image}
+                        src={el.images.length && el.images[0]}
                         fluid
                         className={`${styles.img}`}
                       />

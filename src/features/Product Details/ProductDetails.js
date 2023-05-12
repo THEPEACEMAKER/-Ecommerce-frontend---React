@@ -23,6 +23,7 @@ export default function Product() {
   const success = useSelector((state) => state.apiStatus.success);
   const params = useParams();
   const [data, setData] = useState();
+  const [img, setImage] = useState(0);
 
   useEffect(() => {
     api
@@ -37,6 +38,25 @@ export default function Product() {
       });
   }, [params]);
 
+  const changeImageOnClick = ($event) => {
+    setImage(Number($event.target.id));
+  };
+
+  const arrowUp = () => {
+    if (img == 0) {
+      setImage(2);
+    } else {
+      setImage(img - 1);
+    }
+  };
+
+  const arrowDown = () => {
+    setImage(img + 1);
+    if (img == 2) {
+      setImage(0);
+    }
+  };
+
   return (
     <div className={`${styles.container}`}>
       {data && (
@@ -45,17 +65,28 @@ export default function Product() {
             <div className={`${styles.leftside}`}>
               <div className={`${styles.images}`}>
                 <div className={`${styles.img_left}`}>
-                  <i className={`fa fa-angle-up`}></i>
-                  <span>
-                    <img src="https://i.imgur.com/Rq0nf6K.jpg.jpg" />
-                  </span>
-                  <span>
-                    <img src="https://i.imgur.com/Rq0nf6K.jpg.jpg" />
-                  </span>
-                  <span>
-                    <img src="https://i.imgur.com/Rq0nf6K.jpg.jpg" />
-                  </span>
-                  <i className={`fa fa-angle-down`}></i>
+                  <i onClick={arrowUp} className={`fa fa-angle-up`}></i>
+                  {data &&
+                    data.images.map((el, i) => {
+                      if (i < 3) {
+                        return (
+                          <span
+                            className=""
+                            key={i}
+                            onClick={changeImageOnClick}
+                          >
+                            <img
+                              src={`https://res.cloudinary.com/ddk98mjzn/${
+                                el.image && el.image
+                              }`}
+                              alt="image"
+                              id={i}
+                            />
+                          </span>
+                        );
+                      }
+                    })}
+                  <i onClick={arrowDown} className={`fa fa-angle-down`}></i>
                 </div>
                 <span>
                   <MDBRipple
@@ -64,7 +95,9 @@ export default function Product() {
                     className="bg-image rounded hover-zoom hover-overlay"
                   >
                     <MDBCardImage
-                      src={`https://res.cloudinary.com/ddk98mjzn/${data.image}`}
+                      src={`https://res.cloudinary.com/ddk98mjzn/${
+                        data.images.length && data.images[img].image
+                      }`}
                       fluid
                       className="m-auto"
                     />

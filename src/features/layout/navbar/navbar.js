@@ -14,6 +14,7 @@ function Navbar() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   const [selectedValue, setSelectedValue] = useState("default");
+  const [category, setCategory] = useState();
 
   const handleSelectChange = (event) => {
     setSelectedValue(event.target.value);
@@ -28,6 +29,17 @@ function Navbar() {
             res.data.cart.products.reduce((acc, el) => acc + el.quantity, 0)
           )
         );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  useEffect(() => {
+    api
+      .get("/category")
+      .then((res) => {
+        setCategory(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -113,9 +125,12 @@ function Navbar() {
               <option value="default" disabled>
                 Category
               </option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+              {category &&
+                category.map((el, i) => (
+                  <option key={i} value={el.id}>
+                    {el.name}
+                  </option>
+                ))}
             </select>
             <input
               className={`form-control w-100 rounded-0 border-start-0 ${styles.btnSearch} `}
@@ -186,27 +201,20 @@ function Navbar() {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Dropdown
+                  Category
                 </Link>
                 <ul className={`dropdown-menu ${styles.dropdownMenu}`}>
-                  <li>
-                    <Link className="dropdown-item">
-                      <span>Action</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="dropdown-item">
-                      <span>Another action</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <hr className="dropdown-divider" />
-                  </li>
-                  <li>
-                    <Link className="dropdown-item">
-                      <span>Something else here</span>
-                    </Link>
-                  </li>
+                  {category &&
+                    category.map((el, i) => (
+                      <li key={el.id}>
+                        <Link
+                          to={`/category/${el.id}`}
+                          className="dropdown-item"
+                        >
+                          <span>{el.name}</span>
+                        </Link>
+                      </li>
+                    ))}
                 </ul>
               </li>
             </ul>

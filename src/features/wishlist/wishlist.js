@@ -104,7 +104,9 @@ export default function App() {
                             className="bg-image rounded hover-zoom hover-overlay"
                           >
                             <MDBCardImage
-                              src={`https://res.cloudinary.com/ddk98mjzn/${el.image}`}
+                              src={`https://res.cloudinary.com/ddk98mjzn/${
+                                el.images.length && el.images[0].image
+                              }`}
                               fluid
                               className=""
                               style={{ width: "300px", height: "160px" }}

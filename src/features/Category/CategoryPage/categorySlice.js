@@ -4,11 +4,11 @@ import api from "../../../api/api";
 export const fetchCategoryProducts = createAsyncThunk(
   "category/fetchProducts",
   async (categoryId) => {
-    // const response = await api.get(`/category/${categoryId}/products`);
-    const response = await api.get(`http://localhost:3001/category`);
+    const response = await api.get(`/category/${categoryId}/products`);
     return new Promise((resolve) => {
+      console.log(response);
       setTimeout(() => {
-        resolve(response.data);
+        resolve(response.data.results);
       }, 500);
     });
   }
