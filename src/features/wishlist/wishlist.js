@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { fetchWishlist } from "./wishlistSlice";
 import { Link } from "react-router-dom";
-
-import api from "../../api/api";
 
 import {
   MDBBadge,
@@ -16,57 +15,42 @@ import {
   MDBBtn,
 } from "mdb-react-ui-kit";
 
-import {
-  setError,
-  clearError,
-  setSuccess,
-  clearSuccess,
-} from "../utils/apiStatusSlice.js";
-
 import styles from "./stylee.module.css";
 import Button from "../layout/btn/btn";
 
 export default function App() {
   const dispatch = useDispatch();
-  const error = useSelector((state) => state.apiStatus.error);
-  const success = useSelector((state) => state.apiStatus.success);
+  const { products, status, error } = useSelector((state) => state.wishlist);
 
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    api
-      .get("/user/wishlist")
-      .then((res) => {
-        setData(res.data[0].product_details.results);
-        dispatch(setSuccess(res.data.message));
-        console.log(res);
-      })
-      .catch((err) => {
-        dispatch(setError(err.message));
-        console.log(err);
-      });
-  }, []);
-
-  const deletItem = (id) => {
-    console.log(id);
-    api
-      .delete(`/wishlist/product/${id}/`)
-      .then((res) => {
-        setData((data) => data.filter((item) => item.id != id));
-        dispatch(setSuccess(res.data.message));
-      })
-      .catch((err) => {
-        dispatch(setError(err.message));
-        console.log(err);
-      });
-  };
+  // const deletItem = (id) => {
+  //   console.log(id);
+  //   api
+  //     .delete(`/wishlist/product/${id}/`)
+  //     .then((res) => {
+  //       setData((data) => data.filter((item) => item.id != id));
+  //       dispatch(setSuccess(res.data.message));
+  //     })
+  //     .catch((err) => {
+  //       dispatch(setError(err.message));
+  //       console.log(err);
+  //     });
+  // };
 
   useEffect(() => {
-    return () => {
-      dispatch(clearSuccess());
-      dispatch(clearError());
-    };
-  }, []);
+    dispatch(fetchWishlist());
+  }, [dispatch]);
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (status === "failed") {
+    return <div>{error}</div>;
+  }
+
+  if (!products) {
+    return <div>Products not found</div>;
+  }
 
   return (
     <div className={styles.body}>
@@ -84,9 +68,9 @@ export default function App() {
       >
         <MDBRow className="justify-content-center mb-0">
           <MDBCol md="12" xl="10">
-            {data.length ? (
+            {products.length ? (
               <div className={`${styles.whishListTable}`}>
-                {data.map((el, i) => (
+                {products.map((el, i) => (
                   <MDBCard
                     key={el.id}
                     className="shadow-0 border rounded-3 mb-3"
@@ -163,7 +147,7 @@ export default function App() {
                             <button>
                               <i
                                 className="fa-solid fa-trash text-secondary"
-                                onClick={() => deletItem(el.id)}
+                                // onClick={() => deletItem(el.id)}
                               ></i>
                             </button>
                           </div>
@@ -194,6 +178,7 @@ export default function App() {
                 >
                   <img
                     src={process.env.PUBLIC_URL + "assets/empty-state-cart.svg"}
+                    alt="empty-state-cart"
                   />
                   <h3>Your Wishlist looks empty</h3>
                   <span className="text-muted">What are you waiting for?</span>

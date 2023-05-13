@@ -4,6 +4,7 @@ import authSlice from "../features/auth/authSlice";
 import categorySlice from "../features/Category/CategoryPage/categorySlice";
 import popularCategoriesSlice from "../features/Category/PopularCategories/popularCategoriesSlice";
 import productSlice from "../features/Product Details/productSlice";
+import wishlistSlice from "../features/wishlist/wishlistSlice";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     category: categorySlice,
     popularCategories: popularCategoriesSlice,
     product: productSlice,
+    wishlist: wishlistSlice,
   },
 });
 
