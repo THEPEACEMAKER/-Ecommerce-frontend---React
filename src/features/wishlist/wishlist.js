@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchWishlist } from "./wishlistSlice";
 import { Link } from "react-router-dom";
+import { Spinner } from "@chakra-ui/react";
 
 import {
   MDBBadge,
@@ -40,16 +41,8 @@ export default function App() {
     dispatch(fetchWishlist());
   }, [dispatch]);
 
-  if (status === "loading") {
-    return <div>Loading...</div>;
-  }
-
   if (status === "failed") {
     return <div>{error}</div>;
-  }
-
-  if (!products) {
-    return <div>Products not found</div>;
   }
 
   return (
@@ -68,7 +61,11 @@ export default function App() {
       >
         <MDBRow className="justify-content-center mb-0">
           <MDBCol md="12" xl="10">
-            {products.length ? (
+            {status === "loading" ? (
+              <div style={{ height: "350px", display: "flex" }}>
+                <Spinner style={{ margin: "auto" }} />
+              </div>
+            ) : status === "succeeded" && products.length ? (
               <div className={`${styles.whishListTable}`}>
                 {products.map((el, i) => (
                   <MDBCard

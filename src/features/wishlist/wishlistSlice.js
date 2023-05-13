@@ -6,7 +6,11 @@ export const fetchWishlist = createAsyncThunk(
   async (thunkAPI) => {
     try {
       const response = await api.get(`/user/wishlist`);
-      return response.data[0].product_details.results;
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(response.data[0].product_details.results);
+        }, 500);
+      });
     } catch (err) {
       return thunkAPI.rejectWithValue(err.message);
     }
