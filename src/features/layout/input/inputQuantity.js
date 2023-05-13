@@ -20,33 +20,48 @@ function InputQuantity(props) {
 
   const [quantity, setQuantity] = useState(props.quantity);
 
+  console.log(props);
   const handleIncrement = () => {
     setQuantity(quantity + 1);
-    api
-      .put("/cart/", { action: "INCREASE", product: props.id })
-      .then((res) => {
-        console.log(res);
-        dispatch(setproductInCart(productInCart + 1));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    props.cart
+      ? api
+          .put("/cart/", { action: "INCREASE", product: props.id })
+          .then((res) => {
+            dispatch(setproductInCart(productInCart + 1));
+            props.onClick({
+              total_price: res.data.product.total_price,
+              quantity: quantity + 1,
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      : props.onClick({
+          quantity: quantity + 1,
+        });
   };
 
   const handleDecrement = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
-      api
-        .put("/cart/", { action: "DECREASE", product: props.id })
-        .then((res) => {
-          console.log(res);
-          dispatch(setproductInCart(productInCart - 1));
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+
+      props.cart
+        ? api
+            .put("/cart/", { action: "DECREASE", product: props.id })
+            .then((res) => {
+              dispatch(setproductInCart(productInCart - 1));
+              props.onClick({
+                total_price: res.data.product.total_price,
+                quantity: quantity - 1,
+              });
+            })
+            .catch((err) => {
+              console.log(err);
+            })
+        : props.onClick({
+            quantity: quantity - 1,
+          });
     }
-    console.log(quantity);
   };
 
   return (

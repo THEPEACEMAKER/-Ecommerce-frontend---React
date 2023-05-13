@@ -24,10 +24,13 @@ export default function Button(props) {
   const AddToCart = (product) => {
     setLoding(true);
     api
-      .post(`/cart/`, { product: product.id })
+      .post(`/cart/`, {
+        product: product.id,
+        quantity: props.quantity ? props.quantity : 1,
+      })
       .then((res) => {
         dispatch(setSuccess(res.data.message));
-        dispatch(setproductInCart(productInCart + 1));
+        dispatch(setproductInCart(productInCart + props.quantity));
         setLoding(false);
       })
       .catch((err) => {

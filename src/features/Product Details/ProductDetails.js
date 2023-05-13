@@ -17,6 +17,7 @@ export default function Product() {
   const { product, status, error } = useSelector((state) => state.product);
   const [img, setImage] = useState(0);
 
+  const [quantity, setQuantity] = useState(1);
   useEffect(() => {
     dispatch(fetchProduct(id));
   }, [dispatch, id]);
@@ -50,6 +51,10 @@ export default function Product() {
     if (img == 2) {
       setImage(0);
     }
+  };
+
+  const totalPrice = ($event) => {
+    setQuantity($event.quantity);
   };
 
   return (
@@ -135,9 +140,13 @@ export default function Product() {
               </div>
 
               <div className={`${styles.options}`}>
-                <InputQuantity quantity={1} id={product.id} />
+                <InputQuantity
+                  quantity={1}
+                  id={product.id}
+                  onClick={totalPrice}
+                />
 
-                <Button el={product} />
+                <Button el={product} quantity={quantity} />
               </div>
               <div className={`${styles.open_wish}`}>
                 <div className={`${styles.wishlist}`}>

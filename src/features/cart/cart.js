@@ -82,6 +82,10 @@ function Cart() {
     };
   }, []);
 
+  const totalPrice = ($event) => {
+    setTotalSum($event.total_price);
+  };
+
   return (
     <div
       className={`${styles.body} container-fluid w-100 sticky-outer`}
@@ -156,7 +160,12 @@ function Cart() {
                       className={`py-3 d-flex  flex-md-column flex-row justify-content-between align-items-center`}
                     >
                       <h3>$ {el.price}</h3>
-                      <InputQuantity quantity={el.quantity} id={el.id} />
+                      <InputQuantity
+                        quantity={el.quantity}
+                        id={el.id}
+                        onClick={totalPrice}
+                        cart={true}
+                      />
                     </div>
                   </div>
                 </div>
