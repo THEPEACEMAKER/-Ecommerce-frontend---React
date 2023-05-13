@@ -10,13 +10,17 @@ import { fetchCategoryProducts } from "./categorySlice";
 function CategoryPage() {
   const { categoryId } = useParams();
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.category.products);
-  const status = useSelector((state) => state.category.status);
-  const error = useSelector((state) => state.category.error);
+  const { products, status, error } = useSelector((state) => state.category);
 
   useEffect(() => {
     dispatch(fetchCategoryProducts(categoryId));
   }, [categoryId, dispatch]);
+
+  useEffect(() => {
+    if (status === "failed") {
+      console.log("categoryPage Error:", error);
+    }
+  }, [status, error]);
 
   return (
     <MDBContainer fluid className="my-5">

@@ -1,39 +1,26 @@
 import styles from "./style.module.css";
 import Slider from "react-slick";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import api from "../../api/api";
+import { MDBRow } from "mdb-react-ui-kit";
 
-import InputQuantity from "../layout/input/inputQuantity";
-
-import {
-  setError,
-  clearError,
-  setSuccess,
-  clearSuccess,
-} from "../utils/apiStatusSlice.js";
-import { useParams } from "react-router-dom";
 import ProductCard from "../layout/ProductCard/ProductCard";
+import { fetchCategoryProducts } from "../Category/CategoryPage/categorySlice";
+import ProductCardSkeleton from "../layout/ProductCard/ProductCardSkeleton";
 
-export default function RelatedProduct(props) {
+export default function RelatedProduct({ categoryId }) {
   const dispatch = useDispatch();
-  const error = useSelector((state) => state.apiStatus.error);
-  const success = useSelector((state) => state.apiStatus.success);
-  const params = useParams();
-  const [data, setData] = useState([]);
+  const { products, status, error } = useSelector((state) => state.category);
 
   useEffect(() => {
-    api
-      .get(`category/${props.category}/products`)
-      .then((res) => {
-        setData(res.data.results);
-        console.log(res.data.results);
-        dispatch(setSuccess(res.data.message));
-      })
-      .catch((err) => {
-        dispatch(setError(err.message));
-      });
-  }, [props.category]);
+    dispatch(fetchCategoryProducts(categoryId));
+  }, [categoryId, dispatch]);
+
+  useEffect(() => {
+    if (status === "failed") {
+      console.log("relatedProduct Error:", error);
+    }
+  }, [status, error]);
 
   const settings = {
     dots: true,
@@ -72,9 +59,19 @@ export default function RelatedProduct(props) {
 
   return (
     <div className={styles.productDetails}>
-      <Slider {...settings} className="w-100">
-        {data && data.map((el, i) => <ProductCard product={el} key={i} />)}
-      </Slider>
+      {status === "loading" ? (
+        <MDBRow>
+          <ProductCardSkeleton />
+          <ProductCardSkeleton />
+          <ProductCardSkeleton />
+          <ProductCardSkeleton />
+        </MDBRow>
+      ) : (
+        <Slider {...settings} className="w-100">
+          {products &&
+            products.map((el, i) => <ProductCard product={el} key={i} />)}
+        </Slider>
+      )}
     </div>
   );
 }

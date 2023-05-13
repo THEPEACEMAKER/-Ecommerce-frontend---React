@@ -14,7 +14,6 @@ import { MDBCardImage, MDBRipple } from "mdb-react-ui-kit";
 export default function Product() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  // const [product, setProduct] = useState();
   const { product, status, error } = useSelector((state) => state.product);
   const [img, setImage] = useState(0);
 
@@ -164,7 +163,7 @@ export default function Product() {
             style={{ height: "1px", opacity: ".2", width: "95%" }}
           ></div>
           <h2 className="mx-4 my-2 bol">Related Product :</h2>
-          <RelatedProduct category={product.category.id} />
+          <RelatedProduct categoryId={product.category.id} />
         </div>
       )}
     </div>

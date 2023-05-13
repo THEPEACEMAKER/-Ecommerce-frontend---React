@@ -3,14 +3,17 @@ import api from "../../../api/api";
 
 export const fetchCategoryProducts = createAsyncThunk(
   "category/fetchProducts",
-  async (categoryId) => {
-    const response = await api.get(`/category/${categoryId}/products`);
-    return new Promise((resolve) => {
-      console.log(response);
-      setTimeout(() => {
-        resolve(response.data.results);
-      }, 500);
-    });
+  async (categoryId, thunkAPI) => {
+    try {
+      const response = await api.get(`/category/${categoryId}/products`);
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(response.data.results);
+        }, 500);
+      });
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
   }
 );
 
@@ -33,7 +36,7 @@ const categorySlice = createSlice({
       })
       .addCase(fetchCategoryProducts.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error.message;
+        state.error = action.payload;
       });
   },
 });
