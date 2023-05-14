@@ -17,26 +17,47 @@ export const fetchWishlist = createAsyncThunk(
   }
 );
 
+export const deleteWishlistProduct = createAsyncThunk(
+  "wishlist/deleteProduct",
+  async (id) => {
+    const response = await api.delete(`/wishlist/product/${id}/`);
+    return response.data.message;
+  }
+);
+
 const wishlistSlice = createSlice({
   name: "wishlist",
   initialState: {
     products: null,
-    status: "idle",
+    fetchStatus: "idle",
+    deleteStatus: "idle",
     error: null,
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchWishlist.pending, (state) => {
-        state.status = "loading";
+        state.fetchStatus = "loading";
         state.error = null;
       })
       .addCase(fetchWishlist.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        state.fetchStatus = "succeeded";
         state.products = action.payload;
       })
       .addCase(fetchWishlist.rejected, (state, action) => {
-        state.status = "failed";
+        state.fetchStatus = "failed";
+        state.error = action.payload;
+      })
+      .addCase(deleteWishlistProduct.pending, (state) => {
+        state.deleteStatus = "loading";
+        state.error = null;
+      })
+      .addCase(deleteWishlistProduct.fulfilled, (state, action) => {
+        state.deleteStatus = "succeeded";
+        state.products = state.products.filter((p) => p.id !== action.meta.arg);
+      })
+      .addCase(deleteWishlistProduct.rejected, (state, action) => {
+        state.deleteStatus = "failed";
         state.error = action.payload;
       });
   },

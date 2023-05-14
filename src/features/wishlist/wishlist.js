@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchWishlist } from "./wishlistSlice";
+import { fetchWishlist, deleteWishlistProduct } from "./wishlistSlice";
 import { Link } from "react-router-dom";
 import { Spinner } from "@chakra-ui/react";
 
@@ -21,27 +21,19 @@ import Button from "../layout/btn/btn";
 
 export default function App() {
   const dispatch = useDispatch();
-  const { products, status, error } = useSelector((state) => state.wishlist);
+  const { products, fetchStatus, error } = useSelector(
+    (state) => state.wishlist
+  );
 
-  // const deletItem = (id) => {
-  //   console.log(id);
-  //   api
-  //     .delete(`/wishlist/product/${id}/`)
-  //     .then((res) => {
-  //       setData((data) => data.filter((item) => item.id != id));
-  //       dispatch(setSuccess(res.data.message));
-  //     })
-  //     .catch((err) => {
-  //       dispatch(setError(err.message));
-  //       console.log(err);
-  //     });
-  // };
+  const deletItem = (id) => {
+    dispatch(deleteWishlistProduct(id));
+  };
 
   useEffect(() => {
     dispatch(fetchWishlist());
   }, [dispatch]);
 
-  if (status === "failed") {
+  if (fetchStatus === "failed") {
     return <div>{error}</div>;
   }
 
@@ -61,11 +53,11 @@ export default function App() {
       >
         <MDBRow className="justify-content-center mb-0">
           <MDBCol md="12" xl="10">
-            {status === "loading" ? (
+            {fetchStatus === "loading" ? (
               <div style={{ height: "350px", display: "flex" }}>
                 <Spinner style={{ margin: "auto" }} />
               </div>
-            ) : status === "succeeded" && products.length ? (
+            ) : fetchStatus === "succeeded" && products.length ? (
               <div className={`${styles.whishListTable}`}>
                 {products.map((el, i) => (
                   <MDBCard
@@ -144,7 +136,7 @@ export default function App() {
                             <button>
                               <i
                                 className="fa-solid fa-trash text-secondary"
-                                // onClick={() => deletItem(el.id)}
+                                onClick={() => deletItem(el.id)}
                               ></i>
                             </button>
                           </div>
