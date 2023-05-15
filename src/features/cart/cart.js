@@ -2,6 +2,7 @@ import api from "../../api/api";
 
 import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { fetchCart } from "./cartSlice";
 import { Link } from "react-router-dom";
 
 import styles from "./stylee.module.css";
@@ -22,11 +23,14 @@ import CheckoutButton from "./CheckoutButton";
 
 function Cart() {
   const dispatch = useDispatch();
-  const error = useSelector((state) => state.apiStatus.error);
+  // const error = useSelector((state) => state.apiStatus.error);
   const success = useSelector((state) => state.apiStatus.success);
 
-  const [data, setData] = useState([]);
-  const [cartId, setcartId] = useState(null);
+  // const [products, setProducts] = useState([]);
+  // const [cartId, setcartId] = useState(null);
+  const { products, cartId, status, error } = useSelector(
+    (state) => state.cart
+  );
   const productInCart = useSelector((state) => state.apiStatus.productInCart);
 
   const componentRef = useRef(null);
@@ -38,45 +42,35 @@ function Cart() {
       setHeight(componentRef.current.clientHeight);
     }
     setTotalSum(
-      data.reduce((acc, el) => {
+      products.reduce((acc, el) => {
         return el.price * el.quantity + acc;
       }, 0)
     );
-  }, [data]);
+  }, [products]);
 
   useEffect(() => {
-    api
-      .get("/cart/")
-      .then((res) => {
-        setData(res.data.cart.products);
-        setcartId(res.data.cart.id);
-        dispatch(setSuccess(res.data.message));
-      })
-      .catch((err) => {
-        dispatch(setError(err.message));
-        console.log(err);
-      });
-  }, []);
+    dispatch(fetchCart());
+  }, [dispatch]);
 
-  const deletItem = (id) => {
-    api
-      .delete(`/cart/${id}`)
-      .then((res) => {
-        setData((data) =>
-          data.filter((item) => {
-            if (item.id == id) {
-              dispatch(setproductInCart(productInCart - item.quantity));
-            }
-            return item.id != id;
-          })
-        );
-        dispatch(setSuccess(res.data.message));
-      })
-      .catch((err) => {
-        dispatch(setError(err.message));
-        console.log(err);
-      });
-  };
+  // const deletItem = (id) => {
+  //   api
+  //     .delete(`/cart/${id}`)
+  //     .then((res) => {
+  //       setProducts((products) =>
+  //         products.filter((item) => {
+  //           if (item.id == id) {
+  //             dispatch(setproductInCart(productInCart - item.quantity));
+  //           }
+  //           return item.id != id;
+  //         })
+  //       );
+  //       dispatch(setSuccess(res.data.message));
+  //     })
+  //     .catch((err) => {
+  //       dispatch(setError(err.message));
+  //       console.log(err);
+  //     });
+  // };
 
   useEffect(() => {
     return () => {
@@ -99,13 +93,13 @@ function Cart() {
         <span> ({productInCart} items)</span>
       </div>
 
-      {data.length ? (
+      {products.length ? (
         <div
           className={`d-flex ${styles.parent} flex-column flex-md-row w-100 gap-3 position-relative`}
         >
           <div className={`${styles.leftSide} d-flex flex-column`}>
             <div className="containerProduct d-flex flex-column gap-3">
-              {data.map((el) => (
+              {products.map((el) => (
                 <div
                   className={`${styles.product} d-flex gap-4 bg-light p-4 align-items-stretch justify-content-evenly ${styles.boxShadow}`}
                   key={el.id}
@@ -151,7 +145,7 @@ function Cart() {
                       <div>
                         <button
                           className="text-start d-inline"
-                          onClick={() => deletItem(el.id)}
+                          // onClick={() => deletItem(el.id)}
                         >
                           <i className="fa-solid fa-trash"></i>{" "}
                           <span> Remove</span>
@@ -229,7 +223,10 @@ function Cart() {
           <div
             className={`d-flex flex-column justify-content-center align-items-center ${styles.parent} m-5`}
           >
-            <img src={process.env.PUBLIC_URL + "assets/empty-state-cart.svg"} />
+            <img
+              src={process.env.PUBLIC_URL + "assets/empty-state-cart.svg"}
+              alt="empty cart"
+            />
             <h3>Your shopping cart looks empty</h3>
             <span className="text-muted">What are you waiting for?</span>
             <Link to="/home" className={`{styles.color} btn btn-primary my-3`}>
