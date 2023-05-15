@@ -18,6 +18,7 @@ import {
   clearSuccess,
   setproductInCart,
 } from "../utils/apiStatusSlice.js";
+import CheckoutButton from "./CheckoutButton";
 
 function Cart() {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ function Cart() {
   const success = useSelector((state) => state.apiStatus.success);
 
   const [data, setData] = useState([]);
+  const [cartId, setcartId] = useState(null);
   const productInCart = useSelector((state) => state.apiStatus.productInCart);
 
   const componentRef = useRef(null);
@@ -47,6 +49,7 @@ function Cart() {
       .get("/cart/")
       .then((res) => {
         setData(res.data.cart.products);
+        setcartId(res.data.cart.id);
         dispatch(setSuccess(res.data.message));
       })
       .catch((err) => {
@@ -212,11 +215,7 @@ function Cart() {
                     <span>Subtotal ({productInCart} items) </span>
                     <h4>$ {totalSum}</h4>
                   </div>
-                  <button
-                    className={`btn btn-primary ${styles.btnColor} w-100`}
-                  >
-                    CHECKOUT
-                  </button>
+                  <CheckoutButton cartId={cartId}></CheckoutButton>
                 </div>
               </div>
             </div>
