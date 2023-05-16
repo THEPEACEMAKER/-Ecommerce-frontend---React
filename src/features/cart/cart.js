@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteCartProduct, fetchCart } from "./cartSlice";
+import { deleteCartProduct } from "./cartSlice";
 import { Link } from "react-router-dom";
 
 import styles from "./stylee.module.css";
@@ -26,10 +26,6 @@ function Cart() {
       setHeight(componentRef.current.clientHeight);
     }
   }, [products]);
-
-  useEffect(() => {
-    dispatch(fetchCart());
-  }, [dispatch]);
 
   const deleteItem = (id) => {
     dispatch(deleteCartProduct(id));

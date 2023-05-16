@@ -14,8 +14,16 @@ import ProtectedRoutes from "./ProtectedRoutes";
 import "./App.css";
 import Product from "./features/Product Details/ProductDetails";
 import Home from "./features/home/homePage";
+import { fetchCart } from "./features/cart/cartSlice";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchCart());
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
       <Navbar />

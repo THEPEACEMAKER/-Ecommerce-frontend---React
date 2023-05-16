@@ -1,17 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-
 import styles from "./stylee.module.css";
-import api from "../../../api/api";
-
-import { setproductInCart } from ".././../utils/apiStatusSlice.js";
 import { logout } from "../../auth/authSlice";
 import { fetchCategories } from "../../Category/PopularCategories/popularCategoriesSlice";
 
 function Navbar() {
   const dispatch = useDispatch();
-  const productInCart = useSelector((state) => state.apiStatus.productInCart);
+  const { cartCount } = useSelector((state) => state.cart);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   const [selectedValue, setSelectedValue] = useState("default");
@@ -22,22 +18,8 @@ function Navbar() {
   };
 
   useEffect(() => {
-    api
-      .get("/cart/")
-      .then((res) => {
-        dispatch(
-          setproductInCart(
-            res.data.cart.products.reduce((acc, el) => acc + el.quantity, 0)
-          )
-        );
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  useEffect(() => {
     dispatch(fetchCategories());
+    // TODO: Search categories not fetch them
   }, []);
 
   return (
@@ -140,7 +122,7 @@ function Navbar() {
             </Link>
             <Link to="/cart" className={`${styles.btnNew} p-2`}>
               <i className="fa-solid fa-lg fa-cart-shopping text-white"></i>
-              <span>{productInCart}</span>
+              <span>{cartCount}</span>
             </Link>
           </div>
 
