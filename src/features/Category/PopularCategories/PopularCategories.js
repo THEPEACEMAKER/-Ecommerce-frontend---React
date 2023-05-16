@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBRipple } from "mdb-react-ui-kit";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchPopularCategories } from "./popularCategoriesSlice";
+import { fetchCategories } from "./popularCategoriesSlice";
 import styles from "./style.module.css";
 import { Link } from "react-router-dom";
 
 function PopularCategories() {
   const dispatch = useDispatch();
-  const { popularCategories, status, error } = useSelector(
-    (state) => state.popularCategories
+  const { categories, status, error } = useSelector(
+    (state) => state.categories
   );
 
   useEffect(() => {
-    dispatch(fetchPopularCategories());
+    dispatch(fetchCategories());
   }, []);
 
   if (status === "loading") {
@@ -30,7 +30,7 @@ function PopularCategories() {
       </h4>
 
       <MDBRow>
-        {popularCategories.map((category) => (
+        {categories.map((category) => (
           <MDBCol key={category.id} md="6" lg="3" className="mb-4">
             <MDBRipple
               rippleColor="light"

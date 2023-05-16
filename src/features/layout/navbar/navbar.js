@@ -7,6 +7,7 @@ import api from "../../../api/api";
 
 import { setproductInCart } from ".././../utils/apiStatusSlice.js";
 import { logout } from "../../auth/authSlice";
+import { fetchCategories } from "../../Category/PopularCategories/popularCategoriesSlice";
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ function Navbar() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   const [selectedValue, setSelectedValue] = useState("default");
-  const [category, setCategory] = useState();
+  const { categories } = useSelector((state) => state.categories);
 
   const handleSelectChange = (event) => {
     setSelectedValue(event.target.value);
@@ -36,14 +37,7 @@ function Navbar() {
   }, []);
 
   useEffect(() => {
-    api
-      .get("/category")
-      .then((res) => {
-        setCategory(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    dispatch(fetchCategories());
   }, []);
 
   return (
@@ -125,8 +119,8 @@ function Navbar() {
               <option value="default" disabled>
                 Category
               </option>
-              {category &&
-                category.map((el, i) => (
+              {categories &&
+                categories.map((el, i) => (
                   <option key={i} value={el.id}>
                     {el.name}
                   </option>
@@ -204,8 +198,8 @@ function Navbar() {
                   Category
                 </Link>
                 <ul className={`dropdown-menu ${styles.dropdownMenu}`}>
-                  {category &&
-                    category.map((el, i) => (
+                  {categories &&
+                    categories.map((el, i) => (
                       <li key={el.id}>
                         <Link
                           to={`/category/${el.id}`}

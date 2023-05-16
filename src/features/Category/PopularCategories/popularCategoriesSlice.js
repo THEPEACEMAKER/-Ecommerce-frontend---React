@@ -1,37 +1,37 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../../api/api";
 
-export const fetchPopularCategories = createAsyncThunk(
-  "category/fetchPopularCategories",
+export const fetchCategories = createAsyncThunk(
+  "category/fetchCategories",
   async () => {
-    // const response = await api.get(`/category/popular`);
-    const response = await api.get(`http://localhost:3001/categories`);
+    // TODO: with sizeLimit = 4
+    const response = await api.get(`/category`);
     return response.data;
   }
 );
 
-const popularCategoriesSlice = createSlice({
-  name: "popularCategories",
+const categoriesSlice = createSlice({
+  name: "categories",
   initialState: {
-    popularCategories: [],
+    categories: [],
     status: "idle",
     error: null,
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchPopularCategories.pending, (state) => {
+      .addCase(fetchCategories.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(fetchPopularCategories.fulfilled, (state, action) => {
+      .addCase(fetchCategories.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.popularCategories = action.payload;
+        state.categories = action.payload;
       })
-      .addCase(fetchPopularCategories.rejected, (state, action) => {
+      .addCase(fetchCategories.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       });
   },
 });
 
-export default popularCategoriesSlice.reducer;
+export default categoriesSlice.reducer;
