@@ -12,6 +12,7 @@ import {
   decrementCartProduct,
   decrementProductHandlers,
 } from "./actions/decrementCartProduct";
+import { addToCart, addToCartHandlers } from "./actions/addToCart";
 
 const cartSlice = createSlice({
   name: "cart",
@@ -21,6 +22,7 @@ const cartSlice = createSlice({
     cartCount: null,
     totalPrice: null,
     fetchStatus: "idle",
+    addStatus: "idle",
     deleteStatus: "idle",
     incrementStatus: "idle",
     decrementStatus: "idle",
@@ -46,15 +48,16 @@ const cartSlice = createSlice({
         decrementCartProduct.fulfilled,
         decrementProductHandlers.fulfilled
       )
-      .addCase(
-        decrementCartProduct.rejected,
-        decrementProductHandlers.rejected
-      );
+      .addCase(decrementCartProduct.rejected, decrementProductHandlers.rejected)
+      .addCase(addToCart.pending, addToCartHandlers.pending)
+      .addCase(addToCart.fulfilled, addToCartHandlers.fulfilled)
+      .addCase(addToCart.rejected, addToCartHandlers.rejected);
   },
 });
 
 export {
   fetchCart,
+  addToCart,
   deleteCartProduct,
   incrementCartProduct,
   decrementCartProduct,

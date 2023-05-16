@@ -1,42 +1,18 @@
 import styles from "./style.module.css";
-import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import api from "../../../api/api";
 
 import { MDBBtn } from "mdb-react-ui-kit";
 
-import {
-  setError,
-  clearError,
-  setSuccess,
-  clearSuccess,
-  setproductInCart,
-} from "../../utils/apiStatusSlice.js";
+import { addToCart } from "../../cart/cartSlice";
 
 export default function Button(props) {
   const dispatch = useDispatch();
-  const error = useSelector((state) => state.apiStatus.error);
-  const success = useSelector((state) => state.apiStatus.success);
-
-  const [loading, setLoding] = useState(false);
-  const productInCart = useSelector((state) => state.apiStatus.productInCart);
+  const { addStatus } = useSelector((state) => state.cart);
 
   const AddToCart = (product) => {
-    setLoding(true);
-    api
-      .post(`/cart/`, {
-        product: product.id,
-        quantity: props.quantity ? props.quantity : 1,
-      })
-      .then((res) => {
-        dispatch(setSuccess(res.data.message));
-        dispatch(setproductInCart(productInCart + props.quantity));
-        setLoding(false);
-      })
-      .catch((err) => {
-        dispatch(setError(err.message));
-        setLoding(false);
-      });
+    dispatch(
+      addToCart({ product, quantity: props.quantity ? props.quantity : 1 })
+    );
   };
 
   return (
@@ -47,7 +23,11 @@ export default function Button(props) {
       disabled={props.el.quantity === 0}
       onClick={() => AddToCart(props.el)}
     >
-      {loading ? <span className={`${styles.loader}`}></span> : `Add to Cart`}
+      {addStatus === "loading" ? (
+        <span className={`${styles.loader}`}></span>
+      ) : (
+        `Add to Cart`
+      )}
     </MDBBtn>
   );
 }
