@@ -8,9 +8,9 @@ import {
 
 function InputQuantity({ id }) {
   const dispatch = useDispatch();
-  const quantity = useSelector(
-    (state) => state.cart.products.find((p) => p.id === id).quantity
-  );
+  const products = useSelector((state) => state.cart.products);
+  const product = products.find((p) => p.id === id);
+  const quantity = product ? product.quantity : 1;
 
   const handleIncrement = () => {
     dispatch(incrementCartProduct(id));

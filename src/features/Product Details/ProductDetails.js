@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchProduct } from "./productSlice";
 
 import Button from "../layout/btn/btn";
-import InputQuantity from "../layout/input/inputQuantity";
+import DetailsInputQuantity from "../layout/input/DetailsInputQuantity";
 
 import { Link, useParams } from "react-router-dom";
 import ButtonWishList from "../layout/btn/btnwishlist";
@@ -140,7 +140,7 @@ export default function Product() {
               </div>
 
               <div className={`${styles.options}`}>
-                <InputQuantity
+                <DetailsInputQuantity
                   quantity={1}
                   id={product.id}
                   onClick={totalPrice}
