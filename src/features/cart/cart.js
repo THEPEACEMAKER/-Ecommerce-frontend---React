@@ -1,5 +1,3 @@
-import api from "../../api/api";
-
 import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteCartProduct, fetchCart } from "./cartSlice";
@@ -16,29 +14,17 @@ import CheckoutButton from "./CheckoutButton";
 
 function Cart() {
   const dispatch = useDispatch();
-  const {
-    products,
-    cartId,
-    cartCount,
-    cartTotalPrice,
-    fetchStatus,
-    deleteStatus,
-    error,
-  } = useSelector((state) => state.cart);
+  const { products, cartId, cartCount, totalPrice } = useSelector(
+    (state) => state.cart
+  );
 
   const componentRef = useRef(null);
   const [height, setHeight] = useState();
-  const [totalSum, setTotalSum] = useState(0);
 
   useEffect(() => {
     if (componentRef.current) {
       setHeight(componentRef.current.clientHeight);
     }
-    setTotalSum(
-      products.reduce((acc, el) => {
-        return el.price * el.quantity + acc;
-      }, 0)
-    );
   }, [products]);
 
   useEffect(() => {
@@ -47,10 +33,6 @@ function Cart() {
 
   const deleteItem = (id) => {
     dispatch(deleteCartProduct(id));
-  };
-
-  const totalPrice = ($event) => {
-    setTotalSum($event.total_price);
   };
 
   return (
@@ -127,12 +109,7 @@ function Cart() {
                       className={`py-3 d-flex  flex-md-column flex-row justify-content-between align-items-center`}
                     >
                       <h3>$ {el.price}</h3>
-                      <InputQuantity
-                        quantity={el.quantity}
-                        id={el.id}
-                        onClick={totalPrice}
-                        cart={true}
-                      />
+                      <InputQuantity id={el.id} />
                     </div>
                   </div>
                 </div>
@@ -167,7 +144,7 @@ function Cart() {
                     <span className="text-muted">
                       Subtotal ({cartCount} items)
                     </span>
-                    <h4>$ {totalSum}</h4>
+                    <h4>$ {totalPrice}</h4>
                   </div>
                   <div className="d-flex justify-content-between align-items-center">
                     <span className="text-muted">shipping</span>
@@ -177,7 +154,7 @@ function Cart() {
                 <div className="d-flex gap-2 flex-column">
                   <div className="d-flex justify-content-between align-items-center">
                     <span>Subtotal ({cartCount} items) </span>
-                    <h4>$ {totalSum}</h4>
+                    <h4>$ {totalPrice}</h4>
                   </div>
                   <CheckoutButton cartId={cartId}></CheckoutButton>
                 </div>

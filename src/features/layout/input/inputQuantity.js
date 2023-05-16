@@ -1,67 +1,23 @@
-import { useState } from "react";
-
 import styles from "./style.module.css";
-import api from "../../../api/api";
 import { useSelector, useDispatch } from "react-redux";
 
 import {
-  setError,
-  clearError,
-  setSuccess,
-  clearSuccess,
-  setproductInCart,
-} from "../../utils/apiStatusSlice.js";
+  decrementCartProduct,
+  incrementCartProduct,
+} from "../../cart/cartSlice";
 
-function InputQuantity(props) {
+function InputQuantity({ id }) {
   const dispatch = useDispatch();
-  const error = useSelector((state) => state.apiStatus.error);
-  const success = useSelector((state) => state.apiStatus.success);
-  const productInCart = useSelector((state) => state.apiStatus.productInCart);
+  const quantity = useSelector(
+    (state) => state.cart.products.find((p) => p.id === id).quantity
+  );
 
-  const [quantity, setQuantity] = useState(props.quantity);
-
-  console.log(props);
   const handleIncrement = () => {
-    setQuantity(quantity + 1);
-    props.cart
-      ? api
-          .put("/cart/", { action: "INCREASE", product: props.id })
-          .then((res) => {
-            dispatch(setproductInCart(productInCart + 1));
-            props.onClick({
-              total_price: res.data.product.total_price,
-              quantity: quantity + 1,
-            });
-          })
-          .catch((err) => {
-            console.log(err);
-          })
-      : props.onClick({
-          quantity: quantity + 1,
-        });
+    dispatch(incrementCartProduct(id));
   };
 
   const handleDecrement = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-
-      props.cart
-        ? api
-            .put("/cart/", { action: "DECREASE", product: props.id })
-            .then((res) => {
-              dispatch(setproductInCart(productInCart - 1));
-              props.onClick({
-                total_price: res.data.product.total_price,
-                quantity: quantity - 1,
-              });
-            })
-            .catch((err) => {
-              console.log(err);
-            })
-        : props.onClick({
-            quantity: quantity - 1,
-          });
-    }
+    dispatch(decrementCartProduct(id));
   };
 
   return (
