@@ -80,7 +80,6 @@ function Navbar() {
               className={`${styles.logo}`}
             />
           </Link>
-
           <form className={`${styles.search} d-flex w-50`} role="search">
             <select
               className={`form-select form-select-sm w-25 border-end-0 rounded-0 ${styles.select}`}
@@ -106,17 +105,15 @@ function Navbar() {
             />
           </form>
 
-          {isLoggedIn && (
-            <div className="cart d-flex">
-              <Link to="/wishlist" className="btn-new p-2">
-                <i className="fa-regular fa-lg fa-heart text-white"></i>
-              </Link>
-              <Link to="/cart" className={`${styles.btnNew} p-2`}>
-                <i className="fa-solid fa-lg fa-cart-shopping text-white"></i>
-                <span>{cartCount}</span>
-              </Link>
-            </div>
-          )}
+          <div className="cart d-flex">
+            <Link to="/wishlist" className="btn-new p-2">
+              <i className="fa-regular fa-lg fa-heart text-white"></i>
+            </Link>
+            <Link to="/cart" className={`${styles.btnNew} p-2`}>
+              <i className="fa-solid fa-lg fa-cart-shopping text-white"></i>
+              <span>{cartCount}</span>
+            </Link>
+          </div>
 
           <button
             className="navbar-toggler"

@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import Confetti from "react-confetti";
+import api from "../../../../api/api";
+import { useNavigate } from "react-router-dom";
+
 import {
   MDBContainer,
   MDBRow,
@@ -18,31 +24,97 @@ import ThirdStep from "./thirdStep";
 import SecondStep from "./secondStep";
 
 function Register() {
-  const [formValue, setFormValue] = useState({
-    image: "",
-    imagePath:
-      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    fname: "",
-    lname: "",
-    uName: "",
-    email: "",
-    phone: "",
-    address: "",
-    password: "",
-    repeatPassword: "",
-    index: "",
+  const navigate = useNavigate();
+  const [resError, setResError] = useState([]);
+  const [loading, setLoding] = useState(false);
+
+  const formik = useFormik({
+    initialValues: {
+      image: "",
+      imagePath:
+        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+      fname: "",
+      lname: "",
+      uname: "",
+      email: "",
+      phone: "",
+      address: "",
+      password: "",
+      repeatPassword: "",
+    },
+    validationSchema: Yup.object({
+      fname: Yup.string()
+        .max(10, "must be 20 Char or Less")
+        .min(3, "must be 3 Char or More")
+        .matches(/^[A-Za-z]+$/, "must not contain numbers.")
+        .required("First Name is required"),
+      lname: Yup.string()
+        .max(10, "must be 20 Char or Less")
+        .min(3, "must be 3 Char or More")
+        .matches(/^[A-Za-z]+$/, "must not contain numbers.")
+        .required("Last Name is required"),
+      username: Yup.string()
+        .max(10, "User Name must be 20 Charracters or Less")
+        .min(3, "User Name must be 3 Charracters or More")
+        .matches(
+          /^[a-zA-Z][a-zA-Z0-9]*$/,
+          "User Name must start with a letter."
+        )
+        .required("User Name is required"),
+      email: Yup.string()
+        .email("Invalid email address")
+        .required("email is required"),
+      phone: Yup.string()
+        .matches(/^01[0-9]{9}$/, "Invalid phone number")
+        .required("Phone number is required"),
+      address: Yup.string().max(265, "Address must be 265 Char or less"),
+      password: Yup.string()
+        .min(6, "Password must be at least 6 characters")
+        .required("Password is required"),
+      confirm_password: Yup.string()
+        .oneOf([Yup.ref("password"), null], "Passwords must match")
+        .required("Please confirm your password"),
+    }),
+
+    onSubmit: (values) => {
+      setLoding(true);
+      api
+        .post("/auth/register/", values, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          setLoding(false);
+
+          setPieces(200);
+
+          setTimeout(() => {
+            navigate("/login");
+          }, 3000);
+        })
+        .catch((err) => {
+          setLoding(false);
+
+          setResError([]);
+          console.log(err.originalError.response.data); // TODO: log the error messages
+          for (let na of Object.values(err.originalError.response.data)) {
+            setResError((data) => [...data, na[0]]);
+          }
+        });
+    },
   });
 
-  const [index, setIndex] = useState(1);
-
   const onChange = (e) => {
-    setFormValue({ ...formValue, ...e });
     setIndex(e.index);
-    console.log({ ...formValue, ...e });
   };
+
+  const [index, setIndex] = useState(1);
+  const [pieces, setPieces] = useState(0);
 
   return (
     <div className={`${styles.body}`}>
+      <Confetti gravity={0.2} numberOfPieces={pieces} />
       <MDBContainer fluid>
         <MDBCard
           className="text-black w-75 m-auto"
@@ -58,14 +130,24 @@ function Register() {
                 lg="6"
                 className="order-2 order-lg-1 d-flex flex-column align-items-center"
               >
-                {index === 1 ? (
-                  <FirstStep onClick={onChange} form={formValue} />
-                ) : index === 2 ? (
-                  <SecondStep onClick={onChange} form={formValue} />
-                ) : (
-                  <ThirdStep onClick={onChange} form={formValue} />
-                )}
+                <form className="w-100" onSubmit={formik.handleSubmit}>
+                  {index === 1 ? (
+                    <FirstStep onClick={onChange} form={formik} />
+                  ) : index === 2 ? (
+                    <SecondStep onClick={onChange} form={formik} />
+                  ) : (
+                    <ThirdStep onClick={onChange} form={formik} />
+                  )}
+                </form>
 
+                {loading && <span className={styles.loader}></span>}
+
+                {resError.length !== 0 &&
+                  resError.map((el) => (
+                    <div className="alert alert-danger">
+                      <p className="m-0">{el}</p>
+                    </div>
+                  ))}
                 <p className="small fw-bold mt-2 pt-1 mb-2">
                   I have an account?
                   <Link to="/login" className="link-danger">

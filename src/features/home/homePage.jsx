@@ -12,7 +12,7 @@ function Home() {
         <Carousel.Item interval={1000}>
           <img
             className="d-block w-100"
-            src="https://mdbootstrap.com/img/new/slides/04.jpg"
+            src="https://mdbootstrap.com/img/new/slides/042.jpg"
             alt="First slide"
           />
           <Carousel.Caption>
