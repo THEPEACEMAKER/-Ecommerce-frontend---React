@@ -1,14 +1,9 @@
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import api from "../../../../api/api";
-import { Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import {
-  setError,
-  clearError,
-  setSuccess,
-  clearSuccess,
-} from "../../../utils/apiStatusSlice.js";
+
 import {
   MDBContainer,
   MDBRow,
@@ -16,7 +11,13 @@ import {
   MDBCard,
   MDBCardBody,
   MDBBtn,
-  MDBValidation,
+  MDBModal,
+  MDBModalDialog,
+  MDBModalContent,
+  MDBModalHeader,
+  MDBModalTitle,
+  MDBModalBody,
+  MDBModalFooter,
 } from "mdb-react-ui-kit";
 
 import styles from "./stylee.module.css";
@@ -24,138 +25,192 @@ import styles from "./stylee.module.css";
 import PersonalInfo from "./PersonalInfo";
 import ContactInfo from "./ContactInfo";
 import PasswordInfo from "./PasswordInfo";
+import MainProfile from "./mainprofile";
 
 function Profile() {
-  const dispatch = useDispatch();
-  const error = useSelector((state) => state.apiStatus.error);
-  const success = useSelector((state) => state.apiStatus.success);
+  const [resError, setResError] = useState([]);
+  const [loading, setLoding] = useState(false);
+  const [profileData, setProfileData] = useState();
+  const [switchComp, setSwitchComp] = useState(true);
+  const [basicModal, setBasicModal] = useState(false);
+  const toggleShow = () => setBasicModal(!basicModal);
 
-  const [formValue, setFormValue] = useState({
-    image: "", // ?
-    imagePath:
-      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    fname: "",
-    lname: "",
-    uName: "",
-    email: "",
-    phone: "",
-    address: "",
-    password: "",
-    repeatPassword: "",
+  const formik = useFormik({
+    initialValues: {
+      image: "",
+      imagePath:
+        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+      first_name: "",
+      last_name: "",
+      uname: "",
+      email: "",
+      phone: "",
+      address: "",
+      password: "",
+      confirm_password: "",
+    },
+    validationSchema: Yup.object({
+      first_name: Yup.string()
+        .max(10, "must be 20 Char or Less")
+        .min(3, "must be 3 Char or More")
+        .matches(/^[A-Za-z]+$/, "must not contain numbers.")
+        .required("First Name is required"),
+      last_name: Yup.string()
+        .max(10, "must be 20 Char or Less")
+        .min(3, "must be 3 Char or More")
+        .matches(/^[A-Za-z]+$/, "must not contain numbers.")
+        .required("Last Name is required"),
+      username: Yup.string()
+        .max(10, "User Name must be 20 Charracters or Less")
+        .min(3, "User Name must be 3 Charracters or More")
+        .matches(
+          /^[a-zA-Z][a-zA-Z0-9]*$/,
+          "User Name must start with a letter."
+        )
+        .required("User Name is required"),
+      email: Yup.string()
+        .email("Invalid email address")
+        .required("email is required"),
+      phone: Yup.string()
+        .matches(/^01[0-9]{9}$/, "Invalid phone number")
+        .required("Phone number is required"),
+      address: Yup.string().max(265, "Address must be 265 Char or less"),
+      password: Yup.string()
+        .min(6, "Password must be at least 6 characters")
+        .required("Password is required"),
+      confirm_password: Yup.string()
+        .oneOf([Yup.ref("password"), null], "Passwords must match")
+        .required("Please confirm your password"),
+    }),
+
+    onSubmit: (values) => {
+      setLoding(true);
+
+      toggleShow();
+      // api
+      //   .post("/auth/register/", values, {
+      //     headers: {
+      //       "Content-Type": "multipart/form-data",
+      //     },
+      //   })
+      //   .then((res) => {
+      //     setLoding(false);
+      //   })
+      //   .catch((err) => {
+      //     setLoding(false);
+
+      //     setResError([]);
+      //     console.log(err.originalError.response.data);
+      //     for (let na of Object.values(err.originalError.response.data)) {
+      //       setResError((data) => [...data, na[0]]);
+      //     }
+      //   });
+    },
   });
 
   useEffect(() => {
     api
-      .get("http://localhost:3001/profile")
+      .get("/auth")
       .then((res) => {
-        reset(res.data);
-        setFormValue({ ...formValue, imagePath: res.data.imagePath });
-        // setData(res.data);
+        setProfileData(res.data);
+        formik.setValues({ ...formik.values, ...res.data });
       })
       .catch((err) => {
-        dispatch(setError(err.message));
+        console.log(err);
       });
   }, []);
-
-  const [show, setShow] = useState(false);
-
-  const onChange = (e) => {
-    if (e.target.name === "image") {
-      const file = e.target.files[0];
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      setShow(true);
-
-      reader.onload = () => {
-        setFormValue({
-          ...formValue,
-          imagePath: reader.result,
-          [e.target.name]: file,
-        });
-        setShow(false);
-      };
-    } else {
-      setFormValue({ ...formValue, [e.target.name]: e.target.value });
-    }
-  };
-
-  const onSubmit = (e) => {
-    // on submit
-    setFormValue({ ...formValue, ...e });
-  };
-
-  // validation
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm();
-
-  useEffect(() => {
-    if (errors) {
-    }
-  }, [errors]);
 
   return (
     <div className={`${styles.body}`}>
       <MDBContainer fluid>
         <MDBCard
-          className="text-black w-75 m-auto"
+          className="text-black w-100 m-auto"
           style={{ borderRadius: "25px" }}
         >
           <MDBCardBody className="py-1">
-            <div className="w-50 m-auto border">
-              <h2 className="my-3 mb-2" style={{ textAlign: "center" }}>
-                Profile
-              </h2>
-              <p style={{ textAlign: "center" }}>
-                Edit your profile information
-              </p>
-              <hr />
-
-              <MDBRow className="w-100 m-auto">
-                <MDBCol
-                  md="10"
-                  lg="6"
-                  className="order-2 order-lg-1 d-flex flex-column align-items-center w-100 px-4"
-                >
-                  {/*  */}
-                  <MDBValidation
-                    className="w-100 d-flex flex-column align-items-center my-1"
-                    onSubmit={handleSubmit(onSubmit)}
+            {switchComp ? (
+              <MainProfile
+                profileData={profileData}
+                setSwitchComp={setSwitchComp}
+              />
+            ) : (
+              <div className="w-50 m-auto border">
+                <h2 className="my-3 mb-2" style={{ textAlign: "center" }}>
+                  Profile
+                </h2>
+                <p style={{ textAlign: "center" }}>
+                  Edit your profile information
+                </p>
+                <hr />
+                <MDBRow className="w-100 m-auto">
+                  <MDBCol
+                    md="10"
+                    lg="6"
+                    className="order-2 order-lg-1 d-flex flex-column align-items-center w-100 px-4"
                   >
-                    <PersonalInfo
-                      formValue={formValue}
-                      onChange={onChange}
-                      register={register}
-                      errors={errors}
-                    />
-                    <ContactInfo
-                      formValue={formValue}
-                      onChange={onChange}
-                      register={register}
-                      errors={errors}
-                    />
-                    <PasswordInfo
-                      formValue={formValue}
-                      onChange={onChange}
-                      register={register}
-                      errors={errors}
-                    />
+                    <form onSubmit={formik.handleSubmit}>
+                      <PersonalInfo formik={formik} />
+                      <ContactInfo formik={formik} />
+                      <PasswordInfo formik={formik} />
 
-                    <div className="d-flex flex-row flex-row-reverse mb-4 w-100">
-                      <MDBBtn type="submit" className="mb-4" size="lg">
-                        Edit
-                      </MDBBtn>
-                    </div>
-                  </MDBValidation>
-                </MDBCol>
-              </MDBRow>
-            </div>
+                      <div className="d-flex flex-row justify-content-between mb-4 w-100">
+                        <MDBBtn
+                          type="button"
+                          className="mb-4"
+                          size="lg"
+                          onClick={() => {
+                            setSwitchComp(true);
+                          }}
+                        >
+                          Back
+                        </MDBBtn>
+                        {loading && <span className={styles.loader}></span>}
+                        <MDBBtn type="submit" className="mb-4" size="lg">
+                          Edit
+                        </MDBBtn>
+                      </div>
+                    </form>
+                  </MDBCol>
+                </MDBRow>
+              </div>
+            )}
           </MDBCardBody>
         </MDBCard>
       </MDBContainer>
+      <>
+        <MDBModal show={basicModal} setShow={setBasicModal} tabIndex="-1">
+          <MDBModalDialog>
+            <MDBModalContent>
+              <MDBModalHeader>
+                <MDBModalTitle>Congratulation</MDBModalTitle>
+                <MDBBtn
+                  className="btn-close"
+                  color="none"
+                  onClick={toggleShow}
+                ></MDBBtn>
+              </MDBModalHeader>
+              <MDBModalBody className="d-flex flex-column align-items-center gap-4">
+                <div style={{ height: "80px" }}>
+                  <span className={styles.loader2}></span>
+                </div>{" "}
+                <p>Congratulation Your Data information is Updated</p>
+              </MDBModalBody>
+
+              <MDBModalFooter>
+                <MDBBtn
+                  color="secondary"
+                  onClick={() => {
+                    toggleShow();
+                    setSwitchComp(true);
+                  }}
+                >
+                  Close
+                </MDBBtn>
+              </MDBModalFooter>
+            </MDBModalContent>
+          </MDBModalDialog>
+        </MDBModal>
+      </>{" "}
     </div>
   );
 }

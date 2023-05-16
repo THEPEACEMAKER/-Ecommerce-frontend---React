@@ -33,22 +33,22 @@ function Register() {
       image: "",
       imagePath:
         "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-      fname: "",
-      lname: "",
+      first_name: "",
+      last_name: "",
       uname: "",
       email: "",
       phone: "",
       address: "",
       password: "",
-      repeatPassword: "",
+      confirm_password: "",
     },
     validationSchema: Yup.object({
-      fname: Yup.string()
+      first_name: Yup.string()
         .max(10, "must be 20 Char or Less")
         .min(3, "must be 3 Char or More")
         .matches(/^[A-Za-z]+$/, "must not contain numbers.")
         .required("First Name is required"),
-      lname: Yup.string()
+      last_name: Yup.string()
         .max(10, "must be 20 Char or Less")
         .min(3, "must be 3 Char or More")
         .matches(/^[A-Za-z]+$/, "must not contain numbers.")
@@ -97,7 +97,7 @@ function Register() {
           setLoding(false);
 
           setResError([]);
-          console.log(err.originalError.response.data); // TODO: log the error messages
+          console.log(err.originalError.response.data);
           for (let na of Object.values(err.originalError.response.data)) {
             setResError((data) => [...data, na[0]]);
           }

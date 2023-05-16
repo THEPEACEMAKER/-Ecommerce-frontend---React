@@ -26,7 +26,7 @@ function FirstStep(props) {
   const onClick = () => {
     if (
       Object.keys(props.form.errors).filter((el) =>
-        ["fname", "lname", "username", "email"].includes(el)
+        ["first_name", "last_name", "username", "email"].includes(el)
       ).length === 0 &&
       Object.keys(props.form.touched).length !== 0
     ) {
@@ -34,7 +34,7 @@ function FirstStep(props) {
     } else {
       if (
         Object.keys(props.form.errors).filter((el) =>
-          ["fname", "lname", "username", "email"].includes(el)
+          ["first_name", "last_name", "username", "email"].includes(el)
         ).length !== 4
       ) {
         setshowError(true);
@@ -79,20 +79,20 @@ function FirstStep(props) {
           <div className="w-50 position-relative">
             <MDBInput
               label="First Name"
-              id="fname"
+              id="first_name"
               type="text"
-              value={props.form.values.fname}
+              value={props.form.values.first_name}
               onChange={props.form.handleChange}
               className={`${
-                props.form.touched.fname &&
-                props.form.errors.fname &&
+                props.form.touched.first_name &&
+                props.form.errors.first_name &&
                 styles.inputErr
               } `}
               onBlur={props.form.handleBlur}
             />
-            {props.form.touched.fname && props.form.errors.fname && (
+            {props.form.touched.first_name && props.form.errors.first_name && (
               <p className={`${styles.error} ${animate ? styles.animate : ""}`}>
-                {props.form.errors.fname}
+                {props.form.errors.first_name}
               </p>
             )}
           </div>
@@ -100,22 +100,22 @@ function FirstStep(props) {
           <div className="w-50 position-relative">
             <MDBInput
               label="Last Name"
-              id="lname"
+              id="last_name"
               type="text"
-              value={props.form.values.lname}
+              value={props.form.values.last_name}
               onChange={props.form.handleChange}
               className={`${
-                props.form.touched.lname &&
-                props.form.errors.lname &&
+                props.form.touched.last_name &&
+                props.form.errors.last_name &&
                 styles.inputErr
               }`}
               onBlur={props.form.handleBlur}
             />
-            {props.form.touched.lname && props.form.errors.lname && (
+            {props.form.touched.last_name && props.form.errors.last_name && (
               <p
                 className={`${styles.error}  ${animate ? styles.animate : ""}`}
               >
-                {props.form.errors.lname}
+                {props.form.errors.last_name}
               </p>
             )}
           </div>
@@ -178,7 +178,7 @@ function FirstStep(props) {
       {showError && (
         <div className="alert alert-danger">
           <p className={`m-0 ${animate ? styles.animate : ""}`}>
-            fill All input by corect way
+            Fill All input by correct way
           </p>
         </div>
       )}

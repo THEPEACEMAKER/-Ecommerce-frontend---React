@@ -41,11 +41,9 @@ function Login() {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log("onSubmit: ", data);
     api
       .post("/auth/login/", data)
       .then((res) => {
-        console.log("res:", res);
         const { access, refresh } = res.data;
         dispatch(login({ access, refresh }));
         dispatch(clearError());
@@ -72,6 +70,10 @@ function Login() {
     <div className={`${styles.body}`}>
       <MDBContainer className="my-5">
         <MDBCard>
+          <div className="d-flex flex-row m-auto my-3 ">
+            <MDBIcon fas icon="cubes fa-3x me-3" style={{ color: "#ff6219" }} />
+            <span className="h1 fw-bold mb-0">Login</span>
+          </div>
           <MDBRow className="g-0">
             <MDBCol md="6">
               <MDBCardImage
@@ -83,14 +85,6 @@ function Login() {
 
             <MDBCol md="6">
               <MDBCardBody className="d-flex flex-column">
-                <div className="d-flex flex-row mt-2">
-                  <MDBIcon
-                    fas
-                    icon="cubes fa-3x me-3"
-                    style={{ color: "#ff6219" }}
-                  />
-                  <span className="h1 fw-bold mb-0">Logo</span>
-                </div>
                 <MDBValidation
                   className="text-center"
                   onSubmit={handleSubmit(onSubmit)}

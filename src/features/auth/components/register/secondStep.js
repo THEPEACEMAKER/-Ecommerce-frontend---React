@@ -110,7 +110,7 @@ function SecondStep(props) {
       {showError && (
         <div className="alert alert-danger">
           <p className={`m-0 ${animate ? styles.animate : ""}`}>
-            fill All input by corect way
+            Fill All input by correct way
           </p>
         </div>
       )}

@@ -1,23 +1,32 @@
 /* eslint-disable jsx-a11y/alt-text */
+import { useEffect, useState } from "react";
 
-import { useState } from "react";
-
-import {
-  MDBSpinner,
-  MDBInput,
-  MDBIcon,
-  MDBValidationItem,
-} from "mdb-react-ui-kit";
+import { MDBSpinner, MDBIcon, MDBBtn, MDBInput } from "mdb-react-ui-kit";
 
 import styles from "./stylee.module.css";
 
-function PersonalInfo({ formValue, onChange, register, errors }) {
+function FirstStep({ formik }) {
   const [show, setShow] = useState(false);
 
+  const onImgChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    setShow(true);
+
+    reader.onload = () => {
+      formik.values.image = file;
+      setShow(false);
+    };
+  };
+
   return (
-    <>
+    <div className="w-100 d-flex flex-column align-items-center my-1">
       <div className={`${styles.parent}`}>
-        <img src={formValue.imagePath} className={`${styles.img}`} />
+        <img
+          src={`https://res.cloudinary.com/ddk98mjzn/${formik.values.image}`}
+          className={`${styles.img}`}
+        />
 
         <div
           className={show ? `${styles.wait} ${styles.visible}` : styles.wait}
@@ -28,98 +37,102 @@ function PersonalInfo({ formValue, onChange, register, errors }) {
         </div>
         <label htmlFor="inputTag" className={`${styles.addImage}`}>
           <i className="fa fa-camera"></i>
-          <input id="inputTag" type="file" name="image" onChange={onChange} />
+          <input
+            id="inputTag"
+            type="file"
+            name="image"
+            onChange={onImgChange}
+          />
         </label>
       </div>
 
-      <hr className="w-50"></hr>
-      <div className="d-flex flex-row align-items-center mb-4 gap-1">
+      <div className="d-flex flex-row align-items-center mb-5 gap- w-100">
         <MDBIcon fas icon="user me-3" size="lg" />
 
-        <div className="d-flex gap-2">
-          <div className="w-50">
-            <MDBValidationItem
-              feedback={errors.fname ? errors.fname.message : ""}
-              invalid={!!errors.fname}
-            >
-              <MDBInput
-                id="fname"
-                type="text"
-                name="fname"
-                required
-                {...register("fname", {
-                  required: { value: true, message: "First Name is required." },
-                })}
-                onChange={onChange}
-              />
-            </MDBValidationItem>
+        <div className="d-flex gap-2 w-100">
+          <div className="w-100 position-relative">
+            <MDBInput
+              label="First Name"
+              id="first_name"
+              type="text"
+              value={formik.values.first_name}
+              onChange={formik.handleChange}
+              className={`${
+                formik.touched.first_name &&
+                formik.errors.first_name &&
+                styles.inputErr
+              } `}
+              onBlur={formik.handleBlur}
+            />
+            {formik.touched.first_name && formik.errors.first_name && (
+              <p className={`${styles.error} `}>{formik.errors.first_name}</p>
+            )}
           </div>
-          <div className="w-50">
-            <MDBValidationItem
-              feedback={errors.lname ? errors.lname.message : ""}
-              invalid={!!errors.lname}
-            >
-              <MDBInput
-                id="lname"
-                type="text"
-                name="lname"
-                required
-                {...register("lname", {
-                  required: { value: true, message: "Last Name is required." },
-                })}
-                onChange={onChange}
-              />
-            </MDBValidationItem>
+
+          <div className="w-100 position-relative">
+            <MDBInput
+              label="Last Name"
+              id="last_name"
+              type="text"
+              value={formik.values.last_name}
+              onChange={formik.handleChange}
+              className={`${
+                formik.touched.last_name &&
+                formik.errors.last_name &&
+                styles.inputErr
+              }`}
+              onBlur={formik.handleBlur}
+            />
+            {formik.touched.last_name && formik.errors.last_name && (
+              <p className={`${styles.error}`}>{formik.errors.last_name}</p>
+            )}
           </div>
         </div>
       </div>
 
-      <div className="d-flex flex-row align-items-center mb-4 w-100">
+      <div className="d-flex flex-row align-items-center mb-5 w-100 ">
         <MDBIcon fas icon="at me-3" size="lg" />
-        <div className="w-100">
-          <MDBValidationItem
-            feedback={errors.uName ? errors.uName.message : ""}
-            invalid={!!errors.uName}
-          >
-            <MDBInput
-              id="form3"
-              type="text"
-              name="uName"
-              required
-              {...register("uName", {
-                required: { value: true, message: "User Name is required." },
-              })}
-              onChange={onChange}
-            />
-          </MDBValidationItem>
+        <div className="w-100 position-relative">
+          <MDBInput
+            label="User Name"
+            id="username"
+            type="text"
+            value={formik.values.username}
+            onChange={formik.handleChange}
+            className={`${
+              formik.touched.username &&
+              formik.errors.username &&
+              styles.inputErr
+            }`}
+            onBlur={formik.handleBlur}
+          />
+          {formik.touched.username && formik.errors.username && (
+            <p className={`${styles.error} `}>{formik.errors.username}</p>
+          )}
         </div>
       </div>
-      <div className="d-flex flex-row align-items-center mb-4 w-100">
+
+      <div className="d-flex flex-row align-items-center mb-5 w-100 ">
         <MDBIcon fas icon="envelope me-3" size="lg" />
-        <div className="w-100">
-          <MDBValidationItem
-            feedback={errors.email ? errors.email.message : ""}
-            invalid={!!errors.email}
-          >
-            <MDBInput
-              id="form4"
-              type="email"
-              name="email"
-              required
-              {...register("email", {
-                required: { value: true, message: "Email is required." },
-                pattern: {
-                  value: /^\w+([-+.']\w+)*@\w+([-.]\w+)*(\.\w+([-.]\w+)*)?$/,
-                  message: "Please enter a valid email address.",
-                },
-              })}
-              onChange={onChange}
-            />
-          </MDBValidationItem>
+        <div className="w-100 position-relative">
+          <MDBInput
+            label="Your Email"
+            id="email"
+            type="email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            className={`${
+              formik.touched.email && formik.errors.email && styles.inputErr
+            } `}
+            onBlur={formik.handleBlur}
+          />
+          {formik.touched.email && formik.errors.email && (
+            <p className={`${styles.error}`}> {formik.errors.email}</p>
+          )}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
-export default PersonalInfo;
+export default FirstStep;
