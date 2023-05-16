@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteCartProduct } from "./cartSlice";
 import { Link } from "react-router-dom";
 
 import styles from "./stylee.module.css";
@@ -11,6 +10,7 @@ import { MDBCard, MDBCardImage, MDBRipple } from "mdb-react-ui-kit";
 import Sticky from "react-stickynode";
 
 import CheckoutButton from "./CheckoutButton";
+import { deleteCartProduct } from "./cartSlice";
 
 function Cart() {
   const dispatch = useDispatch();
