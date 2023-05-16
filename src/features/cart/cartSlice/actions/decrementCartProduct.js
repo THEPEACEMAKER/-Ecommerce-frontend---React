@@ -27,7 +27,11 @@ const fulfilled = (state, action) => {
     (p) => p.id === action.meta.arg
   );
   if (productIndex !== -1) {
-    state.products[productIndex].quantity--;
+    if (state.products[productIndex].quantity === 1) {
+      state.products.splice(productIndex, 1);
+    } else {
+      state.products[productIndex].quantity--;
+    }
   }
   state.cartCount -= 1;
   state.totalPrice = action.payload.product.total_price;
