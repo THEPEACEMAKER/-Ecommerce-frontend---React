@@ -16,13 +16,16 @@ import Product from "./features/Product Details/ProductDetails";
 import Home from "./features/home/homePage";
 import { fetchCart } from "./features/cart/cartSlice";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function App() {
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   useEffect(() => {
-    dispatch(fetchCart());
-  }, [dispatch]);
+    if (isLoggedIn) {
+      dispatch(fetchCart());
+    }
+  }, [dispatch, isLoggedIn]);
 
   return (
     <BrowserRouter>

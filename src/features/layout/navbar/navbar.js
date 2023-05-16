@@ -63,16 +63,6 @@ function Navbar() {
                   <span> Profile</span>
                 </Link>
 
-                {/* <Link to="/wishlist" className="mx-2">
-                  <i className="fa-regular fa-lg fa-heart text-white"></i>
-                  <span> Wish List</span>
-                </Link>
-
-                <Link to="/cart" className="mx-2">
-                  <i className="fa-solid fa-lg fa-cart-shopping text-white"></i>
-                  <span> Cart</span>
-                </Link> */}
-
                 <Link className="mx-2" onClick={() => dispatch(logout())}>
                   <i className="fa-solid fa-arrow-right-from-bracket"></i>{" "}
                   <span> Logout</span>
@@ -116,15 +106,17 @@ function Navbar() {
             />
           </form>
 
-          <div className="cart d-flex">
-            <Link to="/wishlist" className="btn-new p-2">
-              <i className="fa-regular fa-lg fa-heart text-white"></i>
-            </Link>
-            <Link to="/cart" className={`${styles.btnNew} p-2`}>
-              <i className="fa-solid fa-lg fa-cart-shopping text-white"></i>
-              <span>{cartCount}</span>
-            </Link>
-          </div>
+          {isLoggedIn && (
+            <div className="cart d-flex">
+              <Link to="/wishlist" className="btn-new p-2">
+                <i className="fa-regular fa-lg fa-heart text-white"></i>
+              </Link>
+              <Link to="/cart" className={`${styles.btnNew} p-2`}>
+                <i className="fa-solid fa-lg fa-cart-shopping text-white"></i>
+                <span>{cartCount}</span>
+              </Link>
+            </div>
+          )}
 
           <button
             className="navbar-toggler"
