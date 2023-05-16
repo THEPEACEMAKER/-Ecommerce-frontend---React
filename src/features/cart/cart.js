@@ -2,7 +2,7 @@ import api from "../../api/api";
 
 import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchCart } from "./cartSlice";
+import { deleteCartProduct, fetchCart } from "./cartSlice";
 import { Link } from "react-router-dom";
 
 import styles from "./stylee.module.css";
@@ -12,23 +12,11 @@ import InputQuantity from "../layout/input/inputQuantity";
 import { MDBCard, MDBCardImage, MDBRipple } from "mdb-react-ui-kit";
 import Sticky from "react-stickynode";
 
-import {
-  setError,
-  clearError,
-  setSuccess,
-  clearSuccess,
-  setproductInCart,
-} from "../utils/apiStatusSlice.js";
 import CheckoutButton from "./CheckoutButton";
 
 function Cart() {
   const dispatch = useDispatch();
-  // const error = useSelector((state) => state.apiStatus.error);
-  const success = useSelector((state) => state.apiStatus.success);
-
-  // const [products, setProducts] = useState([]);
-  // const [cartId, setcartId] = useState(null);
-  const { products, cartId, status, error } = useSelector(
+  const { products, cartId, fetchStatus, deleteStatus, error } = useSelector(
     (state) => state.cart
   );
   const productInCart = useSelector((state) => state.apiStatus.productInCart);
@@ -52,32 +40,9 @@ function Cart() {
     dispatch(fetchCart());
   }, [dispatch]);
 
-  // const deletItem = (id) => {
-  //   api
-  //     .delete(`/cart/${id}`)
-  //     .then((res) => {
-  //       setProducts((products) =>
-  //         products.filter((item) => {
-  //           if (item.id == id) {
-  //             dispatch(setproductInCart(productInCart - item.quantity));
-  //           }
-  //           return item.id != id;
-  //         })
-  //       );
-  //       dispatch(setSuccess(res.data.message));
-  //     })
-  //     .catch((err) => {
-  //       dispatch(setError(err.message));
-  //       console.log(err);
-  //     });
-  // };
-
-  useEffect(() => {
-    return () => {
-      dispatch(clearSuccess());
-      dispatch(clearError());
-    };
-  }, []);
+  const deleteItem = (id) => {
+    dispatch(deleteCartProduct(id));
+  };
 
   const totalPrice = ($event) => {
     setTotalSum($event.total_price);
@@ -145,7 +110,7 @@ function Cart() {
                       <div>
                         <button
                           className="text-start d-inline"
-                          // onClick={() => deletItem(el.id)}
+                          onClick={() => deleteItem(el.id)}
                         >
                           <i className="fa-solid fa-trash"></i>{" "}
                           <span> Remove</span>
