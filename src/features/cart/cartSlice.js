@@ -30,6 +30,8 @@ const cartSlice = createSlice({
   initialState: {
     products: [],
     cartId: null,
+    cartCount: null,
+    cartTotalPrice: null,
     fetchStatus: "idle",
     deleteStatus: "idle",
     error: null,
@@ -45,6 +47,11 @@ const cartSlice = createSlice({
         state.fetchStatus = "succeeded";
         state.products = action.payload.products;
         state.cartId = action.payload.id;
+        state.cartCount = action.payload.products.reduce(
+          (acc, el) => acc + el.quantity,
+          0
+        );
+        state.cartTotalPrice = action.payload.total_price;
       })
       .addCase(fetchCart.rejected, (state, action) => {
         state.fetchStatus = "failed";

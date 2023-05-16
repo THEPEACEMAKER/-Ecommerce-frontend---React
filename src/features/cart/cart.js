@@ -16,10 +16,15 @@ import CheckoutButton from "./CheckoutButton";
 
 function Cart() {
   const dispatch = useDispatch();
-  const { products, cartId, fetchStatus, deleteStatus, error } = useSelector(
-    (state) => state.cart
-  );
-  const productInCart = useSelector((state) => state.apiStatus.productInCart);
+  const {
+    products,
+    cartId,
+    cartCount,
+    cartTotalPrice,
+    fetchStatus,
+    deleteStatus,
+    error,
+  } = useSelector((state) => state.cart);
 
   const componentRef = useRef(null);
   const [height, setHeight] = useState();
@@ -55,7 +60,7 @@ function Cart() {
     >
       <div className="title">
         <h2 className="d-inline-block text-start mb-4">Shopping Cart</h2>
-        <span> ({productInCart} items)</span>
+        <span> ({cartCount} items)</span>
       </div>
 
       {products.length ? (
@@ -160,7 +165,7 @@ function Cart() {
                 <div className="d-flex gap-2 flex-column border-bottom border-secondary">
                   <div className="d-flex justify-content-between align-items-center">
                     <span className="text-muted">
-                      Subtotal ({productInCart} items)
+                      Subtotal ({cartCount} items)
                     </span>
                     <h4>$ {totalSum}</h4>
                   </div>
@@ -171,7 +176,7 @@ function Cart() {
                 </div>
                 <div className="d-flex gap-2 flex-column">
                   <div className="d-flex justify-content-between align-items-center">
-                    <span>Subtotal ({productInCart} items) </span>
+                    <span>Subtotal ({cartCount} items) </span>
                     <h4>$ {totalSum}</h4>
                   </div>
                   <CheckoutButton cartId={cartId}></CheckoutButton>
