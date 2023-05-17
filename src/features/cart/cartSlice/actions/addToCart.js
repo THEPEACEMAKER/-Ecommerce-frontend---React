@@ -23,7 +23,24 @@ const pending = (state) => {
 
 const fulfilled = (state, action) => {
   state.addStatus = "succeeded";
-  state.products.push(action.payload.product);
+  // {
+  //     "message": "Product added successfully",
+  //     "product": {
+  //         "product": 2,
+  //         "quantity": 4,
+  //         "total_price": 24000.0
+  //     }
+  // }
+  const existingProduct = state.products.find(
+    (p) => p.id === action.meta.arg.product.id
+  );
+  if (existingProduct) {
+    // If the product already exists, increase its quantity
+    existingProduct.quantity = action.payload.product.quantity;
+  } else {
+    // If the product is not already present, push it into the array
+    state.products.push(action.meta.arg.product);
+  }
   state.cartCount += action.meta.arg.quantity;
   state.totalPrice = action.payload.product.total_price;
 };

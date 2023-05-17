@@ -10,7 +10,7 @@ import { MDBCard, MDBCardImage, MDBRipple } from "mdb-react-ui-kit";
 import Sticky from "react-stickynode";
 
 import CheckoutButton from "./CheckoutButton";
-import { deleteCartProduct } from "./cartSlice";
+import { deleteCartProduct, fetchCart } from "./cartSlice";
 
 function Cart() {
   const dispatch = useDispatch();
@@ -26,6 +26,13 @@ function Cart() {
       setHeight(componentRef.current.clientHeight);
     }
   }, [products]);
+
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  useEffect(() => {
+    if (isLoggedIn) {
+      dispatch(fetchCart());
+    }
+  }, [dispatch, isLoggedIn]);
 
   const deleteItem = (id) => {
     dispatch(deleteCartProduct(id));
