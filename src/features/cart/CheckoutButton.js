@@ -9,7 +9,7 @@ function CheckoutButton({ cartId }) {
     api
       .post("/payment/", { cartid: cartId })
       .then((res) => {
-        setCheckoutUrl(res.data.checkout_url);
+        setCheckoutUrl(res.data.sessionId);
       })
       .catch((err) => {
         console.log(err);

@@ -4,14 +4,26 @@ import api from "../../../../api/api";
 export const addToCart = createAsyncThunk(
   "cart/addToCart",
   async (props, thunkAPI) => {
-    try {
-      const response = await api.post(`/cart/`, {
-        product: props.product.id,
-        quantity: props.quantity,
-      });
-      return response.data;
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err.message);
+    const cartProduct = thunkAPI
+      .getState()
+      .cart.products.find((p) => p.id === props.product.id);
+    if (
+      !cartProduct ||
+      cartProduct.quantity + props.quantity <= cartProduct.total_quantity
+    ) {
+      // console.log("adding product");
+      try {
+        const response = await api.post(`/cart/`, {
+          product: props.product.id,
+          quantity: props.quantity,
+        });
+        return response.data;
+      } catch (err) {
+        return thunkAPI.rejectWithValue(err.message);
+      }
+    } else {
+      // console.log("no stock of this product");
+      return thunkAPI.rejectWithValue("We don't have enough stock of this.");
     }
   }
 );
@@ -39,7 +51,12 @@ const fulfilled = (state, action) => {
     existingProduct.quantity = action.payload.product.quantity;
   } else {
     // If the product is not already present, push it into the array
-    state.products.push(action.meta.arg.product);
+    let newProduct = {
+      ...action.meta.arg.product,
+      total_quantity: action.meta.arg.product.quantity,
+      quantity: 1,
+    };
+    state.products.push(newProduct);
   }
   state.cartCount += action.meta.arg.quantity;
   state.totalPrice = action.payload.product.total_price;
