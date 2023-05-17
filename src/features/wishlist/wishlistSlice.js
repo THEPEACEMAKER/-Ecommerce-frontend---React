@@ -5,10 +5,10 @@ export const fetchWishlist = createAsyncThunk(
   "wishlist/fetchWishlist",
   async (thunkAPI) => {
     try {
-      const response = await api.get(`/user/wishlist`);
+      const response = await api.get(`/wishlist`);
       return new Promise((resolve) => {
         setTimeout(() => {
-          resolve(response.data[0].product_details.results);
+          resolve(response.data[0].product_details);
         }, 500);
       });
     } catch (err) {
