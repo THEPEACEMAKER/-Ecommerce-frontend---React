@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import api from "../../api/api";
 import styles from "./stylee.module.css";
+import { resetCart } from "./cartSlice";
+import { useDispatch } from "react-redux";
 
 function CheckoutButton({ cartId }) {
   const [checkoutUrl, setCheckoutUrl] = useState(null);
+  const dispatch = useDispatch();
 
   const handleCheckout = () => {
     api
@@ -18,6 +21,7 @@ function CheckoutButton({ cartId }) {
 
   useEffect(() => {
     if (checkoutUrl) {
+      dispatch(resetCart());
       // Redirect the user to the Stripe checkout page
       window.location.href = checkoutUrl;
     }

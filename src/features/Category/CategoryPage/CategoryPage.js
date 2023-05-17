@@ -24,8 +24,11 @@ function CategoryPage() {
 
   return (
     <MDBContainer fluid className="my-5">
-      <h1 className="">Electronics</h1>
-      {/* TODO: set the category name dynamically */}
+      <h1 className="">
+        {status === "succeeded" && products.length
+          ? products[0].category.name
+          : ""}
+      </h1>
       <br />
       <MDBRow>
         {status === "loading" ? (
