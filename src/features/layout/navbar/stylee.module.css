@@ -1,21 +1,24 @@
 nav {
-  background-color: #172856;
+  /* background-color: #172856; */
 }
 
 .logo {
   width: 120px;
 }
-
+.top {
+  background-color: #f5f5f5;
+}
 .search {
   position: relative;
   z-index: 5;
+  background-color: rgb(216, 215, 215);
 }
 
-.search::after {
+/* .search::after {
   content: "";
   width: 10%;
   height: 100%;
-  background-color: white;
+  background-color: rgb(216, 215, 215);
   border-radius: 50px;
   position: absolute;
   top: 0;
@@ -27,25 +30,34 @@ nav {
   content: "";
   width: 10%;
   height: 100%;
-  background-color: white;
+  background-color: rgb(216, 215, 215);
   border-radius: 50px;
   position: absolute;
   top: 0;
   right: -4%;
   z-index: -1;
-}
+} */
 
 .select,
 .btnSearch {
   outline: none !important;
   border: none !important;
   position: relative;
+  background-color: rgb(216, 215, 215);
 }
 
-.select:hover,
-.btnSearch:hover {
+.select::selection,
+.btnSearch:focus {
   outline: none !important;
   border: none !important;
+  background-color: rgb(216, 215, 215);
+}
+
+.select:focus,
+.btnSearch:focus {
+  outline: none !important;
+  border: none !important;
+  background-color: rgb(216, 215, 215);
 }
 
 .btnNew {
@@ -64,7 +76,7 @@ nav {
   color: black;
 }
 .i {
-  color: white;
+  color: black;
 }
 
 i:hover {

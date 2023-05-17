@@ -12,9 +12,9 @@ import {
 export default function MainProfile({ profileData, setSwitchComp }) {
   return (
     profileData && (
-      <MDBRow className="justify-content-center align-items-center ">
-        <MDBCol lg="9" xl="7" className="w-100">
-          <MDBCard className="flex flex-column">
+      <MDBRow className="justify-content-center align-items-center  ">
+        <MDBCol lg="9" xl="7" className="w-100 ">
+          <MDBCard className="flex flex-column px-2">
             <div
               className="rounded-top text-white"
               style={{ backgroundColor: "#000", height: "200px" }}
