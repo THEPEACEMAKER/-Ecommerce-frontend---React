@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAction, createSlice } from "@reduxjs/toolkit";
 import { fetchCart, fetchHandlers } from "./actions/fetchCart";
 import {
   deleteCartProduct,
@@ -19,7 +19,7 @@ const cartSlice = createSlice({
   initialState: {
     products: [],
     cartId: null,
-    cartCount: null,
+    cartCount: 0,
     totalPrice: null,
     fetchStatus: "idle",
     addStatus: "idle",
@@ -51,9 +51,23 @@ const cartSlice = createSlice({
       .addCase(decrementCartProduct.rejected, decrementProductHandlers.rejected)
       .addCase(addToCart.pending, addToCartHandlers.pending)
       .addCase(addToCart.fulfilled, addToCartHandlers.fulfilled)
-      .addCase(addToCart.rejected, addToCartHandlers.rejected);
+      .addCase(addToCart.rejected, addToCartHandlers.rejected)
+      .addCase(resetCart, (state) => {
+        state.products = [];
+        state.cartId = null;
+        state.cartCount = 0;
+        state.totalPrice = null;
+        state.fetchStatus = "idle";
+        state.addStatus = "idle";
+        state.deleteStatus = "idle";
+        state.incrementStatus = "idle";
+        state.decrementStatus = "idle";
+        state.error = null;
+      });
   },
 });
+
+export const resetCart = createAction("cart/resetCart");
 
 export {
   fetchCart,

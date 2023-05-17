@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styles from "./stylee.module.css";
 import { logout } from "../../auth/authSlice";
 import { fetchCategories } from "../../Category/PopularCategories/popularCategoriesSlice";
+import { resetCart } from "../../cart/cartSlice";
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -15,6 +16,11 @@ function Navbar() {
 
   const handleSelectChange = (event) => {
     setSelectedValue(event.target.value);
+  };
+
+  const handleLogout = () => {
+    dispatch(resetCart());
+    dispatch(logout());
   };
 
   useEffect(() => {
@@ -63,7 +69,7 @@ function Navbar() {
                   <span> Profile</span>
                 </Link>
 
-                <Link className="mx-2" onClick={() => dispatch(logout())}>
+                <Link className="mx-2" onClick={handleLogout}>
                   <i className="fa-solid fa-arrow-right-from-bracket"></i>{" "}
                   <span> Logout</span>
                 </Link>
