@@ -17,6 +17,7 @@ import Home from "./features/home/homePage";
 import { fetchCart } from "./features/cart/cartSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Orders from "./features/order/Orders";
 
 function App() {
   const dispatch = useDispatch();
@@ -46,10 +47,12 @@ function App() {
             <Route path="wishlist" element={<WishList />} />
             <Route path="cart" element={<Cart />} />
             <Route path="profile" element={<Profile />} />
+            <Route path="orders" element={<Orders />} />
+            <Route path="orders/:orderId" element={<OrderDetails />} />
           </Route>
           <Route path="category/:categoryId" element={<CategoryPage />} />
           <Route path="product/:id" element={<Product />} />
-          <Route path="order/:orderId" element={<OrderDetails />} />
+
           <Route path="home" element={<Home />} />
           <Route path="" element={<Home />} />
 
