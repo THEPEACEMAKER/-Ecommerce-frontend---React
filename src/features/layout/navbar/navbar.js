@@ -65,12 +65,12 @@ function Navbar() {
               )}
               {isLoggedIn && (
                 <>
-                  <Link to="/profile" className="mx-2">
-                    <i className="fa-solid fa-user"></i>
+                  <Link to="/profile" className="mx-2 text-black">
+                    <i className="fa-solid fa-user "></i>
                     <span> Profile</span>
                   </Link>
 
-                  <Link className="mx-2" onClick={handleLogout}>
+                  <Link className="mx-2 text-black" onClick={handleLogout}>
                     <i className="fa-solid fa-arrow-right-from-bracket"></i>{" "}
                     <span> Logout</span>
                   </Link>
@@ -91,14 +91,14 @@ function Navbar() {
                 // />
               }
               <div className="col-lg-4 w-100 my-3">
-                <a href="" className="text-decoration-none">
+                <Link to="/home" className="text-decoration-none">
                   <span className="h1 text-uppercase text-primary bg-dark px-2">
                     Multi
                   </span>
                   <span className="h1 text-uppercase text-dark bg-primary px-2 ml-n1">
                     Shop
                   </span>
-                </a>
+                </Link>
               </div>
             </Link>
             <form className={`${styles.search} d-flex w-50`} role="search">
@@ -223,13 +223,26 @@ function Navbar() {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className={`nav-link `} aria-current="page" to="/home">
-                    Pages
+                  <Link
+                    to="/orders"
+                    className={`nav-link `}
+                    aria-current="page"
+                  >
+                    Orders
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link className={`nav-link `} aria-current="page" to="/home">
-                    Contact
+                    About Us
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link
+                    to="/contactus"
+                    className={`nav-link `}
+                    aria-current="page"
+                  >
+                    Contact Us
                   </Link>
                 </li>
               </ul>

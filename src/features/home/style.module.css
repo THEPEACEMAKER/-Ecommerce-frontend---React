@@ -50,3 +50,20 @@
   border-top: 1px dashed #2d2f30;
   z-index: 1;
 }
+
+.catItem {
+  background: #ffffff;
+  transition: 0.5s;
+}
+
+.catItem:hover {
+  background: #ffd333;
+}
+
+.catItem img {
+  transition: 0.5s;
+}
+
+.catItem:hover img {
+  transform: scale(1.2) rotate(5deg);
+}

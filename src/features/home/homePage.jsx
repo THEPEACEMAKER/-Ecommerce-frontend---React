@@ -1,14 +1,25 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
-import PopularCategories from "../Category/PopularCategories/PopularCategories";
 
 import styles from "./style.module.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 
+import { useSelector, useDispatch } from "react-redux";
+
+import { fetchProductHomePage } from "./productHomePageSlice";
 // Import Swiper styles
 import "swiper/css";
 function Home() {
+  const { categories } = useSelector((state) => state.categories);
+  const { product } = useSelector((state) => state.product);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchProductHomePage());
+  }, []);
+
   return (
     <div className={`${styles.body}`}>
       {" "}
@@ -90,7 +101,7 @@ function Home() {
               <div className={styles.offerText}>
                 <h6 className="text-white text-uppercase">Save 20%</h6>
                 <h3 className="text-white mb-3">Special Offer</h3>
-                <a className="btn btn-primary">Shop Now</a>
+                <span className="btn btn-primary">Shop Now</span>
               </div>
             </div>
             <div
@@ -105,7 +116,7 @@ function Home() {
               <div className={styles.offerText}>
                 <h6 className="text-white text-uppercase">Save 20%</h6>
                 <h3 className="text-white mb-3">Special Offer</h3>
-                <a className="btn btn-primary">Shop Now</a>
+                <span className="btn btn-primary">Shop Now</span>
               </div>
             </div>
           </div>
@@ -168,26 +179,37 @@ function Home() {
           </h2>
 
           <div className="row px-xl-5 pb-3">
-            <div className="col-lg-3 col-md-4 col-sm-6  bg-light">
-              <a className="text-decoration-none">
-                <div className="cat-item d-flex align-items-center">
+            {categories.map((category) => (
+              <div className="col-lg-3 col-md-4 col-sm-6 p-2" key={category.id}>
+                <Link
+                  to={`/category/${category.id}`}
+                  className="text-decoration-none bg-light"
+                >
                   <div
-                    className="overflow-hidden"
-                    style={{ width: "100px", height: "100px" }}
+                    className={`${styles.catItem} d-flex align-items-center`}
                   >
-                    <img
-                      className="img-fluid"
-                      src={process.env.PUBLIC_URL + "assets/cat-1.jpg"}
-                      alt=""
-                    />
+                    <div
+                      className="overflow-hidden d-flex align-items-center"
+                      style={{
+                        width: "140px",
+                        height: "100px",
+                        padding: "8px",
+                      }}
+                    >
+                      <img
+                        className="img-fluid"
+                        src={`https://res.cloudinary.com/ddk98mjzn/${category.image}`}
+                        alt=""
+                      />
+                    </div>
+                    <div className="flex-fill mx-1">
+                      <h6>{category.name}</h6>
+                      <small className="text-body">100 Products</small>
+                    </div>
                   </div>
-                  <div className="flex-fill mx-3">
-                    <h6>Category Name</h6>
-                    <small className="text-body">100 Products</small>
-                  </div>
-                </div>
-              </a>
-            </div>
+                </Link>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -201,7 +223,7 @@ function Home() {
           >
             <span className="p-3 ps-0">FEATURED PRODUCTS</span>
           </h2>
-          <div class="row px-xl-5">
+          <div className="row px-xl-5">
             {
               // here
             }
@@ -227,7 +249,7 @@ function Home() {
                 <div className={styles.offerText}>
                   <h6 className="text-white text-uppercase">Save 20%</h6>
                   <h3 className="text-white mb-3">Special Offer</h3>
-                  <a className="btn btn-primary">Shop Now</a>
+                  <span className="btn btn-primary">Shop Now</span>
                 </div>
               </div>
             </div>
@@ -244,7 +266,7 @@ function Home() {
                 <div className={styles.offerText}>
                   <h6 className="text-white text-uppercase">Save 20%</h6>
                   <h3 className="text-white mb-3">Special Offer</h3>
-                  <a className="btn btn-primary">Shop Now</a>
+                  <span className="btn btn-primary">Shop Now</span>
                 </div>
               </div>
             </div>
@@ -261,7 +283,7 @@ function Home() {
           >
             <span className="p-3 ps-0">RECENT PRODUCTS</span>
           </h2>
-          <div class="row px-xl-5">
+          <div className="row px-xl-5">
             {
               // here
             }

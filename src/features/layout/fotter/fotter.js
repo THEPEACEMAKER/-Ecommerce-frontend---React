@@ -1,11 +1,4 @@
 import React from "react";
-import {
-  MDBFooter,
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBIcon,
-} from "mdb-react-ui-kit";
 
 import "./fotter.css";
 export default function App() {
@@ -35,47 +28,47 @@ export default function App() {
             <div className="col-md-4 mb-5">
               <h5 className="text-secondary text-uppercase mb-4">Quick Shop</h5>
               <div className="d-flex flex-column justify-content-start">
-                <a className="text-secondary mb-2">
+                <span className="text-secondary mb-2">
                   <i className="fa fa-angle-right mr-2"></i> Home
-                </a>
-                <a className="text-secondary mb-2">
+                </span>
+                <span className="text-secondary mb-2">
                   <i className="fa fa-angle-right mr-2"></i> Our Shop
-                </a>
-                <a className="text-secondary mb-2">
+                </span>
+                <span className="text-secondary mb-2">
                   <i className="fa fa-angle-right mr-2"></i> Shop Detail
-                </a>
-                <a className="text-secondary mb-2">
+                </span>
+                <span className="text-secondary mb-2">
                   <i className="fa fa-angle-right mr-2"></i> Shopping Cart
-                </a>
-                <a className="text-secondary mb-2">
+                </span>
+                <span className="text-secondary mb-2">
                   <i className="fa fa-angle-right mr-2"></i> Checkout
-                </a>
-                <a className="text-secondary">
+                </span>
+                <span className="text-secondary">
                   <i className="fa fa-angle-right mr-2"></i> Contact Us
-                </a>
+                </span>
               </div>
             </div>
             <div className="col-md-4 mb-5">
               <h5 className="text-secondary text-uppercase mb-4">My Account</h5>
               <div className="d-flex flex-column justify-content-start">
-                <a className="text-secondary mb-2">
+                <span className="text-secondary mb-2">
                   <i className="fa fa-angle-right mr-2"></i> Home
-                </a>
-                <a className="text-secondary mb-2">
+                </span>
+                <span className="text-secondary mb-2">
                   <i className="fa fa-angle-right mr-2"></i> Our Shop
-                </a>
-                <a className="text-secondary mb-2">
+                </span>
+                <span className="text-secondary mb-2">
                   <i className="fa fa-angle-right mr-2"></i> Shop Detail
-                </a>
-                <a className="text-secondary mb-2">
+                </span>
+                <span className="text-secondary mb-2">
                   <i className="fa fa-angle-right mr-2"></i> Shopping Cart
-                </a>
-                <a className="text-secondary mb-2">
+                </span>
+                <span className="text-secondary mb-2">
                   <i className="fa fa-angle-right mr-2"></i> Checkout
-                </a>
-                <a className="text-secondary">
+                </span>
+                <span className="text-secondary">
                   <i className="fa fa-angle-right mr-2"></i> Contact Us
-                </a>
+                </span>
               </div>
             </div>
             <div className="col-md-4 mb-5">
@@ -95,18 +88,18 @@ export default function App() {
                 Follow Us
               </h6>
               <div className="d-flex">
-                <a className="btn btn-primary btn-square">
+                <span className="btn btn-primary btn-square">
                   <i className="fab fa-twitter"></i>
-                </a>
-                <a className="btn btn-primary btn-square">
+                </span>
+                <span className="btn btn-primary btn-square">
                   <i className="fab fa-facebook-f"></i>
-                </a>
-                <a className="btn btn-primary btn-square">
+                </span>
+                <span className="btn btn-primary btn-square">
                   <i className="fab fa-linkedin-in"></i>
-                </a>
-                <a className="btn btn-primary btn-square">
+                </span>
+                <span className="btn btn-primary btn-square">
                   <i className="fab fa-instagram"></i>
-                </a>
+                </span>
               </div>
             </div>
           </div>
@@ -118,8 +111,9 @@ export default function App() {
       >
         <div className="col-md-6 px-xl-0">
           <p className="mb-md-0 text-center text-md-start text-secondary">
-            &copy; <a className="text-primary">Domain</a>. All Rights Reserved.
-            Designed by <a className="text-primary"> Ali Saad</a>
+            &copy; <span className="text-primary">Domain</span>. All Rights
+            Reserved. Designed by{" "}
+            <span className="text-primary"> Ali Saad</span>
           </p>
         </div>
 

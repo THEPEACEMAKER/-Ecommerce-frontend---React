@@ -18,6 +18,7 @@ import { fetchCart } from "./features/cart/cartSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Orders from "./features/order/Orders";
+import { Contactus } from "./features/contactus/contactus";
 
 function App() {
   const dispatch = useDispatch();
@@ -52,6 +53,8 @@ function App() {
           </Route>
           <Route path="category/:categoryId" element={<CategoryPage />} />
           <Route path="product/:id" element={<Product />} />
+
+          <Route path="contactus" element={<Contactus />} />
 
           <Route path="home" element={<Home />} />
           <Route path="" element={<Home />} />
