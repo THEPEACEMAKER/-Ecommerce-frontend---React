@@ -7,9 +7,7 @@ export default function OrderProduct({ product }) {
       <MDBRow key={product.id} className="justify-content-between">
         <MDBCol md="2">
           <MDBCardImage
-            src={`https://res.cloudinary.com/ddk98mjzn/${
-              product.images.length && product.images[0].image
-            }`}
+            src={product.images.length && product.images[0]}
             fluid
             alt={product.name}
           />
@@ -31,7 +29,9 @@ export default function OrderProduct({ product }) {
           md="2"
           className="text-center d-flex justify-content-center align-items-center"
         >
-          <p className="text-muted mb-0 small">${product.price}</p>
+          <p className="text-muted mb-0 small">
+            {product.quantity} X ${product.price}
+          </p>
         </MDBCol>
       </MDBRow>
       <hr className="mb-4" style={{ backgroundColor: "#e0e0e0", opacity: 1 }} />

@@ -148,7 +148,10 @@ export default function OrderDetails({ order }) {
                         tag="h5"
                         className="d-flex align-items-center justify-content-end text-white text-uppercase mb-0"
                       >
-                        Total paid: <span className="h2 mb-0 ms-2">$1040</span>
+                        Total paid:{" "}
+                        <span className="h2 mb-0 ms-2">
+                          ${order.order_price}
+                        </span>
                       </MDBTypography>
                     </MDBCardFooter>
                   </Link>
