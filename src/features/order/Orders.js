@@ -1,23 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import api from "../../api/api";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import OrderDetails from "./OrderDetails";
+import { fetchOrders } from "./ordersSlice";
 
 export default function Orders() {
+  const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const [orders, setOrders] = useState([]);
+  const orders = useSelector((state) => state.orders.orders);
   useEffect(() => {
     if (isLoggedIn) {
-      api
-        .get("/orders/")
-        .then((response) => {
-          setOrders(response.data.orders);
-        })
-        .catch((error) => {
-          console.log("error", error);
-        });
+      dispatch(fetchOrders());
     }
-  }, [isLoggedIn]);
+  }, [dispatch, isLoggedIn]);
   return (
     <>
       <section
