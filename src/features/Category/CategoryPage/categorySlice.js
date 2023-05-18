@@ -3,9 +3,14 @@ import api from "../../../api/api";
 
 export const fetchCategoryProducts = createAsyncThunk(
   "category/fetchProducts",
-  async (categoryId, thunkAPI) => {
+  async ({ categoryId, pageSize, page }, thunkAPI) => {
     try {
-      const response = await api.get(`/category/${categoryId}/products`);
+      const response = await api.get(`/category/${categoryId}/products`, {
+        params: {
+          page,
+          size: pageSize,
+        },
+      });
       return new Promise((resolve) => {
         setTimeout(() => {
           resolve(response.data.results);

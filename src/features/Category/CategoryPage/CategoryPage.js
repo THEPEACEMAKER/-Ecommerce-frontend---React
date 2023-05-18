@@ -1,4 +1,4 @@
-import { React, useEffect } from "react";
+import { React, useEffect, useState } from "react";
 import { MDBContainer, MDBRow } from "mdb-react-ui-kit";
 import { Link, useParams } from "react-router-dom";
 import styles from "./stylee.module.css";
@@ -12,8 +12,10 @@ function CategoryPage() {
   const dispatch = useDispatch();
   const { products, status, error } = useSelector((state) => state.category);
 
+  const [pageSize, setPageSize] = useState(8);
+  const [page, setPage] = useState(1);
   useEffect(() => {
-    dispatch(fetchCategoryProducts(categoryId));
+    dispatch(fetchCategoryProducts({ categoryId, pageSize, page }));
   }, [categoryId, dispatch]);
 
   useEffect(() => {

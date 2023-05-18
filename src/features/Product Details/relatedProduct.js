@@ -1,6 +1,6 @@
 import styles from "./style.module.css";
 import Slider from "react-slick";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { MDBRow } from "mdb-react-ui-kit";
 
@@ -12,8 +12,10 @@ export default function RelatedProduct({ categoryId }) {
   const dispatch = useDispatch();
   const { products, status, error } = useSelector((state) => state.category);
 
+  const [pageSize, setPageSize] = useState(8);
+  const [page, setPage] = useState(1);
   useEffect(() => {
-    dispatch(fetchCategoryProducts(categoryId));
+    dispatch(fetchCategoryProducts({ categoryId, pageSize, page }));
   }, [categoryId, dispatch]);
 
   useEffect(() => {
