@@ -13,7 +13,7 @@ export const fetchCategoryProducts = createAsyncThunk(
       });
       return new Promise((resolve) => {
         setTimeout(() => {
-          resolve(response.data.results);
+          resolve(response.data);
         }, 500);
       });
     } catch (error) {
@@ -28,6 +28,7 @@ const categorySlice = createSlice({
     products: [],
     status: "idle",
     error: null,
+    totalProductsCount: 0,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -37,7 +38,8 @@ const categorySlice = createSlice({
       })
       .addCase(fetchCategoryProducts.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.products = action.payload;
+        state.products = action.payload.results;
+        state.totalProductsCount = action.payload.count;
       })
       .addCase(fetchCategoryProducts.rejected, (state, action) => {
         state.status = "failed";

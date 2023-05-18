@@ -6,17 +6,36 @@ import ProductCard from "../../layout/ProductCard/ProductCard";
 import ProductCardSkeleton from "../../layout/ProductCard/ProductCardSkeleton";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCategoryProducts } from "./categorySlice";
+import {
+  MDBPagination,
+  MDBPaginationItem,
+  MDBPaginationLink,
+} from "mdb-react-ui-kit";
 
 function CategoryPage() {
   const { categoryId } = useParams();
   const dispatch = useDispatch();
-  const { products, status, error } = useSelector((state) => state.category);
+  const { products, status, error, totalProductsCount } = useSelector(
+    (state) => state.category
+  );
 
   const [pageSize, setPageSize] = useState(8);
   const [page, setPage] = useState(1);
+  const [pagesQuantity, setPagesQuantity] = useState(0);
   useEffect(() => {
     dispatch(fetchCategoryProducts({ categoryId, pageSize, page }));
-  }, [categoryId, dispatch]);
+  }, [categoryId, dispatch, page, pageSize]);
+
+  useEffect(() => {
+    // calculate the total number of pages
+    const totalPages = Math.ceil(totalProductsCount / pageSize);
+
+    setPagesQuantity(totalPages);
+  }, [pageSize, totalProductsCount]);
+
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+  };
 
   useEffect(() => {
     if (status === "failed") {
@@ -41,11 +60,29 @@ function CategoryPage() {
             <ProductCardSkeleton />
           </>
         ) : status === "succeeded" && products.length ? (
-          products.map((product) => (
-            <div className="col-md-3">
-              <ProductCard key={product.id} product={product} />
-            </div>
-          ))
+          <>
+            {products.map((product) => (
+              <div className="col-md-3">
+                <ProductCard key={product.id} product={product} />
+              </div>
+            ))}
+            <nav aria-label="..." className={`${styles.pagination}`}>
+              <MDBPagination center size="lg" className="mb-0">
+                {Array.from({ length: pagesQuantity }, (_, index) => (
+                  <MDBPaginationItem key={index} active={index + 1 === page}>
+                    <MDBPaginationLink
+                      onClick={() => handlePageChange(index + 1)}
+                    >
+                      {index + 1}
+                      {index + 1 === page && (
+                        <span className="visually-hidden">(current)</span>
+                      )}
+                    </MDBPaginationLink>
+                  </MDBPaginationItem>
+                ))}
+              </MDBPagination>
+            </nav>
+          </>
         ) : (
           status === "succeeded" && (
             <div
