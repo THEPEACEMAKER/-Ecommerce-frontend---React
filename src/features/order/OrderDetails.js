@@ -10,10 +10,36 @@ import {
   MDBRow,
   MDBTypography,
 } from "mdb-react-ui-kit";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import OrderProduct from "./OrderProduct";
+import { useParams } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchOrders } from "./ordersSlice";
+import { Link } from "react-router-dom";
 
 export default function OrderDetails({ order }) {
+  const { orderId } = useParams();
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const orders = useSelector((state) => state.orders.orders);
+  const [hasFetched, setHasFetched] = useState(false);
+
+  useEffect(() => {
+    if (isLoggedIn && !hasFetched && !orders.length) {
+      dispatch(fetchOrders())
+        .then(() => {
+          setHasFetched(true);
+        })
+        .catch((error) => {
+          console.log("Failed to fetch orders:", error);
+        });
+    }
+  }, [isLoggedIn, hasFetched, dispatch, orders.length]);
+
+  if (!order) {
+    order = orders.find((order) => order.id === Number(orderId));
+  }
+
   return (
     <>
       <section
@@ -32,7 +58,7 @@ export default function OrderDetails({ order }) {
                   </MDBTypography>
                 </MDBCardHeader>
                 {order ? (
-                  <>
+                  <Link to={`/orders/${order.id}`}>
                     <MDBCardBody className="p-4">
                       <div className="d-flex justify-content-between align-items-center mb-4">
                         <p
@@ -125,7 +151,7 @@ export default function OrderDetails({ order }) {
                         Total paid: <span className="h2 mb-0 ms-2">$1040</span>
                       </MDBTypography>
                     </MDBCardFooter>
-                  </>
+                  </Link>
                 ) : (
                   ""
                 )}

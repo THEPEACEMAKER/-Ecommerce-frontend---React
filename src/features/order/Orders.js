@@ -10,12 +10,12 @@ import {
   MDBRow,
   MDBTypography,
 } from "mdb-react-ui-kit";
+import { Link } from "react-router-dom";
 
 export default function Orders() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const orders = useSelector((state) => state.orders.orders);
-  const error = useSelector((state) => state.orders.error);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -28,7 +28,7 @@ export default function Orders() {
         className="h-100 gradient-custom"
         style={{ backgroundColor: "#eee" }}
       >
-        {error ? (
+        {!orders.length ? (
           <MDBContainer className="py-5 h-100">
             <MDBRow className="justify-content-center align-items-center h-100">
               <MDBCol lg="10" xl="8">
