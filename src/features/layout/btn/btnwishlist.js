@@ -1,41 +1,30 @@
 import styles from "./style.module.css";
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
 import api from "../../../api/api";
-
-import { MDBBtn } from "mdb-react-ui-kit";
-
-import {
-  setError,
-  clearError,
-  setSuccess,
-  clearSuccess,
-  setproductInCart,
-} from "../../utils/apiStatusSlice.js";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function ButtonWishList({ product }) {
-  const dispatch = useDispatch();
-  const error = useSelector((state) => state.apiStatus.error);
-  const success = useSelector((state) => state.apiStatus.success);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const navigate = useNavigate();
+
   const [ClassBtn, setClassBtn] = useState(product.is_in_wishlist);
 
-  console.log(product);
   const AddToWishList = () => {
-    setClassBtn(!ClassBtn);
+    if (isLoggedIn) {
+      setClassBtn(!ClassBtn);
+      const data = new FormData();
+      data.append("product", product.id);
 
-    const data = new FormData();
-    data.append("product", product.id);
-
-    api
-      .post(`/wishlist`, { product: product.id })
-      .then((res) => {
-        dispatch(setSuccess(res.data.message));
-        console.log(res);
-      })
-      .catch((err) => {
-        dispatch(setError(err.message));
-        console.log(err);
-      });
+      api
+        .post(`/wishlist`, { product: product.id })
+        .then((res) => {})
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      navigate("/login");
+    }
   };
 
   return (

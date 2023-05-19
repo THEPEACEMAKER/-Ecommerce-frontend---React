@@ -41,6 +41,12 @@ function Register() {
       address: "",
       password: "",
       confirm_password: "",
+
+      street: "",
+      city: "",
+      district: "",
+      country: "",
+      building_number: "",
     },
     validationSchema: Yup.object({
       first_name: Yup.string()
@@ -74,6 +80,77 @@ function Register() {
       confirm_password: Yup.string()
         .oneOf([Yup.ref("password"), null], "Passwords must match")
         .required("Please confirm your password"),
+
+      street: Yup.string().test({
+        name: "address",
+        test: function (value) {
+          const { city, district, country, building_number } = this.parent;
+          return (
+            !city ||
+            !district ||
+            !country ||
+            !building_number ||
+            !!value ||
+            this.createError({ message: "Please fill in all address fields" })
+          );
+        },
+      }),
+      city: Yup.string().test({
+        name: "address",
+        test: function (value) {
+          const { street, district, country, building_number } = this.parent;
+          return (
+            !street ||
+            !district ||
+            !country ||
+            !building_number ||
+            !!value ||
+            this.createError({ message: "Please fill in all address fields" })
+          );
+        },
+      }),
+      district: Yup.string().test({
+        name: "address",
+        test: function (value) {
+          const { street, city, country, building_number } = this.parent;
+          return (
+            !street ||
+            !city ||
+            !country ||
+            !building_number ||
+            !!value ||
+            this.createError({ message: "Please fill in all address fields" })
+          );
+        },
+      }),
+      country: Yup.string().test({
+        name: "address",
+        test: function (value) {
+          const { street, city, district, building_number } = this.parent;
+          return (
+            !street ||
+            !city ||
+            !district ||
+            !building_number ||
+            !!value ||
+            this.createError({ message: "Please fill in all address fields" })
+          );
+        },
+      }),
+      building_number: Yup.string().test({
+        name: "address",
+        test: function (value) {
+          const { street, city, district, country } = this.parent;
+          return (
+            !street ||
+            !city ||
+            !district ||
+            !country ||
+            !!value ||
+            this.createError({ message: "Please fill in all address fields" })
+          );
+        },
+      }),
     }),
 
     onSubmit: (values) => {

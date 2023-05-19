@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { MDBInput, MDBIcon, MDBBtn } from "mdb-react-ui-kit";
+import { MDBInput, MDBIcon, MDBBtn, MDBRow, MDBCol } from "mdb-react-ui-kit";
 
 import styles from "./stylee.module.css";
 
@@ -65,25 +65,127 @@ function SecondStep(props) {
         </div>
       </div>
 
+      <div
+        className={`d-flex align-items-center justify-content-strat w-100 ${styles.sectionTitle}`}
+      >
+        <div className={styles.elem}>
+          <MDBIcon fas icon="location-arrow me-3" size="lg" />{" "}
+          <span>
+            Address <span className="text-muted">(optional)</span>
+          </span>
+        </div>
+      </div>
       <div className="d-flex flex-row align-items-center mb-5 w-100 gap-1">
-        <MDBIcon fas icon="location-arrow me-3" size="lg" />
-        <div className="w-100 position-relative">
+        <div className="p-md-3 text-black">
           <MDBInput
-            label="Address"
-            id="address"
+            label="Street"
             type="text"
-            value={props.form.values.address}
+            size="lg"
+            id="street"
+            value={props.form.values.street}
             onChange={props.form.handleChange}
-            className={`${
-              props.form.touched.address &&
-              props.form.errors.address &&
+            className={`mb-4 ${
+              props.form.touched.street &&
+              props.form.errors.street &&
               styles.inputErr
             } `}
             onBlur={props.form.handleBlur}
           />
-          {props.form.touched.address && props.form.errors.address && (
+          {props.form.touched.street && props.form.errors.street && (
             <p className={`${styles.error} ${animate ? styles.animate : ""}`}>
-              {props.form.errors.address}
+              {props.form.errors.street}
+            </p>
+          )}
+
+          <MDBRow>
+            <MDBCol md="6" className="mb-4">
+              <MDBInput
+                label="Building Number"
+                type="text"
+                size="lg"
+                id="building_number"
+                value={props.form.values.building_number}
+                onChange={props.form.handleChange}
+                className={`${
+                  props.form.touched.building_number &&
+                  props.form.errors.building_number &&
+                  styles.inputErr
+                } `}
+                onBlur={props.form.handleBlur}
+              />
+              {props.form.touched.building_number &&
+                props.form.errors.building_number && (
+                  <p
+                    className={`${styles.error} ${
+                      animate ? styles.animate : ""
+                    }`}
+                  >
+                    {props.form.errors.building_number}
+                  </p>
+                )}
+            </MDBCol>
+            <MDBCol md="6" className="mb-4">
+              <MDBInput
+                label="District"
+                type="text"
+                size="lg"
+                id="district"
+                value={props.form.values.district}
+                onChange={props.form.handleChange}
+                className={`${
+                  props.form.touched.district &&
+                  props.form.errors.district &&
+                  styles.inputErr
+                } `}
+                onBlur={props.form.handleBlur}
+              />
+              {props.form.touched.district && props.form.errors.district && (
+                <p
+                  className={`${styles.error} ${animate ? styles.animate : ""}`}
+                >
+                  {props.form.errors.district}
+                </p>
+              )}
+            </MDBCol>
+          </MDBRow>
+
+          <MDBInput
+            label="Country	"
+            type="text"
+            size="lg"
+            id="country"
+            value={props.form.values.country}
+            onChange={props.form.handleChange}
+            className={`mb-4 ${
+              props.form.touched.country &&
+              props.form.errors.country &&
+              styles.inputErr
+            } `}
+            onBlur={props.form.handleBlur}
+          />
+          {props.form.touched.country && props.form.errors.country && (
+            <p className={`${styles.error} ${animate ? styles.animate : ""}`}>
+              {props.form.errors.country}
+            </p>
+          )}
+
+          <MDBInput
+            label="City"
+            type="text"
+            size="lg"
+            id="city"
+            value={props.form.values.city}
+            onChange={props.form.handleChange}
+            className={` mb-4 ${
+              props.form.touched.city &&
+              props.form.errors.city &&
+              styles.inputErr
+            } `}
+            onBlur={props.form.handleBlur}
+          />
+          {props.form.touched.city && props.form.errors.city && (
+            <p className={`${styles.error} ${animate ? styles.animate : ""}`}>
+              {props.form.errors.city}
             </p>
           )}
         </div>
@@ -106,7 +208,6 @@ function SecondStep(props) {
           </MDBBtn>
         </div>
       </div>
-
       {showError && (
         <div className="alert alert-danger">
           <p className={`m-0 ${animate ? styles.animate : ""}`}>
