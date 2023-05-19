@@ -3,6 +3,7 @@ import React, { Fragment, useState } from "react";
 import styles from "./styleSearch.module.css";
 import { Link } from "react-router-dom";
 import api from "../../../api/api";
+
 export const Search = ({ categories }) => {
   const [selectedValue, setSelectedValue] = useState(false);
   const handleSelectChange = (event) => {
@@ -68,38 +69,35 @@ export const Search = ({ categories }) => {
           placeholder="Search"
           aria-label="Search"
           onKeyUp={onKeySearch}
-          onBlur={() => setTableVisible(false)}
+          onBlur={() => setTimeout(() => setTableVisible(false), 100)}
           onFocus={() => setTableVisible(true)}
         />
       </form>
-      <div className={styles.divTable}>
-        {tableVisible && (
+      {tableVisible && (
+        <div className={styles.divTable}>
           <table className={styles.table}>
-            <tr>
-              <td>
-                {dataSearch &&
-                  dataSearch.map((el) => (
-                    <Link
-                      to={`/product/${el.id}`}
-                      className={styles.a}
-                      key={el.id}
-                    >
-                      <div className="d-flex align-items-center gap-3 p-0">
-                        <img
-                          className={styles.img}
-                          src={`https://res.cloudinary.com/ddk98mjzn/${
-                            el.images.length && el.images[0].image
-                          }`}
-                          alt="productImage"
-                        />
+            <div>
+              {dataSearch &&
+                dataSearch.map((el) => (
+                  <Link
+                    to={`/product/${el.id}`}
+                    className={styles.a}
+                    key={el.id}
+                  >
+                    <div className="d-flex align-items-center gap-3 p-0">
+                      <img
+                        className={styles.img}
+                        src={`https://res.cloudinary.com/ddk98mjzn/${
+                          el.images.length && el.images[0].image
+                        }`}
+                        alt="productImage"
+                      />
 
-                        <span>{el.name}</span>
-                      </div>
-                    </Link>
-                  ))}
-              </td>
-            </tr>
-
+                      <span>{el.name}</span>
+                    </div>
+                  </Link>
+                ))}
+            </div>
             {resError && (
               <tr>
                 <td>
@@ -115,8 +113,8 @@ export const Search = ({ categories }) => {
               </td>
             </tfoot>
           </table>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
