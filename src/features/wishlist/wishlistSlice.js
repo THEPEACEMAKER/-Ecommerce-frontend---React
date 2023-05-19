@@ -13,6 +13,7 @@ export const fetchWishlist = createAsyncThunk(
       });
       return new Promise((resolve) => {
         setTimeout(() => {
+          if (response.data.length == 0) return resolve(false);
           resolve(response.data[0].product_details);
         }, 500);
       });

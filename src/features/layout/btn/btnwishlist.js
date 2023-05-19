@@ -17,8 +17,9 @@ export default function ButtonWishList({ product }) {
   const dispatch = useDispatch();
   const error = useSelector((state) => state.apiStatus.error);
   const success = useSelector((state) => state.apiStatus.success);
-  const [ClassBtn, setClassBtn] = useState(false);
+  const [ClassBtn, setClassBtn] = useState(product.is_in_wishlist);
 
+  console.log(product);
   const AddToWishList = () => {
     setClassBtn(!ClassBtn);
 
