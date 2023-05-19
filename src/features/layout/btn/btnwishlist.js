@@ -1,27 +1,32 @@
 import styles from "./style.module.css";
 import { useState } from "react";
 import api from "../../../api/api";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { deleteWishlistProduct } from "../../wishlist/wishlistSlice";
 
 export default function ButtonWishList({ product }) {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [ClassBtn, setClassBtn] = useState(product.is_in_wishlist);
 
   const AddToWishList = () => {
     if (isLoggedIn) {
-      setClassBtn(!ClassBtn);
-      const data = new FormData();
-      data.append("product", product.id);
-
-      api
-        .post(`/wishlist`, { product: product.id })
-        .then((res) => {})
-        .catch((err) => {
-          console.log(err);
-        });
+      if (!ClassBtn) {
+        api
+          .post(`/wishlist`, { product: product.id })
+          .then((res) => {
+            setClassBtn(!ClassBtn);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        setClassBtn(!ClassBtn);
+        dispatch(deleteWishlistProduct(product.id));
+      }
     } else {
       navigate("/login");
     }

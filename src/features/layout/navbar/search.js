@@ -37,7 +37,7 @@ export const Search = ({ categories }) => {
               setResError("Not Found");
             });
         }
-      }, 300);
+      }, 1000);
     } else {
       setTableVisible(false);
     }
