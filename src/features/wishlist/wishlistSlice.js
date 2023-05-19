@@ -3,9 +3,14 @@ import api from "../../api/api";
 
 export const fetchWishlist = createAsyncThunk(
   "wishlist/fetchWishlist",
-  async (thunkAPI) => {
+  async ({ pageSize, page }, thunkAPI) => {
     try {
-      const response = await api.get(`/wishlist`);
+      const response = await api.get(`/wishlist`, {
+        params: {
+          page,
+          size: pageSize,
+        },
+      });
       return new Promise((resolve) => {
         setTimeout(() => {
           resolve(response.data[0].product_details);

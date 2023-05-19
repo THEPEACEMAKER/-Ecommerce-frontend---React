@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchWishlist, deleteWishlistProduct } from "./wishlistSlice";
 import { Link } from "react-router-dom";
@@ -25,12 +25,15 @@ export default function App() {
     (state) => state.wishlist
   );
 
+  const [pageSize, setPageSize] = useState(6);
+  const [page, setPage] = useState(1);
+
   const deletItem = (id) => {
     dispatch(deleteWishlistProduct(id));
   };
 
   useEffect(() => {
-    dispatch(fetchWishlist());
+    dispatch(fetchWishlist({ pageSize, page }));
   }, [dispatch]);
 
   if (fetchStatus === "failed") {
