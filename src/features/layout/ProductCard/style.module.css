@@ -8,3 +8,6 @@
   overflow: hidden;
   max-height: 90px;
 }
+.mainImg {
+  object-fit: contain !important;
+}

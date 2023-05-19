@@ -10,15 +10,18 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchProductHomePage } from "./productHomePageSlice";
 // Import Swiper styles
 import "swiper/css";
+import ProductCard from "../layout/ProductCard/ProductCard";
 function Home() {
   const { categories } = useSelector((state) => state.categories);
-  // const { product } = useSelector((state) => state.product);
+  const { productHomePage } = useSelector((state) => state.productHomePage);
 
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(fetchProductHomePage());
-  // }, []);
+  useEffect(() => {
+    dispatch(fetchProductHomePage());
+  }, []);
+
+  console.log(productHomePage);
 
   return (
     <div className={`${styles.body}`}>
@@ -224,9 +227,16 @@ function Home() {
             <span className="p-3 ps-0">FEATURED PRODUCTS</span>
           </h2>
           <div className="row px-xl-5">
-            {
-              // here
-            }
+            {productHomePage &&
+              productHomePage.results.map((el, i) => {
+                if (i <= 11) {
+                  return (
+                    <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                      <ProductCard product={el} />
+                    </div>
+                  );
+                }
+              })}
           </div>
         </div>
 
@@ -284,9 +294,16 @@ function Home() {
             <span className="p-3 ps-0">RECENT PRODUCTS</span>
           </h2>
           <div className="row px-xl-5">
-            {
-              // here
-            }
+            {productHomePage &&
+              productHomePage.results.map((el, i) => {
+                if (i > 10) {
+                  return (
+                    <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                      <ProductCard product={el} />
+                    </div>
+                  );
+                }
+              })}{" "}
           </div>
         </div>
 

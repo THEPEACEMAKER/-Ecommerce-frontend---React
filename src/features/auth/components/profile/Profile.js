@@ -48,6 +48,12 @@ function Profile() {
       address: "",
       password: "",
       confirm_password: "",
+
+      street: "",
+      city: "",
+      district: "",
+      country: "",
+      building_number: "",
     },
     validationSchema: Yup.object({
       first_name: Yup.string()
@@ -81,30 +87,102 @@ function Profile() {
       confirm_password: Yup.string()
         .oneOf([Yup.ref("password"), null], "Passwords must match")
         .required("Please confirm your password"),
+
+      street: Yup.string().test({
+        name: "address",
+        test: function (value) {
+          const { city, district, country, building_number } = this.parent;
+          return (
+            !city ||
+            !district ||
+            !country ||
+            !building_number ||
+            !!value ||
+            this.createError({ message: "Please fill in all address fields" })
+          );
+        },
+      }),
+      city: Yup.string().test({
+        name: "address",
+        test: function (value) {
+          const { street, district, country, building_number } = this.parent;
+          return (
+            !street ||
+            !district ||
+            !country ||
+            !building_number ||
+            !!value ||
+            this.createError({ message: "Please fill in all address fields" })
+          );
+        },
+      }),
+      district: Yup.string().test({
+        name: "address",
+        test: function (value) {
+          const { street, city, country, building_number } = this.parent;
+          return (
+            !street ||
+            !city ||
+            !country ||
+            !building_number ||
+            !!value ||
+            this.createError({ message: "Please fill in all address fields" })
+          );
+        },
+      }),
+      country: Yup.string().test({
+        name: "address",
+        test: function (value) {
+          const { street, city, district, building_number } = this.parent;
+          return (
+            !street ||
+            !city ||
+            !district ||
+            !building_number ||
+            !!value ||
+            this.createError({ message: "Please fill in all address fields" })
+          );
+        },
+      }),
+      building_number: Yup.string().test({
+        name: "address",
+        test: function (value) {
+          const { street, city, district, country } = this.parent;
+          return (
+            !street ||
+            !city ||
+            !district ||
+            !country ||
+            !!value ||
+            this.createError({ message: "Please fill in all address fields" })
+          );
+        },
+      }),
     }),
 
     onSubmit: (values) => {
+      console.log(values);
+
       setLoding(true);
-
-      toggleShow();
-      // api
-      //   .post("/auth/register/", values, {
-      //     headers: {
-      //       "Content-Type": "multipart/form-data",
-      //     },
-      //   })
-      //   .then((res) => {
-      //     setLoding(false);
-      //   })
-      //   .catch((err) => {
-      //     setLoding(false);
-
-      //     setResError([]);
-      //     console.log(err.originalError.response.data);
-      //     for (let na of Object.values(err.originalError.response.data)) {
-      //       setResError((data) => [...data, na[0]]);
-      //     }
-      //   });
+      api
+        .patch("/auth/", values, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          setLoding(false);
+          toggleShow();
+          setResError([]);
+        })
+        .catch((err) => {
+          setLoding(false);
+          setResError([]);
+          console.log(err.originalError.response.data);
+          for (let na of Object.values(err.originalError.response.data)) {
+            setResError((data) => [...data, na[0]]);
+          }
+        });
     },
   });
 
@@ -113,7 +191,24 @@ function Profile() {
       .get("/auth")
       .then((res) => {
         setProfileData(res.data);
-        formik.setValues({ ...formik.values, ...res.data });
+
+        const { city, country, district, street, building_number } =
+          res.data.addresses[0];
+        const { first_name, last_name, username, email, phone } = res.data;
+
+        formik.setValues({
+          ...formik.values,
+          first_name,
+          last_name,
+          username,
+          email,
+          phone,
+          city,
+          country,
+          district,
+          street,
+          building_number,
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -170,6 +265,12 @@ function Profile() {
                         </MDBBtn>
                       </div>
                     </form>
+                    {resError.length !== 0 &&
+                      resError.map((el) => (
+                        <div className="alert alert-danger">
+                          <p className="m-0">{el}</p>
+                        </div>
+                      ))}
                   </MDBCol>
                 </MDBRow>
               </div>

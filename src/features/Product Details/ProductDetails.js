@@ -79,6 +79,7 @@ export default function Product() {
                               src={`https://res.cloudinary.com/ddk98mjzn/${
                                 el.image && el.image
                               }`}
+                              className={styles.smallImg}
                               alt="image"
                               id={i}
                             />
@@ -99,7 +100,8 @@ export default function Product() {
                         product.images.length && product.images[img].image
                       }`}
                       fluid
-                      className="m-auto"
+                      className="m-auto "
+                      style={{ maxHeight: "600px" }}
                     />
                     <div
                       className="mask"

@@ -35,6 +35,7 @@ function ProductCard({ product }) {
             }`}
             position="top"
             alt={product.name}
+            className={styles.mainImg}
             style={{ width: "80%", height: "100px", margin: "auto" }}
           />
 

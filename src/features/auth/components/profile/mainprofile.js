@@ -8,6 +8,7 @@ import {
   MDBBtn,
   MDBTypography,
 } from "mdb-react-ui-kit";
+import { Link } from "react-router-dom";
 
 export default function MainProfile({ profileData, setSwitchComp }) {
   return (
@@ -75,9 +76,9 @@ export default function MainProfile({ profileData, setSwitchComp }) {
                   Orders
                 </MDBCardText>
                 <MDBCardText className="mb-0">
-                  <a href="#!" className="text-muted">
+                  <Link to="/orders" className="text-muted">
                     Show all
-                  </a>
+                  </Link>
                 </MDBCardText>
               </div>
             </div>

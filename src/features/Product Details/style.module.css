@@ -203,3 +203,7 @@ button::after,
 button::before {
   color: blue !important;
 }
+
+.smallImg {
+  object-fit: contain !important;
+}

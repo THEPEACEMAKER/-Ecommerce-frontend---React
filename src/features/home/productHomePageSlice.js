@@ -2,21 +2,23 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "../../api/api";
 
 export const fetchProductHomePage = createAsyncThunk(
-  "products/fetchProduct",
+  "products/fetchProductHomePage",
   async (id, thunkAPI) => {
     try {
-      const response = await api.get(`/products/`);
+      const response = await api.get(`/products/?size=20`);
       return response.data;
+
+      console.log(response);
     } catch (err) {
       return thunkAPI.rejectWithValue(err.message);
     }
   }
 );
 
-const productSlice = createSlice({
-  name: "product",
+const productHomePageSlice = createSlice({
+  name: "productHomePage",
   initialState: {
-    product: null,
+    productHomePage: null,
     status: "idle",
     error: null,
   },
@@ -29,7 +31,7 @@ const productSlice = createSlice({
       })
       .addCase(fetchProductHomePage.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.product = action.payload;
+        state.productHomePage = action.payload;
       })
       .addCase(fetchProductHomePage.rejected, (state, action) => {
         state.status = "failed";
@@ -38,4 +40,4 @@ const productSlice = createSlice({
   },
 });
 
-export default productSlice.reducer;
+export default productHomePageSlice.reducer;
