@@ -14,6 +14,9 @@ import {
   MDBCardImage,
   MDBRipple,
   MDBBtn,
+  MDBPagination,
+  MDBPaginationItem,
+  MDBPaginationLink,
 } from "mdb-react-ui-kit";
 
 import styles from "./stylee.module.css";
@@ -21,12 +24,13 @@ import Button from "../layout/btn/btn";
 
 export default function App() {
   const dispatch = useDispatch();
-  const { products, fetchStatus, error } = useSelector(
+  const { products, fetchStatus, error, totalProductsCount } = useSelector(
     (state) => state.wishlist
   );
 
   const [pageSize, setPageSize] = useState(6);
   const [page, setPage] = useState(1);
+  const [pagesQuantity, setPagesQuantity] = useState(0);
 
   const deletItem = (id) => {
     dispatch(deleteWishlistProduct(id));
@@ -34,7 +38,18 @@ export default function App() {
 
   useEffect(() => {
     dispatch(fetchWishlist({ pageSize, page }));
-  }, [dispatch]);
+  }, [dispatch, page, pageSize]);
+
+  useEffect(() => {
+    // calculate the total number of pages
+    const totalPages = Math.ceil(totalProductsCount / pageSize);
+
+    setPagesQuantity(totalPages);
+  }, [pageSize, totalProductsCount]);
+
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+  };
 
   if (fetchStatus === "failed") {
     return <div>{error}</div>;
@@ -162,6 +177,25 @@ export default function App() {
                     </MDBCardBody>
                   </MDBCard>
                 ))}
+                <nav aria-label="..." className={`${styles.pagination}`}>
+                  <MDBPagination center size="lg" className="mb-0">
+                    {Array.from({ length: pagesQuantity }, (_, index) => (
+                      <MDBPaginationItem
+                        key={index}
+                        active={index + 1 === page}
+                      >
+                        <MDBPaginationLink
+                          onClick={() => handlePageChange(index + 1)}
+                        >
+                          {index + 1}
+                          {index + 1 === page && (
+                            <span className="visually-hidden">(current)</span>
+                          )}
+                        </MDBPaginationLink>
+                      </MDBPaginationItem>
+                    ))}
+                  </MDBPagination>
+                </nav>
               </div>
             ) : (
               <MDBCard>

@@ -14,7 +14,7 @@ export const fetchWishlist = createAsyncThunk(
       return new Promise((resolve) => {
         setTimeout(() => {
           if (response.data.length === 0) return resolve(false);
-          resolve(response.data[0].product_details.results);
+          resolve(response.data[0]);
         }, 500);
       });
     } catch (err) {
@@ -38,6 +38,7 @@ const wishlistSlice = createSlice({
     fetchStatus: "idle",
     deleteStatus: "idle",
     error: null,
+    totalProductsCount: 0,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -48,7 +49,8 @@ const wishlistSlice = createSlice({
       })
       .addCase(fetchWishlist.fulfilled, (state, action) => {
         state.fetchStatus = "succeeded";
-        state.products = action.payload;
+        state.products = action.payload.product_details.results;
+        state.totalProductsCount = action.payload.product_details.count;
       })
       .addCase(fetchWishlist.rejected, (state, action) => {
         state.fetchStatus = "failed";

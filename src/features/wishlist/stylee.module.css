@@ -55,3 +55,15 @@
     border-left: none !important;
   }
 }
+
+.pagination {
+  margin-top: 40px;
+}
+.pagination a {
+  color: #4f4f4f !important;
+}
+
+.pagination li {
+  cursor: pointer;
+  background-color: #eee;
+}
