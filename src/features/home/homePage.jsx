@@ -12,13 +12,13 @@ import { fetchProductHomePage } from "./productHomePageSlice";
 import "swiper/css";
 function Home() {
   const { categories } = useSelector((state) => state.categories);
-  const { product } = useSelector((state) => state.product);
+  // const { product } = useSelector((state) => state.product);
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchProductHomePage());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchProductHomePage());
+  // }, []);
 
   return (
     <div className={`${styles.body}`}>

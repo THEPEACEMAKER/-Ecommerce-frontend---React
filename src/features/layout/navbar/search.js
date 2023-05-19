@@ -72,8 +72,8 @@ export const Search = ({ categories }) => {
           onFocus={() => setTableVisible(true)}
         />
       </form>
-      <div className={styles.divTable}>
-        {tableVisible && (
+      {tableVisible && (
+        <div className={styles.divTable}>
           <table className={styles.table}>
             <tr>
               <td>
@@ -115,8 +115,8 @@ export const Search = ({ categories }) => {
               </td>
             </tfoot>
           </table>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

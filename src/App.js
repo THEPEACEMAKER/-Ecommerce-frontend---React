@@ -19,6 +19,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Orders from "./features/order/Orders";
 import { Contactus } from "./features/contactus/contactus";
+import Aboutus from "./features/aboutus/Aboutus";
 
 function App() {
   const dispatch = useDispatch();
@@ -55,6 +56,7 @@ function App() {
           <Route path="product/:id" element={<Product />} />
 
           <Route path="contactus" element={<Contactus />} />
+          <Route path="aboutus" element={<Aboutus />} />
 
           <Route path="home" element={<Home />} />
           <Route path="" element={<Home />} />
