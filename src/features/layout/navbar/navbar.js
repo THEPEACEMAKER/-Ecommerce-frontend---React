@@ -5,18 +5,14 @@ import styles from "./stylee.module.css";
 import { logout } from "../../auth/authSlice";
 import { fetchCategories } from "../../Category/PopularCategories/popularCategoriesSlice";
 import { resetCart } from "../../cart/cartSlice";
+import { Search } from "./search";
 
 function Navbar() {
   const dispatch = useDispatch();
   const { cartCount } = useSelector((state) => state.cart);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
-  const [selectedValue, setSelectedValue] = useState("default");
   const { categories } = useSelector((state) => state.categories);
-
-  const handleSelectChange = (event) => {
-    setSelectedValue(event.target.value);
-  };
 
   const handleLogout = () => {
     dispatch(resetCart());
@@ -30,7 +26,7 @@ function Navbar() {
 
   return (
     <nav className={`navbar navbar-expand-lg bg-body-tertiary p-0`}>
-      <div className="d-flex flex-column w-100">
+      <div className="d-flex flex-column w-100 ">
         <div className={`${styles.top}`}>
           <div className="d-flex  w-100 justify-content-between align-items-center container-fluid">
             <div className="social-links my-2 ">
@@ -80,17 +76,10 @@ function Navbar() {
           </div>
         </div>
 
-        <div className="container-fluid ">
+        <div className="container-fluid mt-3">
           <div className="d-flex align-items-center justify-content-between">
             <Link to="home">
-              {
-                // <img
-                //   src={process.env.PUBLIC_URL + "assets/logo.png"}
-                //   alt="logo"
-                //   className={`${styles.logo}`}
-                // />
-              }
-              <div className="col-lg-4 w-100 my-3">
+              <div className="col-lg-4 w-100">
                 <Link to="/home" className="text-decoration-none">
                   <span className="h1 text-uppercase text-primary bg-dark px-2">
                     Multi
@@ -101,30 +90,6 @@ function Navbar() {
                 </Link>
               </div>
             </Link>
-            <form className={`${styles.search} d-flex w-50`} role="search">
-              <select
-                className={`form-select form-select-sm w-25 border-end-0 rounded-0 `}
-                aria-label=".form-select-lg example"
-                defaultValue={selectedValue}
-                onChange={handleSelectChange}
-              >
-                <option value="default" disabled>
-                  Category
-                </option>
-                {categories &&
-                  categories.map((el, i) => (
-                    <option key={i} value={el.id}>
-                      {el.name}
-                    </option>
-                  ))}
-              </select>
-              <input
-                className={`form-control w-100 rounded-0 border-start-0  `}
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-            </form>
 
             <div className="cart d-flex">
               <Link to="/wishlist" className="btn-new p-2">
@@ -134,20 +99,21 @@ function Navbar() {
                 <i className="fa-solid fa-lg fa-cart-shopping text-black"></i>
                 <span>{cartCount}</span>
               </Link>
-            </div>
 
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#offcanvasNavbar"
-              aria-controls="offcanvasNavbar"
-              aria-label="Toggle navigation"
-            >
-              <i className="fa-solid fa-bars text-black"></i>
-            </button>
+              <button
+                className="navbar-toggler"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar"
+                aria-label="Toggle navigation"
+              >
+                <i className="fa-solid fa-bars text-black"></i>
+              </button>
+            </div>
           </div>
         </div>
+        <Search categories={categories} />
 
         <div className="bg-dark py-2">
           {" "}

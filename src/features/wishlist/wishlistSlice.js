@@ -5,7 +5,7 @@ export const fetchWishlist = createAsyncThunk(
   "wishlist/fetchWishlist",
   async ({ pageSize, page }, thunkAPI) => {
     try {
-      const response = await api.get(`/wishlist`, {
+      const response = await api.get(`/user/wishlist`, {
         params: {
           page,
           size: pageSize,
@@ -13,7 +13,8 @@ export const fetchWishlist = createAsyncThunk(
       });
       return new Promise((resolve) => {
         setTimeout(() => {
-          resolve(response.data[0].product_details);
+          if (response.data.length === 0) return resolve(false);
+          resolve(response.data[0].product_details.results);
         }, 500);
       });
     } catch (err) {
