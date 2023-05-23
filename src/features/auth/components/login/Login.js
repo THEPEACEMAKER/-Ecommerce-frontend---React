@@ -68,7 +68,7 @@ function Login() {
 
   return (
     <div className={`${styles.body}`}>
-      <MDBContainer className="my-5">
+      <MDBContainer className="my-5" data-aos="zoom-in">
         <MDBCard>
           <div className="d-flex flex-row m-auto my-3 ">
             <MDBIcon fas icon="cubes fa-3x me-3" style={{ color: "#ff6219" }} />

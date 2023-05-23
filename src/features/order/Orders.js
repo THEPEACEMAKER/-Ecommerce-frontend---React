@@ -22,6 +22,8 @@ export default function Orders() {
       dispatch(fetchOrders());
     }
   }, [dispatch, isLoggedIn]);
+
+  console.log(orders);
   return (
     <>
       <section

@@ -206,6 +206,7 @@ export const Contactus = () => {
                 allowFullScreen=""
                 aria-hidden="false"
                 tabIndex="0"
+                data-aos="zoom-in"
               ></iframe>
             </div>
             <div className="bg-light p-3 mb-3">

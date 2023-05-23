@@ -38,7 +38,6 @@ function Register() {
       uname: "",
       email: "",
       phone: "",
-      address: "",
       password: "",
       confirm_password: "",
 

@@ -60,7 +60,7 @@ export default function Product() {
   return (
     <div className={`${styles.container}`}>
       {product && (
-        <div className={`${styles.card}`}>
+        <div className={`${styles.card}`} data-aos="zoom-in">
           <div className={`${styles.form} `}>
             <div className={`${styles.leftside}`}>
               <div className={`${styles.images}`}>

@@ -50,7 +50,10 @@ function FirstStep(props) {
   };
 
   return (
-    <div className="w-10 d-flex flex-column align-items-center my-1">
+    <div
+      className="w-10 d-flex flex-column align-items-center my-1"
+      data-aos="zoom-in-down"
+    >
       <div className={`${styles.parent}`}>
         <img src={props.form.values.imagePath} className={`${styles.img}`} />
 

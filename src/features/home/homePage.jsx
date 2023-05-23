@@ -131,7 +131,10 @@ function Home() {
 
         <div className="container-fluid pt-5">
           <div className="row px-xl-5 pb-3">
-            <div className="col-lg-3 col-md-6 col-sm-12 pb-1">
+            <div
+              className="col-lg-3 col-md-6 col-sm-12 pb-1"
+              data-aos="fade-up-right"
+            >
               <div
                 className="d-flex align-items-center bg-light mb-4"
                 style={{ padding: "30px" }}
@@ -140,7 +143,10 @@ function Home() {
                 <h5 className="font-weight-semi-bold m-0">Quality Product</h5>
               </div>
             </div>
-            <div className="col-lg-3 col-md-6 col-sm-12 pb-1">
+            <div
+              className="col-lg-3 col-md-6 col-sm-12 pb-1"
+              data-aos="fade-down-right"
+            >
               <div
                 className="d-flex align-items-center bg-light mb-4"
                 style={{ padding: "30px" }}
@@ -149,7 +155,10 @@ function Home() {
                 <h5 className="font-weight-semi-bold m-0">Free Shipping</h5>
               </div>
             </div>
-            <div className="col-lg-3 col-md-6 col-sm-12 pb-1">
+            <div
+              className="col-lg-3 col-md-6 col-sm-12 pb-1"
+              data-aos="fade-down-left"
+            >
               <div
                 className="d-flex align-items-center bg-light mb-4"
                 style={{ padding: "30px" }}
@@ -158,7 +167,10 @@ function Home() {
                 <h5 className="font-weight-semi-bold m-0">14-Day Return</h5>
               </div>
             </div>
-            <div className="col-lg-3 col-md-6 col-sm-12 pb-1">
+            <div
+              className="col-lg-3 col-md-6 col-sm-12 pb-1"
+              data-aos="fade-up-left"
+            >
               <div
                 className="d-flex align-items-center bg-light mb-4"
                 style={{ padding: "30px" }}
@@ -177,13 +189,18 @@ function Home() {
         <div className="container-fluid pt-5">
           <h2
             className={`${styles.sectionTitle} position-relative text-uppercase mx-xl-5 mb-4`}
+            data-aos="fade-right"
           >
             <span className="p-3 ps-0">Categories</span>
           </h2>
 
           <div className="row px-xl-5 pb-3">
             {categories.map((category) => (
-              <div className="col-lg-3 col-md-4 col-sm-6 p-2" key={category.id}>
+              <div
+                className="col-lg-3 col-md-4 col-sm-6 p-2"
+                key={category.id}
+                data-aos="zoom-in-up"
+              >
                 <Link
                   to={`/category/${category.id}`}
                   className="text-decoration-none bg-light"
@@ -223,6 +240,7 @@ function Home() {
         <div className="container-fluid pt-5">
           <h2
             className={`${styles.sectionTitle} position-relative text-uppercase mx-xl-5 mb-4`}
+            data-aos="fade-right"
           >
             <span className="p-3 ps-0">FEATURED PRODUCTS</span>
           </h2>
@@ -231,7 +249,10 @@ function Home() {
               productHomePage.results.map((el, i) => {
                 if (i <= 11) {
                   return (
-                    <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                    <div
+                      class="col-lg-3 col-md-4 col-sm-6 pb-1"
+                      data-aos="zoom-in-down"
+                    >
                       <ProductCard product={el} />
                     </div>
                   );
@@ -246,7 +267,7 @@ function Home() {
 
         <div className="container-fluid pt-5 pb-3">
           <div className="row px-xl-5">
-            <div className="col-md-6">
+            <div className="col-md-6" data-aos="zoom-out-right">
               <div
                 className={`${styles.productOffer}`}
                 style={{ height: "300px" }}
@@ -263,7 +284,7 @@ function Home() {
                 </div>
               </div>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-6" data-aos="zoom-out-left">
               <div
                 className={`${styles.productOffer}`}
                 style={{ height: "300px" }}
@@ -290,6 +311,7 @@ function Home() {
         <div className="container-fluid pt-5">
           <h2
             className={`${styles.sectionTitle} position-relative text-uppercase mx-xl-5 mb-4`}
+            data-aos="fade-right"
           >
             <span className="p-3 ps-0">RECENT PRODUCTS</span>
           </h2>
@@ -298,7 +320,11 @@ function Home() {
               productHomePage.results.map((el, i) => {
                 if (i > 10) {
                   return (
-                    <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                    <div
+                      class="col-lg-3 col-md-4 col-sm-6 pb-1"
+                      data-aos="fade-up"
+                      data-aos-anchor-placement="top-bottom"
+                    >
                       <ProductCard product={el} />
                     </div>
                   );
@@ -310,7 +336,12 @@ function Home() {
         {
           // vendor
         }
-        <Swiper spaceBetween={50} slidesPerView={4}>
+        <Swiper
+          spaceBetween={50}
+          slidesPerView={4}
+          data-aos="flip-down"
+          data-aos-duration="1500"
+        >
           <SwiperSlide>
             <div className="bg-light p-4">
               <img

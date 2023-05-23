@@ -20,6 +20,10 @@ import { useDispatch, useSelector } from "react-redux";
 import Orders from "./features/order/Orders";
 import { Contactus } from "./features/contactus/contactus";
 import Aboutus from "./features/aboutus/Aboutus";
+import AOS from "aos";
+import "aos/dist/aos.css"; // You can also use <link> for styles
+// ..
+AOS.init();
 
 function App() {
   const dispatch = useDispatch();

@@ -32,7 +32,10 @@ function ThirdStep(props) {
   };
 
   return (
-    <div className="w-100 d-flex flex-column align-items-center my-1">
+    <div
+      className="w-100 d-flex flex-column align-items-center my-1"
+      data-aos="fade-left"
+    >
       <div className="d-flex flex-row align-items-center mb-5 justify-content-between w-100 gap-1 ">
         <MDBIcon fas icon="lock me-3" size="lg" />
 

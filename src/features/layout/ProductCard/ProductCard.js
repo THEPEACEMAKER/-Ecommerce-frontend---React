@@ -4,6 +4,7 @@ import {
   MDBCardImage,
   MDBCardSubTitle,
   MDBCol,
+  MDBRipple,
 } from "mdb-react-ui-kit";
 
 import ButtonWishList from "../btn/btnwishlist";
@@ -29,15 +30,28 @@ function ProductCard({ product }) {
             </div>
           </div>
 
-          <MDBCardImage
-            src={`https://res.cloudinary.com/ddk98mjzn/${
-              product.images.length && product.images[0].image
-            }`}
-            position="top"
-            alt={product.name}
-            className={styles.mainImg}
+          <MDBRipple
+            rippleColor="light"
+            rippleTag="div"
+            className="bg-image rounded hover-zoom hover-overlay"
             style={{ width: "80%", height: "100px", margin: "auto" }}
-          />
+          >
+            <MDBCardImage
+              src={`https://res.cloudinary.com/ddk98mjzn/${
+                product.images.length && product.images[0].image
+              }`}
+              position="top"
+              alt={product.name}
+              className={styles.mainImg}
+              style={{ width: "80%", height: "100px", margin: "auto" }}
+            />
+            <div
+              className="mask"
+              style={{
+                backgroundColor: "rgba(251, 251, 251, 0.15)",
+              }}
+            ></div>
+          </MDBRipple>
 
           <MDBCardSubTitle className={`m-3 `}>
             <div className="d-flex justify-content-between">
