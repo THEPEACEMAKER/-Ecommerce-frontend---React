@@ -1,70 +1,74 @@
-# Getting Started with Create React App
+# React_Django_E-commerce
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is an e-commerce application built as a practice during the React and Django courses at ITI. It is a team project focused on creating a fully functional e-commerce website.
 
-## Available Scripts
+## Demo
 
-In the project directory, you can run:
+Check out the [demo video](https://drive.google.com/file/d/132Ajw-SO8KvOcGo4eAabtKhyeN1XCZOe/view) to see the project in action.
 
-### `yarn start`
+## Prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Before running the project, make sure you have the following installed:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Node.js
+- Python
+- Django
 
-### `yarn test`
+## Backend Repository
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+For instructions on running the Django server and setting up the required webhook for payment, please refer to the [backend repository](https://github.com/MohammedFarhoud/e-commerce-django-backend).
 
-### `yarn build`
+## Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clone the repository:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   ```bash
+   git clone https://github.com/alielzoghby/React---Project
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Install the required dependencies:
 
-### `yarn eject`
+   ```bash
+   npm install
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+3. Start the Django server for the backend (make sure you have the Django repository cloned and set up separately):
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   ```bash
+   python manage.py runserver
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+   > **Note:** To run the backend server and set up the required webhook for payment, please refer to the instructions in the backend repository.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+4. Start the React development server:
 
-## Learn More
+   ```bash
+   npm start
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Features
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Authentication and handling of refresh tokens for secure user access.
+- Wishlist functionality to save desired products.
+- Cart functionality for managing selected items.
+- Order tracking to monitor the status of placed orders.
+- Payment integration using the Stripe API.
 
-### Code Splitting
+## Tools
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Redux Toolkit: Efficiently manage state using Redux Toolkit.
+- Protected Routes: Implement protected routes to ensure secure access to specific parts of the application.
+- Redux Async Thunk: Handle asynchronous actions with Redux Async Thunk middleware.
+- Formik: Simplify form handling and validation using Formik.
+- Yup: Utilize Yup for form validation.
 
-### Analyzing the Bundle Size
+## Usage
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Once the project is set up and running, you can access it by opening your browser and navigating to `http://localhost:3000/`. It is important to note that the backend functionality relies on the Django server, so ensure that it is running as well. Additionally, for seamless payment processing, make sure to have the webhook mentioned in the backend repository up and running.
 
-### Making a Progressive Web App
+## Team Members
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [Adel Abdellatif](https://github.com/THEPEACEMAKER) - [LinkedIn](https://www.linkedin.com/in/adel-a-abdelkader/)
+- [Ali Elzoghby](https://github.com/alielzoghby) - [LinkedIn](https://www.linkedin.com/in/ali-sahmed/)
+- [Mohammed Farhoud](https://github.com/MohammedFarhoud) - [LinkedIn](https://www.linkedin.com/in/mohammed-a-farhoud/)
+- [Mahmoud Awd](https://github.com/Mahmoudawd4) - [LinkedIn](https://www.linkedin.com/in/mahmoud-awd-5a2490174/)
